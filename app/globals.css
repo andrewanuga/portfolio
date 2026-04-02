@@ -24,3 +24,17 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* Custom Scrollbar for the .main-content class */
+.main-content::-webkit-scrollbar {
+  width: 4px;
+}
+.main-content::-webkit-scrollbar-track {
+  background: transparent;
+  margin-block: 20px;
+}
+.main-content::-webkit-scrollbar-thumb {
+  background: #3b82f6; 
+  border-radius: 10px;
+  box-shadow: 0 0 12px rgba(59, 130, 246, 0.6);
+}

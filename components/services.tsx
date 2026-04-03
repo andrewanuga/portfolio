@@ -4,6 +4,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { Code2, Cpu, Globe, Layers, Zap, Terminal, Share2 } from "lucide-react";
 import { cn } from "@/components/lib/utils";
+import NavLink from 'next/link'
 
 const ServiceModule = ({ 
   icon: Icon, 
@@ -70,9 +71,9 @@ export default function ServicesSection() {
       {/* --- LEFT SIDE: LABELING (40%) --- */}
       <div className="w-full md:w-[40%] p-8 md:p-20 flex flex-col justify-between border-r border-white/5 relative overflow-hidden">
         
-        {/* Background Decorative "02" */}
+        {/* Background Decorative "03" */}
         <div className="absolute -bottom-10 -left-10 text-[20rem] font-black text-white/[0.02] select-none pointer-events-none">
-          02
+          03
         </div>
 
         <div>
@@ -85,7 +86,7 @@ export default function ServicesSection() {
             <span className="text-[10px] font-mono tracking-[0.5em] text-blue-500 uppercase">Capabilities_Matrix</span>
           </motion.div>
 
-          <h2 className="text-6xl md:text-8xl font-black tracking-tighter text-white uppercase leading-none italic">
+          <h2 className="text-5xl md:text-[2.9rem] lg:text-[4.7rem] xl:text-[6rem] font-black leading-[0.8] tracking-tighter text-white uppercase italic">
             CORE <br />
             <span className="text-zinc-800 not-italic">SERVICES.</span>
           </h2>
@@ -116,9 +117,18 @@ export default function ServicesSection() {
           icon={Code2}
           code="MOD_01"
           title="Full-Stack Web"
-          description="Architecture of scalable Next.js ecosystems with industrial-grade TypeScript safety."
+          description="Architecture of scalable Next.js, Express JS and React JS ecosystems with industrial-grade TypeScript safety."
           features={['NEXT.JS', 'TYPESCRIPT', 'PRISMA', 'AWS']}
           status="READY"
+        />
+
+        <ServiceModule 
+          icon={Cpu}
+          code="MOD_03"
+          title="Mobile Application"
+          description="From Wire frme to Fullt functional mobile application"
+          features={['React Native', 'Expo']}
+          status="STABLE"
         />
 
         <ServiceModule 
@@ -128,15 +138,6 @@ export default function ServicesSection() {
           description="From MVP to Scale. Building the backbone of Thecla and early-stage ventures."
           features={['SAAS', 'PRODUCT STRATEGY', 'SCALABILITY']}
           status="ACTIVE"
-        />
-
-        <ServiceModule 
-          icon={Cpu}
-          code="MOD_03"
-          title="EEE Logic"
-          description="Hardware-software interface systems using signal processing and logic board design."
-          features={['MATLAB', 'DSP', 'CIRCUIT DESIGN']}
-          status="STABLE"
         />
 
         <ServiceModule 
@@ -162,9 +163,9 @@ export default function ServicesSection() {
               <p className="text-xs text-zinc-600 font-mono uppercase tracking-widest mt-1">[ Initiate_Handshake ]</p>
             </div>
           </div>
-          <button className="px-8 py-4 border border-white/10 rounded-full text-[10px] font-mono text-white uppercase tracking-[0.3em] group-hover:border-blue-500 transition-all">
+          <NavLink href={"connect"} className="px-8 py-4 border border-white/10 rounded-full text-[10px] font-mono text-white uppercase tracking-[0.3em] group-hover:border-blue-500 transition-all">
             Get_In_Touch
-          </button>
+          </NavLink>
         </motion.div>
       </div>
 

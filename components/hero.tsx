@@ -29,7 +29,7 @@ const Hero = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="text-6xl md:text-[9rem] font-black leading-[0.8] tracking-tighter text-white uppercase italic"
+            className="text-6xl md:text-[4.6rem] lg:text-[6.7rem] xl:text-[10rem] font-black leading-[0.8] tracking-tighter text-white uppercase italic"
           >
             ANDREW <br />
             <span className="text-transparent border-t-zinc-800" style={{ WebkitTextStroke: '1px #27272a' }}>OCHE.</span>

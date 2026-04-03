@@ -20,7 +20,10 @@ export default function HireMeSection() {
 
   return (
     <section id="hire" className="relative min-h-screen w-full bg-[#0a0a0a] border-t border-white/5 flex flex-col md:flex-row">
-      
+        {/* Background Decorative "06" */}
+        <div className="absolute -bottom-10 -left-10 text-[20rem] font-black text-white/[0.02] select-none pointer-events-none">
+          06
+        </div>
       {/* --- LEFT SIDE: CONTRACT PARAMETERS (40%) --- */}
       <div className="w-full md:w-[40%] p-8 md:p-20 flex flex-col justify-between border-r border-white/5 bg-[#0d0d0d] sticky top-0 md:h-screen">
         
@@ -34,7 +37,7 @@ export default function HireMeSection() {
             <span className="text-[10px] font-mono tracking-[0.5em] text-blue-500 uppercase">Secure_Handshake // v2.0</span>
           </motion.div>
 
-          <h2 className="text-6xl md:text-[8rem] font-black tracking-tighter text-white uppercase leading-[0.85] italic">
+          <h2 className="text-5xl md:text-[2.9rem] lg:text-[4.7rem] xl:text-[7rem] font-black leading-[0.8] tracking-tighter text-white uppercase italic">
             INITIATE <br />
             <span className="text-zinc-800 not-italic">BUILD.</span>
           </h2>
@@ -48,13 +51,13 @@ export default function HireMeSection() {
         <div className="mt-20 p-6 border border-blue-500/10 bg-blue-500/[0.02] rounded-2xl space-y-6">
           <div className="flex justify-between items-end">
             <span className="font-mono text-[10px] text-zinc-500 uppercase tracking-widest italic">Est_Allocation</span>
-            <span className="text-3xl font-black text-white italic tracking-tighter">${budget.toLocaleString()}</span>
+            <span className="text-md lg:text-2xl xl:text-4xl font-black text-white italic tracking-tighter">${budget.toLocaleString()}</span>
           </div>
           <input 
             type="range" 
-            min="1000" 
-            max="50000" 
-            step="500"
+            min="100" 
+            max="100000" 
+            step="100"
             value={budget}
             onChange={(e) => setBudget(parseInt(e.target.value))}
             className="w-full h-1 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-blue-600"
@@ -90,6 +93,10 @@ export default function HireMeSection() {
           <FormField label="Project_Type" icon={Briefcase}>
             <select className="w-full bg-zinc-900/50 border border-white/5 rounded-xl px-4 py-3 text-white focus:border-blue-500/50 outline-none transition-all font-light appearance-none">
               <option>FULL-STACK ARCHITECTURE</option>
+              <option>FRONT-END DEVELOPMENT</option>
+              <option>BACK-END ARCHITECTURE</option>
+              <option>MOBLIE APP DEVELOPMENT</option>
+              <option>WEB3 DEVELOPMENT</option>
               <option>THECLA PARTNERSHIP</option>
               <option>HARDWARE LOGIC / EEE</option>
               <option>CONSULTATION</option>

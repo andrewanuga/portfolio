@@ -8,6 +8,11 @@ export default function BioSection() {
   return (
     <section id="about" className="relative min-h-screen w-full bg-[#0a0a0a] border-t border-white/5 py-24 px-6 md:px-20 overflow-hidden">
       
+      {/* Background Decorative "02" */}
+        <div className="absolute -bottom-10 -left-10 text-[20rem] font-black text-white/[0.02] select-none pointer-events-none">
+          02
+        </div>
+
       {/* Background Grid - Matching Hero */}
       <div className="absolute inset-0 opacity-[0.05] pointer-events-none" 
            style={{ backgroundImage: 'radial-gradient(#3b82f6 0.5px, transparent 0.5px)', backgroundSize: '32px 32px' }} />
@@ -22,8 +27,8 @@ export default function BioSection() {
           <div className="h-[1px] w-8 bg-blue-500" />
           <span className="text-[10px] font-mono tracking-[0.4em] text-blue-500 uppercase italic">Operator_Profile // 01</span>
         </motion.div>
-        <h2 className="text-5xl md:text-8xl font-black tracking-tighter text-white uppercase italic">
-          THE <span className="text-zinc-800 not-italic">BIOMETRICS.</span>
+        <h2 className="text-6xl md:text-[4.6rem] lg:text-[6.7rem] xl:text-[10rem] font-black leading-[0.8] tracking-tighter text-white uppercase italic">
+          MY <span className="text-zinc-800 not-italic">BIO.</span>
         </h2>
       </div>
 
@@ -35,9 +40,10 @@ export default function BioSection() {
           <h3 className="text-xs font-mono text-zinc-500 tracking-widest uppercase mb-8">// Lifecycle_Events</h3>
           
           {[
-            { year: "2023", event: "Founder @ Thecla", detail: "Ed-tech architecture design." },
-            { year: "2024", event: "EEE Engineering", detail: "Signal Processing & Logic Boards." },
-            { year: "2025", event: "Next.js Expert", detail: "High-scale full-stack systems." }
+            { year: "since 2023", event: "Full Stack Web Developer", detail: "4 years experienced with building scalable web application." },
+            { year: "2026", event: "Mobile App Developer", detail: "Building Mobile application with React Native" },
+            { year: "2026", event: "Founder @ Thecla", detail: "Currently trying to build a startup." },
+            { year: "2023-2027", event: "Electrical Engineering Student", detail: "Studying at Federal University of Technology Akure." }
           ].map((item, i) => (
             <motion.div 
               key={i}
@@ -61,14 +67,18 @@ export default function BioSection() {
                 <Microscope size={40} className="text-blue-500" />
               </div>
               <p className="text-zinc-400 text-lg md:text-xl font-light leading-relaxed">
-                "I view software like <span className="text-white font-medium italic">Electrical Circuits</span>. Every component must have a purpose, and every signal must reach its destination with zero noise."
+                "Building <span className="text-white font-medium italic">high-fidelity</span> full-stack systems: where every component has a purpose and every signal reaches the user with zero noise."
               </p>
               <p className="text-zinc-500 text-sm mt-6 leading-relaxed">
-                As an EEE student, my approach to the web is rooted in hardware precision. Whether I'm building <span className="text-blue-400">Thecla</span> to empower African talent or optimizing a database schema, I focus on the structural integrity of the code.
+                I’m a Full-Stack Developer who actually enjoys the bridge between a messy database and a pixel-perfect UI. To me, coding isn't just about making things work—it's about making things work well for the people using them.
+
+                I spend my days (and sometimes nights) navigating the logic of Node and Express Js and crafting responsive, snappy interfaces with React Js/ Next JS. Whether I'm optimizing a complex API or fine-tuning a CSS transition, I’m driven by the challenge of building tools that feel intuitive and effortless.
+
+                When I’m not in my IDE, I’m usually exploring [A Secondary Interest: e.g., cloud architecture, UX psychology, or open-source projects]. I’m a big believer in clean code, honest communication, and the idea that the best solution is usually the simplest one. <span className="text-blue-400">Thecla</span>.
               </p>
               <div className="mt-10 flex gap-4">
                  <div className="px-4 py-2 rounded-lg bg-zinc-900 border border-zinc-800 text-[10px] font-mono text-zinc-500 uppercase tracking-widest">
-                   Current: EEE_309_Research
+                   Current: Learning Web3 and building
                  </div>
               </div>
            </div>
@@ -83,7 +93,7 @@ export default function BioSection() {
                  <span className="text-[10px] font-mono text-white uppercase tracking-widest font-bold">Primary_Stack</span>
               </div>
               <div className="flex flex-wrap gap-2 font-mono text-[9px] text-zinc-500">
-                 {['React', 'Next.js', 'TypeScript', 'Node.js', 'PostgreSQL'].map(s => (
+                 {['React', 'Next.js', 'TypeScript','Express JS', 'Framer Motion', 'Node.js','React Native' , 'PostgreSQL', 'Mongo DB'].map(s => (
                    <span key={s} className="px-2 py-1 bg-black rounded border border-white/5">{s}</span>
                  ))}
               </div>
@@ -95,7 +105,7 @@ export default function BioSection() {
                  <span className="text-[10px] font-mono text-white uppercase tracking-widest font-bold">Engineering_Tools</span>
               </div>
               <div className="flex flex-wrap gap-2 font-mono text-[9px] text-zinc-500">
-                 {['MATLAB', 'AWS', 'Docker', 'Prisma', 'Framer Motion'].map(s => (
+                 {['MATLAB', 'AWS', 'Docker', 'Prisma', 'Python', 'Javascript'].map(s => (
                    <span key={s} className="px-2 py-1 bg-black rounded border border-white/5">{s}</span>
                  ))}
               </div>
@@ -107,8 +117,8 @@ export default function BioSection() {
              className="p-6 rounded-2xl bg-blue-600 cursor-pointer flex items-center justify-between group"
            >
               <div className="text-white">
-                 <h4 className="font-black italic uppercase tracking-tighter text-lg">Download Spec_Sheet</h4>
-                 <p className="text-[9px] font-mono text-blue-100 uppercase tracking-[0.2em] opacity-70">Resume.pdf // v2024</p>
+                 <h4 className="font-black italic uppercase tracking-tighter text-lg">Download Resume</h4>
+                 <p className="text-[9px] font-mono text-blue-100 uppercase tracking-[0.2em] opacity-70">Andrew_Oche.pdf // v2026</p>
               </div>
               <Zap className="text-white fill-white group-hover:scale-125 transition-transform" />
            </motion.div>

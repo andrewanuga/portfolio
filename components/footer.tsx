@@ -12,6 +12,7 @@ import {
   Terminal, 
   Download 
 } from "lucide-react";
+import { SocialIcon } from 'react-social-icons'
 
 const SocialLink = ({ icon: Icon, label, href }: { icon: any; label: string; href: string }) => (
   <a 
@@ -39,7 +40,10 @@ export default function FooterSection() {
 
   return (
     <footer className="relative w-full bg-[#0a0a0a] border-t border-white/10 pt-24 pb-10 px-6 md:px-20 overflow-hidden">
-      
+        {/* Background Decorative "07" */}
+        <div className="absolute -bottom-10 -left-10 text-[20rem] font-black text-white/[0.02] select-none pointer-events-none">
+          07
+        </div>
       {/* Background Decorative Element */}
       <div className="absolute top-0 right-0 p-20 opacity-[0.02] pointer-events-none select-none">
         <Terminal size={400} className="text-white" />
@@ -65,7 +69,7 @@ export default function FooterSection() {
             </h2>
 
             <p className="text-zinc-500 text-sm font-light leading-relaxed max-w-xs uppercase tracking-widest mb-12">
-              Ready to collaborate on high-performance systems or discuss the future of <span className="text-white">Thecla</span>? 
+              Ready to <span className="text-white">collaborate</span> on high-performance systems or hire me? 
             </p>
           </div>
 
@@ -91,12 +95,12 @@ export default function FooterSection() {
 
         {/* --- RIGHT: SOCIAL LINKS (7/12) --- */}
         <div className="md:col-span-7 flex flex-col justify-end">
-          {/* <div className="grid grid-cols-1">
-            <SocialLink icon={Linkedin} label="LinkedIn" href="https://linkedin.com/in/andrew-oche" />
-            <SocialLink icon={Twitter} label="Twitter / X" href="https://twitter.com/oche_dev" />
-            <SocialLink icon={Instagram} label="Instagram" href="https://instagram.com/andrew_oche" />
-            <SocialLink icon={Github} label="GitHub" href="https://github.com/andrew-oche" />
-          </div> */}
+          <div className="grid grid-cols-1 gap-3">
+            <SocialIcon url="https://linkedin.com" label="LinkedIn" href="https://linkedin.com/in/andrew-oche" />
+            <SocialIcon url="https://twitter.com" label="Twitter / X" href="https://twitter.com/oche_dev" />
+            <SocialIcon url="https://instagram.com" label="Instagram" href="https://instagram.com/andrew_oche" />
+            <SocialIcon url="https://github.com" label="GitHub" href="https://github.com/andrew-oche" />
+          </div>
         </div>
       </div>
 

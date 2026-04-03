@@ -64,7 +64,10 @@ const SocialSignal = ({
 export default function SocialSection() {
   return (
     <section id="social" className="relative min-h-screen w-full bg-[#0a0a0a] border-t border-white/5 flex flex-col md:flex-row">
-      
+       {/* Background Decorative "05" */}
+        <div className="absolute -bottom-10 -left-10 text-[20rem] font-black text-white/[0.02] select-none pointer-events-none">
+          05
+        </div>
       {/* --- LEFT SIDE: SIGNAL CONTROL (40%) --- */}
       <div className="w-full md:w-[40%] p-8 md:p-20 flex flex-col justify-between border-r border-white/5 bg-[#0a0a0a] sticky top-0 md:h-screen">
         
@@ -78,7 +81,7 @@ export default function SocialSection() {
             <span className="text-[10px] font-mono tracking-[0.5em] text-blue-500 uppercase">Live_Broadcast // Uplink</span>
           </motion.div>
 
-          <h2 className="text-6xl md:text-[8rem] font-black tracking-tighter text-white uppercase leading-[0.85] italic">
+          <h2 className="text-5xl md:text-[2.9rem] lg:text-[4.7rem] xl:text-[7rem] font-black leading-[0.8] tracking-tighter text-white uppercase italic">
             SIGNAL <br />
             <span className="text-zinc-800 not-italic">STREAM.</span>
           </h2>

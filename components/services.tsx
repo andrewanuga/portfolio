@@ -83,7 +83,7 @@ export default function ServicesSection() {
             className="flex items-center gap-4 mb-12"
           >
             <div className="h-[1px] w-12 bg-blue-500 shadow-[0_0_8px_#3b82f6]" />
-            <span className="text-[10px] font-mono tracking-[0.5em] text-blue-500 uppercase">Capabilities_Matrix</span>
+            <span className="text-[10px] font-mono tracking-[0.5em] text-blue-500 uppercase">Capabilities_Matrix // 03</span>
           </motion.div>
 
           <h2 className="text-5xl md:text-[2.9rem] lg:text-[4.7rem] xl:text-[6rem] font-black leading-[0.8] tracking-tighter text-white uppercase italic">

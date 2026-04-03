@@ -94,7 +94,7 @@ export default function ProjectSection() {
             className="flex items-center gap-4 mb-12"
           >
             <Box size={16} className="text-blue-500" />
-            <span className="text-[10px] font-mono tracking-[0.5em] text-blue-500 uppercase">Production_Log</span>
+            <span className="text-[10px] font-mono tracking-[0.5em] text-blue-500 uppercase">Production_Log // 04</span>
           </motion.div>
 
           <h2 className="text-5xl md:text-[2.9rem] lg:text-[4.7rem] xl:text-[6.5rem] font-black leading-[0.8] tracking-tighter text-white uppercase italic">

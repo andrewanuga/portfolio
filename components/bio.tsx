@@ -25,7 +25,7 @@ export default function BioSection() {
           className="flex items-center gap-4 mb-4"
         >
           <div className="h-[1px] w-8 bg-blue-500" />
-          <span className="text-[10px] font-mono tracking-[0.4em] text-blue-500 uppercase italic">Operator_Profile // 01</span>
+          <span className="text-[10px] font-mono tracking-[0.4em] text-blue-500 uppercase italic">Operator_Profile // 02</span>
         </motion.div>
         <h2 className="text-6xl md:text-[4.6rem] lg:text-[6.7rem] xl:text-[10rem] font-black leading-[0.8] tracking-tighter text-white uppercase italic">
           MY <span className="text-zinc-800 not-italic">BIO.</span>

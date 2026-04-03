@@ -5,14 +5,15 @@ import { motion } from "framer-motion";
 import { 
   Send, User, Mail, MessageSquare, 
   Calendar, ShieldCheck, MapPin, Clock, ArrowRight,
-  ChevronDown
+  ChevronDown,
+  Phone
 } from "lucide-react";
-import { cn } from "@/components/lib/utils";
+import NavBar from "@/components/navbar";
 
 const InputWrapper = ({ label, children }: { label: string; children: React.ReactNode }) => (
   <div className="flex flex-col gap-2 group w-full">
     <label className="flex items-center gap-2 font-mono text-[9px] text-zinc-600 uppercase tracking-[0.3em] group-focus-within:text-blue-500 transition-colors">
-      <div className="h-[1px] w-4 bg-zinc-800 group-focus-within:bg-blue-500 transition-all" />
+      <div className="h-px w-4 bg-zinc-800 group-focus-within:bg-blue-500 transition-all" />
       {label}
     </label>
     {children}
@@ -22,7 +23,7 @@ const InputWrapper = ({ label, children }: { label: string; children: React.Reac
 export default function ContactPortal() {
   return (
     <section id="contact" className="relative min-h-screen w-full bg-[#0a0a0a] border-t border-white/5 flex flex-col xl:flex-row overflow-hidden">
-      
+      <NavBar />
       {/* --- COLUMN 1: SYSTEM_STATUS (25%) --- */}
       <div className="w-full xl:w-[25%] p-8 md:p-12 border-r border-white/5 bg-[#0d0d0d] flex flex-col justify-between">
         <div className="space-y-12 mt-15">
@@ -81,7 +82,7 @@ export default function ContactPortal() {
             </InputWrapper>
             
             <InputWrapper label="Communication_">
-              <input 
+              <input
                 type="email" 
                 placeholder="EMAIL ADDRESS" 
                 className="w-full bg-transparent border-b border-zinc-800 py-3 text-white focus:border-blue-500 outline-none transition-all placeholder:text-zinc-800 text-sm tracking-wide" 
@@ -105,6 +106,8 @@ export default function ContactPortal() {
             <InputWrapper label="Project_Budget">
               <div className="relative">
                 <select className="w-full bg-transparent border-b border-zinc-800 py-3 text-white focus:border-blue-500 outline-none transition-all appearance-none cursor-pointer text-xs font-mono uppercase tracking-widest">
+                  <option className="bg-[#0a0a0a]">$100 - $1k</option>
+                  <option className="bg-[#0a0a0a]">$1k - $5k</option>
                   <option className="bg-[#0a0a0a]">$5k - $10k</option>
                   <option className="bg-[#0a0a0a]">$10k - $25k</option>
                   <option className="bg-[#0a0a0a]">$25k+</option>
@@ -139,20 +142,20 @@ export default function ContactPortal() {
       <div className="w-full xl:w-[25%] p-8 md:p-12 bg-[#0d0d0d] flex flex-col gap-6">
         <h4 className="text-[10px] font-mono text-zinc-600 uppercase tracking-[0.3em] mb-4">Express_Channels_</h4>
 
-        <a href="#" className="group p-8 border border-white/5 rounded-3xl hover:border-blue-500/40 hover:bg-blue-500/[0.02] transition-all duration-500">
-          <Calendar size={24} className="text-blue-500 mb-6" />
-          <p className="text-white text-sm font-bold uppercase italic group-hover:text-blue-500">Book_Strategy_Session</p>
-          <p className="text-zinc-600 text-[10px] font-mono mt-2 uppercase tracking-tighter leading-relaxed">Direct 15-min sync for high-priority projects.</p>
+        <a href="https://wa.link/wquc8d" className="group p-8 border border-white/5 rounded-3xl hover:border-blue-500/40 hover:bg-blue-500/[0.02] transition-all duration-500">
+          <Phone size={24} className="text-blue-500 mb-6" />
+          <p className="text-white text-sm font-bold uppercase italic group-hover:text-blue-500">SEND A DM</p>
+          <p className="text-zinc-600 text-[10px] font-mono mt-2 uppercase tracking-tighter leading-relaxed">Direct message on my whatsapp</p>
           <div className="mt-8 flex items-center gap-2 text-zinc-800 group-hover:text-blue-500 transition-colors">
-            <span className="text-[9px] font-mono uppercase tracking-widest">Open_Calendly</span>
+            <span className="text-[9px] font-mono uppercase tracking-widest">MESSAGE</span>
             <ArrowRight size={14} className="group-hover:translate-x-2 transition-all" />
           </div>
         </a>
 
-        <a href="mailto:hello@andrewoche.com" className="group p-8 border border-white/5 rounded-3xl hover:border-zinc-500/40 hover:bg-white/[0.01] transition-all duration-500">
+        <a href="mailto:adakoleandrew21@gmail.com" className="group p-8 border border-white/5 rounded-3xl hover:border-zinc-500/40 hover:bg-white/[0.01] transition-all duration-500">
           <Mail size={24} className="text-zinc-500 mb-6 group-hover:text-white" />
           <p className="text-white text-sm font-bold uppercase italic">Direct_Email</p>
-          <p className="text-zinc-600 text-[10px] font-mono mt-2 uppercase tracking-tighter">hello@andrewoche.com</p>
+          <p className="text-zinc-600 text-[10px] font-mono mt-2 uppercase tracking-tighter">adakoleandrew21@gmail.com</p>
         </a>
 
         <div className="mt-auto pt-12 space-y-4">
@@ -160,7 +163,7 @@ export default function ContactPortal() {
               <ShieldCheck size={12} className="text-blue-500" />
               <span className="text-[8px] font-mono uppercase tracking-widest text-white italic">Encrypted_Sequence</span>
            </div>
-           <div className="h-[1px] w-full bg-zinc-900" />
+           <div className="h-px w-full bg-zinc-900" />
            <p className="text-[8px] font-mono text-zinc-800 uppercase leading-loose tracking-tighter">
              This terminal is for professional partnerships. For recruitment, refer to the Archive_CV module.
            </p>

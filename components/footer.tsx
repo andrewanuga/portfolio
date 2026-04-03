@@ -3,10 +3,6 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { 
-  // Linkedin, 
-  // Twitter, 
-  // Instagram, 
-  // Github, 
   FileText, 
   ArrowUpRight, 
   Terminal, 
@@ -60,7 +56,7 @@ export default function FooterSection() {
               className="flex items-center gap-4 mb-8"
             >
               <div className="h-[1px] w-12 bg-blue-600 shadow-[0_0_8px_#3b82f6]" />
-              <span className="text-[10px] font-mono tracking-[0.5em] text-blue-500 uppercase">Export_Data</span>
+              <span className="text-[10px] font-mono tracking-[0.5em] text-blue-500 uppercase">Export_Data // 07</span>
             </motion.div>
             
             <h2 className="text-5xl md:text-7xl font-black tracking-tighter text-white uppercase italic leading-none mb-10">
@@ -96,10 +92,10 @@ export default function FooterSection() {
         {/* --- RIGHT: SOCIAL LINKS (7/12) --- */}
         <div className="md:col-span-7 flex flex-col justify-end">
           <div className="grid grid-cols-1 gap-3">
-            <SocialIcon url="https://linkedin.com" label="LinkedIn" href="https://linkedin.com/in/andrew-oche" />
-            <SocialIcon url="https://twitter.com" label="Twitter / X" href="https://twitter.com/oche_dev" />
-            <SocialIcon url="https://instagram.com" label="Instagram" href="https://instagram.com/andrew_oche" />
-            <SocialIcon url="https://github.com" label="GitHub" href="https://github.com/andrew-oche" />
+            <SocialIcon url="https://linkedin.com" label="LinkedIn" href="https://www.linkedin.com/in/andrew-adakole-63462227a" />
+            <SocialIcon url="https://twitter.com" label="Twitter / X" href="https://x.com/adakole56andrew" />
+            <SocialIcon url="https://instagram.com" label="Instagram" href="https://www.instagram.com/andrew_phiip_neri/" />
+            <SocialIcon url="https://github.com" label="GitHub" href="https://github.com/andrewanuga" />
           </div>
         </div>
       </div>

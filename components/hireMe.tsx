@@ -34,7 +34,7 @@ export default function HireMeSection() {
             className="flex items-center gap-4 mb-12"
           >
             <ShieldCheck size={16} className="text-blue-500" />
-            <span className="text-[10px] font-mono tracking-[0.5em] text-blue-500 uppercase">Secure_Handshake // v2.0</span>
+            <span className="text-[10px] font-mono tracking-[0.5em] text-blue-500 uppercase">Secure_Handshake // 06</span>
           </motion.div>
 
           <h2 className="text-5xl md:text-[2.9rem] lg:text-[4.7rem] xl:text-[7rem] font-black leading-[0.8] tracking-tighter text-white uppercase italic">

@@ -78,7 +78,7 @@ export default function SocialSection() {
             className="flex items-center gap-4 mb-12"
           >
             <Radio size={16} className="text-blue-500 animate-pulse" />
-            <span className="text-[10px] font-mono tracking-[0.5em] text-blue-500 uppercase">Live_Broadcast // Uplink</span>
+            <span className="text-[10px] font-mono tracking-[0.5em] text-blue-500 uppercase">Live_Broadcast // Uplink // 05</span>
           </motion.div>
 
           <h2 className="text-5xl md:text-[2.9rem] lg:text-[4.7rem] xl:text-[7rem] font-black leading-[0.8] tracking-tighter text-white uppercase italic">
@@ -87,7 +87,7 @@ export default function SocialSection() {
           </h2>
           
           <p className="mt-10 text-zinc-500 text-sm font-light leading-relaxed max-w-xs uppercase tracking-widest">
-            Cross-platform data synchronization. Tracking the journey of <span className="text-white">Thecla</span> and modern engineering.
+            Cross-platform data synchronization. Tracking my <span className="text-white">Tech </span> journey and <span className="text-white">Thecla</span>.
           </p>
         </div>
 
@@ -123,18 +123,27 @@ export default function SocialSection() {
           icon={ExternalLink}
           handle="andrewoche"
           date="02.APR.26"
-          content="Just finalized the new architecture for Thecla's deployment engine. Engineering for the global south requires a shift in mindset: performance isn't a feature, it's a requirement."
-          link="#"
+          content="Happy New Month! Most people wait until January to reset, but the real work starts on April 1st.
+
+Reflecting on the last quarter, it was a massive learning curve. Quatar 1 was about laying the foundation, testing new strategies, and finding my rhythm in 2026’s fast-moving landscape. But now? It’s time to shift from planning to execution.
+For the next 3 months, I’m locking in. I am officially starting a 90-day streak. No excuses, no 'waiting for the right time,' just consistent, daily action toward my biggest goals for the first half of this year. My goal is to look back on June 30th and know that I didn't just participate in Q2—I dominated it.
+Who else is entering this Sprint Phase this month? Whether it’s a fitness goal, a professional milestone, or a personal project—drop a Locked in below if you’re joining me in making these next 90 days count."
+          link="https://www.linkedin.com/posts/andrew-adakole-63462227a_newmonth-q2-90daychallenge-activity-7445357797107535872-YTnt?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEQUWwgBJT22zy0L6T4igjf1c3HCHa3iTqA"
         />
 
         {/* X POST */}
         <SocialSignal 
-          platform="X-PLATFORM"
+          platform="LINKEDIN"
           icon={ExternalLink}
           handle="oche_dev"
           date="01.APR.26"
-          content="Next.js 15 + EEE hardware logic is a lethal combination. Build systems that don't just scale, but endure. 🚀 #BuildingThecla"
-          link="#"
+          content="The shift from an engineering exam hall to a development environment is a trip. One minute you’re staring at a paper, manually calculating matrix transformations for EEE 309 (MATLAB), and the next, you’re back at your desk trying to remember why you left a Next.js component half-finished three weeks ago. 
+It’s officially Day 3 of exams, and honestly, MATLAB logic just primes the brain for more. Instead of crashing into bed, I found myself crashing straight back into my terminal. There’s a specific kind of exam season adrenaline that makes you want to build something real the second you hand in your script.
+But the reality of the grind isn't always smooth.
+But in the end it is worth it
+
+#FullStackDeveloper #EEELife #MATLAB #Thecla #BuildInPublic #EngineeringStudent #NextJS #StartupLife #FUTA"
+          link="https://www.linkedin.com/posts/andrew-adakole-63462227a_fullstackdeveloper-eeelife-matlab-activity-7443330136843935745-51yZ?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEQUWwgBJT22zy0L6T4igjf1c3HCHa3iTqA"
         />
 
         {/* INSTAGRAM POST */}
@@ -143,8 +152,14 @@ export default function SocialSection() {
           icon={ExternalLink}
           handle="andrew_design"
           date="28.MAR.26"
-          content="Design is more than aesthetic; it's a system. Applying industrial CAD principles to UI components today."
-          link="#"
+          content="Who's locked in with me this second quarter of the year April 1st - June 30
+
+Drop 🔒 below if u are
+
+I am Locked In 👨🏾‍💻
+
+#Q2 #90DaySprints #FullStack #BuildInPublic #lockedin🔐"
+          link="https://www.instagram.com/p/DWnpjEcjFIM/?utm_source=ig_web_button_share_sheet&igsh=MzRlODBiNWFlZA=="
         />
 
         {/* CTA MODULE */}

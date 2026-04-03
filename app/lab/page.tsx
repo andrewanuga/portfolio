@@ -2,12 +2,12 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { Microscope, FlaskConical, Beaker, Binary, Construction, BoxSelect, Radio, Activity } from "lucide-react";
+import { Microscope, FlaskConical, Beaker, Binary, Construction, BoxSelect, Radio, Activity, Terminal } from "lucide-react";
 import { cn } from "@/components/lib/utils";
 import NavBar from "@/components/navbar";
 
 const LabModule = ({ 
-  title, 
+  title,
   status, 
   progress, 
   tags, 
@@ -126,39 +126,39 @@ export default function LabSpace() {
       <div className="w-full md:w-[60%] p-8 md:p-12 grid grid-cols-1 md:grid-cols-2 gap-6 bg-black/40 self-start">
         
         <LabModule 
-          title="Thecla_Edge"
+          title="SAAS PROJECT"
           status="IN_ALPHA"
           progress={65}
-          icon={Radio}
-          description="A decentralized edge-network protocol designed specifically for offline-first ed-tech apps in Nigeria."
+          icon={Terminal}
+          description="Building a Saas social media analytics for easy deployment"
           tags={['RUST', 'P2P', 'THECLA']}
         />
 
         <LabModule 
-          title="Neural_Logic"
-          status="PROTOTYPING"
+          title="THECLA"
+          status="IN_ALPHA"
           progress={30}
           icon={Binary}
-          description="Mapping EEE signal processing filters into AI-driven UI components for predictable state transitions."
-          tags={['MATLAB', 'REACT', 'DSP']}
+          description="Currently working on building my own programming courses."
+          tags={['FULL-STACK', 'FRONT-END', 'BACK-END']}
         />
 
         <LabModule 
-          title="Circuit_Dash"
-          status="STABLE"
-          progress={95}
+          title="MCP & FINANCE"
+          status="PROTOTYPING"
+          progress={15}
           icon={BoxSelect}
-          description="A high-contrast visual dashboard for real-time monitoring of IoT hardware sensors."
-          tags={['NEXT.JS', 'MQTT', 'IOT']}
+          description="Smart Money Guard is an AI-powered assistant that uses MCP to connect directly to your digital wallets and bank accounts to stop scams and find the best deals in real-time. It acts like a 24/7 financial bodyguard that handles the complicated technical details so you can spend and save your money safely."
+          tags={['FULL STACK', 'MCP', 'FINANCE']}
         />
 
         <LabModule 
-          title="Module_X"
+          title="THECLA"
           status="PROTOTYPING"
           progress={12}
           icon={Construction}
-          description="Classified R&D: Exploring the intersection of digital identity and EEE-based hardware security keys."
-          tags={['SECURITY', 'HARDWARE']}
+          description="Eploring WAYS TO PROVIDE SAFE AND RELIABLE ELECTRICITY IN FUTA"
+          tags={['ENGINEERING']}
         />
 
         {/* INDUSTRIAL GRID DECOR */}

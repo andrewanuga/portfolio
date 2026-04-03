@@ -174,12 +174,12 @@ export default function AndrewFeedSpace() {
           </motion.div>
 
           <h2 className="text-6xl md:text-[8rem] font-black tracking-tighter text-white uppercase leading-[0.85] italic">
-            SIGNAL <br />
+            SOCIAL <br />
             <span className="text-zinc-800 not-italic">SPACE.</span>
           </h2>
           
           <p className="mt-10 text-zinc-500 text-sm font-light leading-relaxed max-w-xs uppercase tracking-widest">
-            Welcome to the <span className="text-white italic">Andrew Oche Operating System</span> social interface. Real-time updates on Thecla and engineering paradigms. <span className="text-blue-500">Interact to initialize.</span>
+            Welcome to the <span className="text-white italic">Andrew Oche</span> social interface. Real-time updates on MY TECH journey and engineering paradigms. <span className="text-blue-500">Interact to initialize.</span>
           </p>
         </div>
 

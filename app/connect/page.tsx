@@ -23,38 +23,49 @@ interface Post {
 
 // --- MOCK FEED DATA (Replace with actual API later) ---
 const mockFeedData: Post[] = [
+    {
+    id: "FE_000",
+    platform: "LINKEDIN",
+    icon: Unlink,
+    handle: "andrew adakole",
+    timestamp: "JUST NOW",
+    content: "Ninety days is a long time, but it’s the small, daily bricks that build the skyscraper. Today, for Day 3 of my 90-day challenge, I’m diving deep into a project that feels incredibly personal: My Professional Portfolio. It’s easy to get caught up in building solutions for others, but there is something uniquely challenging about building for yourself. Your portfolio isn't just a website; it’s a digital handshake, a resume that breathes, and a testament to every late night spent debugging. I choose this project as a start because it gives my goal a definition and also help me align my progress The Stack 🛠️ I wanted this to be fast, type-safe, and visually sleek. Here’s how I’m bringing it to life, then I choose this: - Next.js: For that seamless, lightning-fast performance and SEO-friendly structure. - TypeScript: Because undefined is not a function is a ghost I’d rather not see. Type safety keeps the logic solid. - Tailwind CSS: For the freedom to craft unique UI without the bloat. The 'Why' Behind the Code ❤️ When I started coding, a blank screen was intimidating. Now, it’s a canvas. Building this portfolio is a reminder of how far I’ve come from building my portfolio many times already but I never finished because of one major hindrance, it's not perfect enough, It was tricky because I wanted perfection and also clearity in my portfolio then I took time to see what I actually wanted, then unto creativity, this process actually made me understand the difference between the perfect project and production ready project. I then learnt It’s about more than just showing off projects; it’s about documenting the journey, the failures, and the growth. Majorly all my for my past projects were not uploaded into the portfolio but all my new projects would be uploaded to it. If you’re a creator, you know the feeling—that mix of 'This is amazing' and 'I need to tweak this one pixel' that keeps us up until 2 AM. 😅 Let’s Interact! 👇 I want to hear from my fellow devs and creatives: First : What was the hardest part of building your own portfolio? Second : Are you a minimalist design person or do you love 'bold and flashy'? If you're on a growth challenge too, drop your Day # below! Let’s keep pushing. The best version of our work is always the next one. 🚀#90DaysOfCode #BuildInPublic #NextJS #WebDevelopment #TypeScript #TailwindCSS #SoftwareEngineering #CareerGrowth",
+    likes: 0,
+    replies: 0,
+    link: "https://www.linkedin.com/posts/andrew-adakole-63462227a_90daysofcode-buildinpublic-webdevelopment-activity-7445872845982679041-ydn5?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEQUWwgBJT22zy0L6T4igjf1c3HCHa3iTqA"
+  },
   {
     id: "FE_001",
     platform: "LINKEDIN",
     icon: Unlink,
-    handle: "andrewoche",
-    timestamp: "2 HOURS AGO",
-    content: "Just finalized the new architecture for Thecla's deployment engine. Engineering for the global south requires a shift in mindset: performance isn't a feature, it's a requirement.",
-    likes: 142,
-    replies: 12,
-    link: "https://linkedin.com/..."
+    handle: "andrew adakole",
+    timestamp: "1 DAY AGO",
+    content: "It’s Day 3 of my 90-day challenge, and things are moving. But instead of jumping into a brand-new app, I’ve decided to stop and finally finish something that has been sitting on my to-do list for way too long: My Portfolio. I wanted to share exactly why I’m starting here, because it’s a lot more personal than just needing a website. For a long time, I’ve been a bit of a serial restarter. I’ve begun building my portfolio dozens of times, but I always hit a wall. I’d get obsessed with a minor thing, or I’d tell myself it wasn't perfect enough to represent me yet. That perfectionism didn't make me better—it just kept me stuck. I’m building this now because I need a home for my growth. I’ve realized that a portfolio shouldn't just be a trophy case for finished things; it needs to be a digital mirror of the journey itself. I’m using Next.js, Tailwind, and TypeScript to build something fast and sleek, but the real goal is to build something real. I’m moving away from the perfect project mindset and stepping into the production-ready world. I want a place where my failures, my late-night debug sessions, and my wins all have a seat at the table. It’s not quite ready for the world to see yet—I'm still polishing the edges—but for the first time, I’m not letting the fear of not good enough stop me. I’m building the foundation today so I can build the future tomorrow. Let's be real for a second: Have you ever left a project unfinished because you were afraid it wouldn’t be perfect? How did you break out of that loop? I’d love to hear your stories in the comments. Let’s keep pushing. #90DaysOfCode #BuildInPublic #WebDevelopment #NextJS #SoftwareEngineering #GrowthMindset #PersonalGrowth #day003",
+    likes: 2,
+    replies: 0,
+    link: "https://www.linkedin.com/posts/andrew-adakole-63462227a_90daysofcode-buildinpublic-webdevelopment-activity-7445872845982679041-ydn5?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEQUWwgBJT22zy0L6T4igjf1c3HCHa3iTqA"
   },
   {
     id: "FE_002",
-    platform: "X-PLATFORM",
-    icon: Link2Off,
-    handle: "oche_dev",
-    timestamp: "5 HOURS AGO",
-    content: "Next.js 15 + EEE hardware logic is a lethal combination. Build systems that don't just scale, but endure. 🚀 #BuildingThecla",
-    likes: 211,
-    replies: 45,
-    link: "https://twitter.com/..."
+    platform: "LINKEDIN",
+    icon: Unlink,
+    handle: "andrew adakole",
+    timestamp: "2 DAYS AGO",
+    content: "Happy New Month! Most people wait until January to reset, but the real work starts on April 1st. Reflecting on the last quarter, it was a massive learning curve. Quatar 1 was about laying the foundation, testing new strategies, and finding my rhythm in 2026’s fast-moving landscape. But now? It’s time to shift from planning to execution. For the next 3 months, I’m locking in. I am officially starting a 90-day streak. No excuses, no 'waiting for the right time,' just consistent, daily action toward my biggest goals for the first half of this year. My goal is to look back on June 30th and know that I didn't just participate in Q2—I dominated it. Who else is entering this Sprint Phase this month? Whether it’s a fitness goal, a professional milestone, or a personal project—drop a Locked in below if you’re joining me in making these next 90 days count.",
+    likes: 5,
+    replies: 3,
+    link: "https://www.linkedin.com/posts/andrew-adakole-63462227a_newmonth-q2-90daychallenge-activity-7445357797107535872-YTnt?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEQUWwgBJT22zy0L6T4igjf1c3HCHa3iTqA"
   },
   {
     id: "FE_003",
-    platform: "THECLA_OS",
+    platform: "INSTAGRAM",
     icon: Cpu,
-    handle: "system.protocol",
-    timestamp: "1 DAY AGO",
-    content: "[SYS_MSG] Internal module deployment complete. Thecla Ed-Tech protocols active. Scaling in West Africa...",
-    likes: 98,
-    replies: 3,
-    link: "#"
+    handle: "andrew_phiip_neri",
+    timestamp: "02 DAYS AGO",
+    content: "Happy New Month Who's locked in with me this second quarter of the year April 1st - June 30 Drop 🔒 below if u are I am Locked In 👨🏾‍💻          #Q2 #90DaySprints #FullStack #BuildInPublic #lockedin🔐",
+    likes: 3,
+    replies: 0,
+    link: "https://www.instagram.com/p/DWnpjEcjFIM/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA=="
   }
 ];
 

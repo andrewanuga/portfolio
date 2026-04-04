@@ -95,9 +95,10 @@ export default function ContactPortal() {
               <div className="relative">
                 <select className="w-full bg-transparent border-b border-zinc-800 py-3 text-white focus:border-blue-500 outline-none transition-all appearance-none cursor-pointer text-xs font-mono uppercase tracking-widest">
                   <option className="bg-[#0a0a0a]">Full-Stack Project</option>
-                  <option className="bg-[#0a0a0a]">Thecla Partnership</option>
-                  <option className="bg-[#0a0a0a]">Hardware Consultation</option>
-                  <option className="bg-[#0a0a0a]">Speaking / Panel</option>
+                  <option className="bg-[#0a0a0a]">FRONT-END</option>
+                  <option className="bg-[#0a0a0a]">back-end-END</option>
+                  <option className="bg-[#0a0a0a]">Mobile Application</option>
+                  <option className="bg-[#0a0a0a]">Pathnership</option>
                 </select>
                 <ChevronDown size={12} className="absolute right-0 top-4 text-zinc-700 pointer-events-none" />
               </div>

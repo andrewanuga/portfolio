@@ -138,34 +138,34 @@ export default function ProjectSection() {
         <ProjectEntry 
           id="PROJ_001"
           isFeatured
-          title="Thecla"
-          description="High-performance ed-tech ecosystem built for the African tech landscape. Optimized for low-bandwidth environments."
-          tags={['Next.js', 'PostgreSQL', 'AWS', 'Redis']}
-          metric="Live_Production"
+          title="Omni-SaaS"
+          description="Multi-tenant Enterprise Resource Planning platform. Features dynamic RBAC, real-time analytics, and automated multi-region deployment."
+          tags={['Next.js', 'PostgreSQL', 'Prisma', 'Stripe']}
+          metric="Scaling_Active"
         />
 
         <ProjectEntry 
           id="PROJ_002"
-          title="Logic-V"
-          description="Digital signal processor modeled in MATLAB for EEE hardware analysis."
-          tags={['MATLAB', 'Signal Processing', 'DSP']}
-          metric="Research_Stable"
+          title="Stream-Sync"
+          description="Bi-directional WebSocket engine for collaborative environments. Handles 5k+ concurrent connections with sub-50ms latency."
+          tags={['Node.js', 'Redis', 'Socket.io', 'Docker']}
+          metric="v2.4_Stable"
         />
 
         <ProjectEntry 
           id="PROJ_003"
-          title="Nova-UI"
-          description="A design system focused on high-contrast industrial aesthetics for SaaS."
-          tags={['React', 'Tailwind', 'Framer']}
-          metric="Open_Source"
+          title="Pay-Vault"
+          description="Secure payment gateway integration layer. PCI-DSS compliant architecture with automated reconciliation and fraud detection."
+          tags={['Go', 'GRPC', 'PostgreSQL', 'Kubernetes']}
+          metric="Enterprise_Grade"
         />
 
         <ProjectEntry 
           id="PROJ_004"
-          title="EEE-Net"
-          description="Protocol wrapper for connecting legacy electrical sensors to modern web dashboards."
-          tags={['Node.js', 'IoT', 'MQTT']}
-          metric="Experimental"
+          title="Cloud-Optic"
+          description="Infrastructure monitoring dashboard. Aggregates AWS CloudWatch logs and visualizes system health metrics via custom D3.js hooks."
+          tags={['TypeScript', 'AWS SDK', 'D3.js', 'Terraform']}
+          metric="Internal_Tool"
         />
 
         {/* BOTTOM FULL-WIDTH LINK */}

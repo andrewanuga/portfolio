@@ -1,4 +1,4 @@
-# ⚡ PROTOCOL: FRESH_START (90-DAY-CHALLENGE)
+# ⚡ PROTOCOL: FRESH_START (Portfolio)
 
 ![Status: Initializing](https://img.shields.io/badge/STATUS-INITIALIZING-blue?style=for-the-badge&logo=target)
 ![Sprint: 00/90](https://img.shields.io/badge/SPRINT-00%2F90-zinc?style=for-the-badge)
@@ -7,7 +7,7 @@
 > **"Legacy data purged. Hardware logic recalibrated. The journey of a thousand nodes begins at Day 01."**
 
 ## // THE_MANIFESTO
-This repository has been wiped clean. As of **April 2026**, I am committing to a **90-Day Production Sprint**. Every project built during this period will be an exercise in high-efficiency infrastructure, low-latency UI, and industrial-grade full-stack logic.
+This repository has been wiped clean. As of **April 2026**, I am committing to a **portfolio**. Every project built during this period will be an exercise in high-efficiency infrastructure, low-latency UI, and industrial-grade full-stack logic.
 
 No legacy projects. No technical debt. Just a fresh start.
 
@@ -41,10 +41,10 @@ To clone this environment and observe the signal:
 
 ```bash
 # Clone the repository
-git clone [https://github.com/your-username/90-day-sprint.git](https://github.com/your-username/90-day-sprint.git)
+git clone [https://github.com/andrewanuga/portfolio/](https://github.com/andrewanuga/portfolio/)
 
 # Enter the terminal
-cd 90-day-sprint
+cd portfolio
 
 # Install dependencies
 npm install

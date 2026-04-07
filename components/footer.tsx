@@ -71,7 +71,7 @@ export default function FooterSection() {
 
           {/* DOWNLOAD CV BUTTON */}
           <motion.a 
-            href="/Andrew_Oche_CV.pdf"
+            href="/Adakole_Andrew_Oche_Resume.pdf"
             download
             whileHover={{ scale: 0.98 }}
             whileTap={{ scale: 0.95 }}

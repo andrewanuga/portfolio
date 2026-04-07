@@ -2,15 +2,15 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { User, Code, BookOpen, Microscope, Zap, Database } from "lucide-react";
+import { User, Code, BookOpen, Microscope, Zap, Database, Download } from "lucide-react";
 
 export default function BioSection() {
   return (
     <section id="about" className="relative min-h-screen w-full bg-[#0a0a0a] border-t border-white/5 py-24 px-6 md:px-20 overflow-hidden">
       
-      {/* Background Decorative "02" */}
+      {/* Background Decorative "01" */}
         <div className="absolute -bottom-10 -left-10 text-[20rem] font-black text-white/[0.02] select-none pointer-events-none">
-          02
+          01
         </div>
 
       {/* Background Grid - Matching Hero */}
@@ -112,16 +112,23 @@ export default function BioSection() {
            </div>
 
            {/* DOWNLOAD CV / ACTION */}
-           <motion.div 
-             whileHover={{ x: 5 }}
-             className="p-6 rounded-2xl bg-blue-600 cursor-pointer flex items-center justify-between group"
-           >
-              <div className="text-white">
-                 <h4 className="font-black italic uppercase tracking-tighter text-lg">Download Resume</h4>
-                 <p className="text-[9px] font-mono text-blue-100 uppercase tracking-[0.2em] opacity-70">Andrew_Oche.pdf // v2026</p>
-              </div>
-              <Zap className="text-white fill-white group-hover:scale-125 transition-transform" />
-           </motion.div>
+          <motion.a 
+            href="/Adakole_Andrew_Oche_Resume.pdf"
+            download
+            whileHover={{ scale: 0.98 }}
+            whileTap={{ scale: 0.95 }}
+            className="group relative flex items-center justify-between w-full max-w-xs p-6 rounded-2xl bg-blue-600 text-white overflow-hidden transition-all shadow-[0_0_30px_rgba(59,130,246,0.2)]"
+          >
+            <div className="relative z-10">
+              <span className="text-[10px] font-mono uppercase tracking-[0.3em] opacity-70">Curriculum_Vitae</span>
+              <h3 className="text-xl font-black italic uppercase tracking-tighter mt-1">Download_CV</h3>
+            </div>
+            <div className="relative z-10 p-3 rounded-xl bg-white/10 group-hover:bg-white/20 transition-colors">
+              <Download size={20} />
+            </div>
+            {/* Glossy overlay effect */}
+            <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
+          </motion.a>
 
         </div>
 

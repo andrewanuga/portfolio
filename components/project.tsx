@@ -33,9 +33,9 @@ export default function ProjectSection() {
   return (
     <section id="projects" className="relative min-h-screen w-full bg-[#0a0a0a] border-t border-white/5 flex flex-col md:flex-row overflow-hidden">
       
-      {/* Background Decorative "90" */}
+      {/* Background Decorative "01" */}
       <div className="absolute -bottom-10 -left-10 text-[20rem] font-black text-white/[0.01] select-none pointer-events-none italic">
-        90
+        01
       </div>
 
       {/* --- LEFT SIDE: THE MANIFESTO (40%) --- */}

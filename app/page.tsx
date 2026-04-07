@@ -13,6 +13,7 @@ import ProjectSection from "@/components/project";
 import SocialSection from "@/components/socialSection ";
 import HireMeSection from "@/components/hireMe";
 import FooterSection from "@/components/footer";
+import SkillSection from "@/components/skills";
 
 
 export default function MainPage() {
@@ -23,6 +24,7 @@ export default function MainPage() {
       <main className="main-content overflow-y-scroll overflow-x-hidden relative flex-1 bg-[#121212]/80 backdrop-blur-[20px] rounded-2xl border border-white/10 ring-1 ring-white/5 ring-offset-[5px] ring-offset-[#0a0a0a]">
         <Hero />
         <BioSection />
+        <SkillSection />
         <ServicesSection />
         <ProjectSection />
         <SocialSection />

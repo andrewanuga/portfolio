@@ -11,7 +11,7 @@ const PROJECTS = [
     id: "NODE_01",
     title: "SOCIALLY_AI",
     description: "Neural-driven social media orchestration engine. Automates content lifecycle using generative AI to optimize engagement latency and brand presence.",
-    tech: ["TypeScript", "React.js", "OpenAI API", "PostgreSQL", "TailwindCSS", "Supabase" ],
+    tech: ["TypeScript", "React.js", "Node.js", "OpenAI API", "PostgreSQL", "TailwindCSS", "Supabase" ],
     link: "https://github.com/andrewanuga/Socially", // Repo as primary link if live is down
     github: "https://github.com/andrewanuga/Socially",
     status: "OPERATIONAL"

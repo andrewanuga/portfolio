@@ -2,12 +2,14 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { 
-  FileText, 
-  ArrowUpRight, 
-  Terminal, 
-  Download 
+import {
+  FileText,
+  ArrowUpRight,
+  Terminal,
+  Download,
+  Heart
 } from "lucide-react";
+import Link from "next/link";
 import { SocialIcon } from 'react-social-icons'
 
 const SocialLink = ({ icon: Icon, label, href }: { icon: any; label: string; href: string }) => (
@@ -97,6 +99,21 @@ export default function FooterSection() {
             <SocialIcon url="https://instagram.com" label="Instagram" href="https://www.instagram.com/andrew_phiip_neri/" />
             <SocialIcon url="https://github.com" label="GitHub" href="https://github.com/andrewanuga" />
           </div>
+
+          {/* SUPPORT / TIP LINK */}
+          <Link
+            href="/support"
+            className="group mt-6 flex items-center justify-between p-5 rounded-2xl bg-blue-600/10 border border-blue-500/20 hover:bg-blue-600 hover:border-blue-500 transition-all duration-500"
+          >
+            <div className="flex items-center gap-4">
+              <Heart size={20} className="text-blue-500 fill-blue-500 group-hover:text-white group-hover:fill-white transition-colors" />
+              <div>
+                <p className="text-white text-sm font-black italic uppercase tracking-tighter">Support_My_Work</p>
+                <p className="text-zinc-500 text-[9px] font-mono uppercase tracking-widest group-hover:text-white/70 transition-colors">Tip me on MyHappr</p>
+              </div>
+            </div>
+            <ArrowUpRight className="text-zinc-600 group-hover:text-white group-hover:translate-x-1 group-hover:-translate-y-1 transition-all" size={22} />
+          </Link>
         </div>
       </div>
 

@@ -1,9 +1,50 @@
 "use client";
 
-import React from "react";
-import { motion } from "framer-motion";
+import React, { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { Terminal, Zap, ArrowUpRight } from "lucide-react";
 import { SocialIcon } from "react-social-icons";
+
+const ROLES = [
+  "Full-Stack Developer",
+  "AI Engineer",
+  "ML Engineer",
+  "Agentic AI Engineer",
+  "Mobile App Developer",
+];
+
+const RoleRotator = () => {
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    const id = setInterval(
+      () => setIndex((i) => (i + 1) % ROLES.length),
+      2600
+    );
+    return () => clearInterval(id);
+  }, []);
+
+  return (
+    <div className="flex items-center gap-3 h-7 overflow-hidden">
+      <span className="relative flex h-2 w-2 shrink-0">
+        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75" />
+        <span className="relative inline-flex h-2 w-2 rounded-full bg-blue-500" />
+      </span>
+      <AnimatePresence mode="wait">
+        <motion.span
+          key={ROLES[index]}
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -10 }}
+          transition={{ duration: 0.35, ease: "easeOut" }}
+          className="text-white text-sm font-semibold uppercase tracking-[0.2em] whitespace-nowrap"
+        >
+          {ROLES[index]}
+        </motion.span>
+      </AnimatePresence>
+    </div>
+  );
+};
 
 const Hero = () => {
   return (
@@ -51,9 +92,13 @@ const Hero = () => {
           className="mt-10 flex flex-col md:flex-row gap-12 items-start"
         >
           <div className="max-w-xs space-y-10">
-             <p className="text-zinc-500 text-sm font-light leading-relaxed uppercase tracking-wider">
-               FULL STACK DEVELOPER || <span className="text-white">WEB DEVELOPER</span> || MOBLIE APP DEVELOPER
-             </p>
+             <div className="space-y-3">
+               <span className="text-[10px] font-mono text-zinc-600 uppercase tracking-[0.3em]">Specializing in</span>
+               <RoleRotator />
+               <p className="text-zinc-500 text-xs font-light leading-relaxed tracking-wide pt-1">
+                 Building intelligent, scalable systems — from full-stack products to production ML and autonomous AI agents.
+               </p>
+             </div>
              <div className="flex gap-4">
                 <SocialIcon url="https://linkedin.com" label="LinkedIn" className="text-zinc-700 hover:text-white cursor-pointer transition-colors" href="https://www.linkedin.com/in/andrew-adakole-63462227a" />
                 <SocialIcon url="https://twitter.com" label="Twitter / X" className="text-zinc-700 hover:text-white cursor-pointer transition-colors" href="https://x.com/adakole56andrew" />
@@ -103,8 +148,9 @@ const Hero = () => {
               <span className="text-[9px] font-mono text-zinc-400 uppercase tracking-widest">Logic_Board</span>
             </div>
             <div className="space-y-1 font-mono text-[10px] text-zinc-500">
-              <p>&gt; FULL STACK DEVELOPER</p>
-              <p>&gt; NEXT_15_STABLE</p>
+              <p>&gt; AI / ML ENGINEER</p>
+              <p>&gt; AGENTIC_AI_SYSTEMS</p>
+              <p>&gt; FULL_STACK_DEV</p>
               <p>&gt; THECLA ONGOING</p>
             </div>
           </motion.div>

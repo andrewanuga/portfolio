@@ -10,7 +10,6 @@ import {
   Loader2 // Added Loader icon
 } from "lucide-react";
 import NavBar from "@/components/navbar";
-import { supabase } from "@/components/lib/supabase"; // Ensure this path is correct
 
 const InputWrapper = ({ label, children }: { label: string; children: React.ReactNode }) => (
   <div className="flex flex-col gap-2 group w-full">
@@ -47,14 +46,24 @@ export default function ContactPortal() {
       priority_level: "NORMAL_DEPLOYMENT", // Default for this form
     };
 
-    const { error } = await supabase.from("client_requests").insert([payload]);
+    try {
+      const res = await fetch("/api/requests", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
 
-    if (!error) {
-      setSubmitted(true);
-      typeMessage("Message received. I will get back to you in 1 hour.");
-    } else {
-      console.error("Transmission Error:", error.message);
-      alert("Transmission failed. Check console for details.");
+      if (res.ok) {
+        setSubmitted(true);
+        typeMessage("Message received. I will get back to you in 1 hour.");
+      } else {
+        const { error } = await res.json().catch(() => ({ error: "Unknown error" }));
+        console.error("Transmission Error:", error);
+        alert(`Transmission failed: ${error}`);
+      }
+    } catch (err) {
+      console.error("Network Error:", err);
+      alert("Transmission failed. Check your connection and try again.");
     }
     setLoading(false);
   };

@@ -2,7 +2,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { Code2, Cpu, Globe, Layers, Zap, Terminal, Share2 } from "lucide-react";
+import { Code2, Cpu, Globe, Layers, Zap, Terminal, Share2, BrainCircuit, Bot } from "lucide-react";
 import { cn } from "@/components/lib/utils";
 import NavLink from 'next/link'
 
@@ -113,7 +113,7 @@ export default function ServicesSection() {
       {/* --- RIGHT SIDE: MODULE GRID (60%) --- */}
       <div className="w-full md:w-[60%] grid grid-cols-1 md:grid-cols-2">
         
-        <ServiceModule 
+        <ServiceModule
           icon={Code2}
           code="MOD_01"
           title="Full-Stack Web"
@@ -122,27 +122,45 @@ export default function ServicesSection() {
           status="READY"
         />
 
-        <ServiceModule 
-          icon={Cpu}
+        <ServiceModule
+          icon={BrainCircuit}
+          code="MOD_02"
+          title="AI / ML Engineering"
+          description="Designing, training and deploying machine learning models and data pipelines into production."
+          features={['PYTHON', 'PYTORCH', 'TENSORFLOW', 'MLOPS']}
+          status="TRAINING"
+        />
+
+        <ServiceModule
+          icon={Bot}
           code="MOD_03"
+          title="Agentic AI Systems"
+          description="Autonomous, tool-using AI agents and LLM workflows — RAG, orchestration and multi-agent pipelines."
+          features={['LLMs', 'LANGGRAPH', 'RAG', 'AGENTS']}
+          status="AUTONOMOUS"
+        />
+
+        <ServiceModule
+          icon={Cpu}
+          code="MOD_04"
           title="Mobile Application"
-          description="From Wire frme to Fullt functional mobile application"
+          description="From wireframe to a fully functional, production-ready mobile application."
           features={['React Native', 'Expo']}
           status="STABLE"
         />
 
-        <ServiceModule 
+        <ServiceModule
           icon={Layers}
-          code="MOD_02"
+          code="MOD_05"
           title="Startup Engine"
           description="From MVP to Scale. Building the backbone of Thecla and early-stage ventures."
           features={['SAAS', 'PRODUCT STRATEGY', 'SCALABILITY']}
           status="ACTIVE"
         />
 
-        <ServiceModule 
+        <ServiceModule
           icon={Globe}
-          code="MOD_04"
+          code="MOD_06"
           title="Digital Infra"
           description="Cloud-native deployment pipelines and automated DevOps protocols."
           features={['DOCKER', 'CI/CD', 'TERRAFORM']}

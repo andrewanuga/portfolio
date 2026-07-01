@@ -3,7 +3,6 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Send, User, Mail, Briefcase, MessageSquare, Terminal, AlertTriangle, Loader2 } from "lucide-react";
-import { supabase } from "./lib/supabase";
 
 const FormField = ({ label, icon: Icon, children }: any) => (
   <div className="space-y-2 group">
@@ -52,42 +51,40 @@ export default function HireMeSection() {
       priority_level: formData.get("priority_level") as string,
       requirements: formData.get("requirements") as string,
       budget: budget,
-      created_at: new Date().toISOString(),
     };
 
     try {
       console.log("Submitting payload:", payload);
-      
-      const { data, error } = await supabase
-        .from("client_requests")
-        .insert([payload])
-        .select();
 
-      if (error) {
-        console.log("Supabase Insert Error:", error);
-        setErrorMsg(`INSERT_ERROR: ${error.message}`);
-        
+      const res = await fetch("/api/requests", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      const result = await res.json().catch(() => ({}));
+
+      if (!res.ok) {
+        const message: string = result.error || `Request failed (${res.status})`;
+        console.log("Submit error:", message);
+        setErrorMsg(`INSERT_ERROR: ${message}`);
+
         // Provide helpful error messages
-        if (error.message.includes("row-level security")) {
+        if (message.includes("row-level security")) {
           setErrorMsg(`⚠️ RLS POLICY ERROR: Please enable INSERT policy for client_requests table`);
-        } else if (error.message.includes("relation") && error.message.includes("does not exist")) {
+        } else if (message.includes("relation") && message.includes("does not exist")) {
           setErrorMsg(`⚠️ TABLE ERROR: Table 'client_requests' doesn't exist. Please create it in Supabase.`);
-        } else if (error.code === "42P01") {
-          setErrorMsg(`⚠️ TABLE MISSING: Run the SQL script to create the client_requests table`);
+        } else if (message.includes("SUPABASE_SERVICE_ROLE_KEY")) {
+          setErrorMsg(`⚠️ SERVER KEY MISSING: Add SUPABASE_SERVICE_ROLE_KEY to .env.local`);
         }
       } else {
-        console.log("Insert successful:", data);
+        console.log("Insert successful:", result.data);
         setSubmitted(true);
         typeMessage("Message received. I will get back to you in 1 hour.");
-        
-        // Optional: Reset form after 5 seconds
-        setTimeout(() => {
-          // You could add form reset logic here
-        }, 5000);
       }
     } catch (err: any) {
       console.error("Unexpected error:", err);
-      setErrorMsg(`NETWORK_ERROR: ${err.message || "Failed to connect to Supabase. Check your internet connection."}`);
+      setErrorMsg(`NETWORK_ERROR: ${err.message || "Failed to reach the server. Check your internet connection."}`);
     } finally {
       setLoading(false);
     }

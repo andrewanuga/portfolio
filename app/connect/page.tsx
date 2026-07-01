@@ -93,7 +93,6 @@ const InteractivePost = ({ post }: { post: Post }) => {
       whileHover={{ borderColor: "rgba(59, 130, 246, 0.3)" }}
       className="relative flex flex-col p-6 border border-white/5 bg-[#0d0d0d] rounded-2xl transition-colors duration-500 overflow-hidden"
     >
-      <NavBar />
       {/* HEADER: Identification & Status */}
       <div className="flex justify-between items-center mb-6 z-10">
         <div className="flex items-center gap-3">
@@ -170,7 +169,8 @@ const InteractivePost = ({ post }: { post: Post }) => {
 export default function AndrewFeedSpace() {
   return (
     <section id="feed" className="relative min-h-screen w-full bg-[#0a0a0a] border-t border-white/5 flex flex-col md:flex-row">
-      
+      <NavBar />
+
       {/* --- LEFT SIDE: SIGNAL COMMAND (40%) --- */}
       <div className="w-full md:w-[40%] p-8 md:p-20 flex flex-col justify-between border-r border-white/5 bg-[#0d0d0d] sticky top-0 md:h-screen">
         

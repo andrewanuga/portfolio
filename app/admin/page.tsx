@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react";
 import { ShieldAlert, Clock, User, Mail, Trash2, Lock, Unlock, RefreshCw, Eye, Database, AlertCircle } from "lucide-react";
-import { supabase } from "@/components/lib/supabase";
 
 function cn(...classes: (string | boolean | undefined)[]) {
   return classes.filter(Boolean).join(" ");
@@ -17,53 +16,47 @@ export default function AdminDashboard() {
   const [isDeleting, setIsDeleting] = useState<string | null>(null);
   const [connectionTest, setConnectionTest] = useState<{ status: string; message: string } | null>(null);
 
-  // Test Supabase connection
-  const testConnection = async () => {
-    setConnectionTest(null);
-    try {
-      const { data, error } = await supabase
-        .from('client_requests')
-        .select('count', { count: 'exact', head: true });
-      
-      if (error) {
-        setConnectionTest({ status: 'error', message: error.message });
-      } else {
-        setConnectionTest({ status: 'success', message: 'Connected successfully' });
-      }
-    } catch (err: any) {
-      setConnectionTest({ status: 'error', message: err.message });
-    }
-  };
-
-  const fetchRequests = async () => {
+  // The admin password is validated server-side and sent as a header on
+  // every request. It is held in state only for the duration of the session.
+  const fetchRequests = async (key: string = password) => {
     setLoading(true);
     setError(null);
-    
+    setConnectionTest(null);
+
     try {
-      console.log("Fetching requests from Supabase...");
-      
-      const { data, error } = await supabase
-        .from("client_requests")
-        .select("*")
-        .order("created_at", { ascending: false });
-      
-      if (error) {
-        console.error("Fetch Error Details:", error);
-        setError(`Failed to fetch: ${error.message}`);
-        return;
+      const res = await fetch("/api/requests", {
+        headers: { "x-admin-key": key },
+      });
+
+      if (res.status === 401) {
+        setConnectionTest({ status: "error", message: "Unauthorized" });
+        setError("Unauthorized. Session key rejected.");
+        setIsAuth(false);
+        return false;
       }
-      
-      console.log("Fetched data:", data);
-      
-      if (data) {
-        setRequests(data);
-        if (data.length === 0) {
-          setError("No client requests found in the database.");
-        }
+
+      const body = await res.json().catch(() => ({}));
+
+      if (!res.ok) {
+        const message = body.error || `Request failed (${res.status})`;
+        console.error("Fetch Error Details:", message);
+        setConnectionTest({ status: "error", message });
+        setError(`Failed to fetch: ${message}`);
+        return false;
       }
+
+      const data = body.data ?? [];
+      setConnectionTest({ status: "success", message: "Connected successfully" });
+      setRequests(data);
+      if (data.length === 0) {
+        setError("No client requests found in the database.");
+      }
+      return true;
     } catch (err: any) {
       console.error("Network/Catch Error:", err);
+      setConnectionTest({ status: "error", message: err.message });
       setError(`Connection error: ${err.message}`);
+      return false;
     } finally {
       setLoading(false);
     }
@@ -72,14 +65,15 @@ export default function AdminDashboard() {
   const deleteRequest = async (id: string) => {
     setIsDeleting(id);
     try {
-      const { error } = await supabase
-        .from("client_requests")
-        .delete()
-        .eq("id", id);
+      const res = await fetch(`/api/requests/${id}`, {
+        method: "DELETE",
+        headers: { "x-admin-key": password },
+      });
 
-      if (error) {
+      if (!res.ok) {
+        const { error } = await res.json().catch(() => ({ error: "Unknown error" }));
         console.error("Delete error:", error);
-        alert(`Delete failed: ${error.message}`);
+        alert(`Delete failed: ${error}`);
       } else {
         setRequests(requests.filter(req => req.id !== id));
       }
@@ -90,11 +84,10 @@ export default function AdminDashboard() {
     }
   };
 
-  const checkAuth = () => {
-    if (password === "DiamondStar1@$") {
+  const checkAuth = async () => {
+    const ok = await fetchRequests(password);
+    if (ok) {
       setIsAuth(true);
-      testConnection();
-      fetchRequests();
     } else {
       alert("UNAUTHORIZED ACCESS DETECTED. SYSTEM LOCK REMAINS.");
     }
@@ -149,8 +142,8 @@ export default function AdminDashboard() {
             <h1 className="text-4xl md:text-5xl font-black italic tracking-tighter">CLIENT_INBOUND_LOGS</h1>
           </div>
           <div className="flex gap-3">
-            <button 
-              onClick={() => { testConnection(); fetchRequests(); }}
+            <button
+              onClick={() => fetchRequests()}
               className="flex items-center gap-2 text-[10px] text-zinc-500 bg-white/5 px-4 py-2 rounded-full border border-white/10 hover:text-blue-500 transition-all"
             >
               <RefreshCw size={12} /> Refresh_Data
@@ -182,8 +175,8 @@ export default function AdminDashboard() {
             <div>
               <div className="font-bold uppercase mb-1">System_Alert:</div>
               <div>{error}</div>
-              <button 
-                onClick={fetchRequests}
+              <button
+                onClick={() => fetchRequests()}
                 className="mt-2 text-blue-500 hover:text-blue-400 underline text-[10px] uppercase"
               >
                 Retry_Connection
@@ -206,8 +199,8 @@ export default function AdminDashboard() {
             <Eye className="mx-auto mb-4 text-zinc-700" size={40} />
             <p className="text-zinc-700 uppercase italic tracking-widest text-sm">No incoming data detected in buffer.</p>
             <p className="text-zinc-800 text-[10px] mt-2">Submit a test request from the hire form to see it appear here.</p>
-            <button 
-              onClick={fetchRequests}
+            <button
+              onClick={() => fetchRequests()}
               className="mt-6 text-blue-500 hover:text-blue-400 text-xs uppercase tracking-wider underline"
             >
               Scan_Again
@@ -220,11 +213,6 @@ export default function AdminDashboard() {
           <div className="grid gap-6">
             {requests.map((req) => (
               <div key={req.id} className="group p-6 border border-white/5 bg-[#0d0d0d] rounded-2xl hover:bg-zinc-900/50 transition-all relative overflow-hidden">
-                {/* Debug info - remove in production */}
-                <div className="text-[8px] text-zinc-700 mb-2 font-mono break-all">
-                  ID: {req.id}
-                </div>
-                
                 <div className="flex flex-col md:flex-row justify-between mb-6 gap-6">
                   <div className="space-y-2">
                     <div className="flex items-center gap-3">
@@ -289,7 +277,8 @@ export default function AdminDashboard() {
             </summary>
             <div className="mt-4 space-y-2">
               <div>Supabase URL: {process.env.NEXT_PUBLIC_SUPABASE_URL ? "✅ Set" : "❌ Missing"}</div>
-              <div>Supabase Key: {process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ? "✅ Set" : "❌ Missing"}</div>
+              <div>Anon Key: {process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ? "✅ Set" : "❌ Missing"}</div>
+              <div>Data source: /api/requests (service role, server-side)</div>
               <div>Total Records: {requests.length}</div>
               <button 
                 onClick={() => console.log("Current requests:", requests)}

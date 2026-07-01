@@ -2,7 +2,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { User, Code, BookOpen, Microscope, Zap, Database, Download } from "lucide-react";
+import { User, Code, BookOpen, Microscope, Zap, Database, Download, Cpu } from "lucide-react";
 
 export default function BioSection() {
   return (
@@ -41,6 +41,8 @@ export default function BioSection() {
           
           {[
             { year: "since 2023", event: "Full Stack Web Developer", detail: "4 years experienced with building scalable web application." },
+            { year: "2026", event: "AI / ML Engineer", detail: "Building ML pipelines and models with Python, PyTorch & TensorFlow." },
+            { year: "2026", event: "Agentic AI Engineer", detail: "Designing autonomous, tool-using AI agents with LLMs and LangGraph." },
             { year: "2026", event: "Mobile App Developer", detail: "Building Mobile application with React Native" },
             { year: "2026", event: "Founder @ Thecla", detail: "Currently trying to build a startup." },
             { year: "2023-2027", event: "Electrical Engineering Student", detail: "Studying at Federal University of Technology Akure." }
@@ -67,18 +69,20 @@ export default function BioSection() {
                 <Microscope size={40} className="text-blue-500" />
               </div>
               <p className="text-zinc-400 text-lg md:text-xl font-light leading-relaxed">
-                "Building <span className="text-white font-medium italic">high-fidelity</span> full-stack systems: where every component has a purpose and every signal reaches the user with zero noise."
+                "Building <span className="text-white font-medium italic">high-fidelity</span> systems where full-stack engineering meets applied AI — every component with a purpose, every signal reaching the user with zero noise."
               </p>
               <p className="text-zinc-500 text-sm mt-6 leading-relaxed">
-                I’m a Full-Stack Developer who actually enjoys the bridge between a messy database and a pixel-perfect UI. To me, coding isn't just about making things work—it's about making things work well for the people using them.
-
-                I spend my days (and sometimes nights) navigating the logic of Node and Express Js and crafting responsive, snappy interfaces with React Js/ Next JS. Whether I'm optimizing a complex API or fine-tuning a CSS transition, I’m driven by the challenge of building tools that feel intuitive and effortless.
-
-                When I’m not in my IDE, I’m usually exploring [A Secondary Interest: e.g., cloud architecture, UX psychology, or open-source projects]. I’m a big believer in clean code, honest communication, and the idea that the best solution is usually the simplest one. <span className="text-blue-400">Thecla</span>.
+                I&apos;m a Full-Stack &amp; AI Engineer who lives at the bridge between a messy database, a pixel-perfect UI, and a model that actually ships. To me, engineering isn&apos;t just about making things work — it&apos;s about making them work well for the people using them.
               </p>
-              <div className="mt-10 flex gap-4">
+              <p className="text-zinc-500 text-sm mt-4 leading-relaxed">
+                Day to day I architect scalable web platforms with Next.js, Node and TypeScript, and design ML pipelines and agentic AI systems with Python, PyTorch and LLMs — RAG, tool-using agents and autonomous workflows. Whether I&apos;m optimizing an API, fine-tuning a model, or orchestrating a multi-agent system, I&apos;m driven by building tools that feel intuitive and effortless.
+              </p>
+              <p className="text-zinc-500 text-sm mt-4 leading-relaxed">
+                I believe in clean code, honest communication, and the idea that the best solution is usually the simplest one. Currently building <span className="text-blue-400">Thecla</span>.
+              </p>
+              <div className="mt-10 flex flex-wrap gap-4">
                  <div className="px-4 py-2 rounded-lg bg-zinc-900 border border-zinc-800 text-[10px] font-mono text-zinc-500 uppercase tracking-widest">
-                   Current: Learning Web3 and building
+                   Current: Building Agentic AI systems
                  </div>
               </div>
            </div>
@@ -101,11 +105,23 @@ export default function BioSection() {
 
            <div className="p-6 rounded-2xl border border-white/5 bg-zinc-900/30 group hover:border-blue-500/30 transition-all">
               <div className="flex items-center gap-3 mb-4">
+                 <Cpu className="text-blue-500" size={18} />
+                 <span className="text-[10px] font-mono text-white uppercase tracking-widest font-bold">AI_/_ML_Stack</span>
+              </div>
+              <div className="flex flex-wrap gap-2 font-mono text-[9px] text-zinc-500">
+                 {['Python', 'PyTorch', 'TensorFlow', 'LangChain', 'LangGraph', 'OpenAI', 'Anthropic', 'Hugging Face', 'RAG'].map(s => (
+                   <span key={s} className="px-2 py-1 bg-black rounded border border-white/5">{s}</span>
+                 ))}
+              </div>
+           </div>
+
+           <div className="p-6 rounded-2xl border border-white/5 bg-zinc-900/30 group hover:border-blue-500/30 transition-all">
+              <div className="flex items-center gap-3 mb-4">
                  <Database className="text-blue-500" size={18} />
                  <span className="text-[10px] font-mono text-white uppercase tracking-widest font-bold">Engineering_Tools</span>
               </div>
               <div className="flex flex-wrap gap-2 font-mono text-[9px] text-zinc-500">
-                 {['MATLAB', 'AWS', 'Docker', 'Prisma', 'Python', 'Javascript'].map(s => (
+                 {['MATLAB', 'AWS', 'Docker', 'Prisma', 'Vector DBs', 'Javascript'].map(s => (
                    <span key={s} className="px-2 py-1 bg-black rounded border border-white/5">{s}</span>
                  ))}
               </div>

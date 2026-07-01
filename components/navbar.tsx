@@ -13,6 +13,7 @@ import {
   MessageSquareMore,
   BookText,
   SquareUser,
+  Heart,
   Menu,
   X
 } from "lucide-react";
@@ -32,6 +33,7 @@ const pageNav = [
   { name: "Blog", icon: BookText, to: "/blog" },
   { name: "Project", icon: Terminal, to: "/project" },
   { name: "Contact", icon: SquareUser, to: "/contact" },
+  { name: "Support", icon: Heart, to: "/support" },
 ];
 
 export default function NavBar() {

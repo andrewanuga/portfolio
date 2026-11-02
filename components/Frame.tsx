@@ -98,3 +98,5 @@ export default function Frame() {
     </div>
   );
 }
+
+// Calibrated operator tagline and scroll indicator line

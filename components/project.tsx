@@ -5,12 +5,7 @@ import Image from "next/image";
 import { 
   ExternalLink, 
   GitBranch, 
-  ArrowRight, 
-  ChevronLeft, 
-  ChevronRight, 
-  Bot,
-  Layers,
-  Sparkles
+  ArrowUpRight 
 } from "lucide-react";
 
 export type Project = {
@@ -19,14 +14,11 @@ export type Project = {
   title: string;
   tagline: string;
   category: string;
-  description: string;
   tech: string[];
   link: string;
   github: string;
   status: string;
-  image?: string;
-  accent: string;
-  customVisual?: string;
+  image: string;
 };
 
 const PROJECTS: Project[] = [
@@ -34,184 +26,90 @@ const PROJECTS: Project[] = [
     id: "PROJ_01",
     index: "01",
     title: "Socially AI",
-    category: "AI & Content Platform",
-    tagline: "Autonomous content creation and social media automation",
-    description: "An intelligent platform that helps creators and teams generate engaging viral content, automate scheduling, and track performance with OpenAI models and real-time cloud data.",
-    tech: ["Next.js", "TypeScript", "OpenAI API", "PostgreSQL", "Supabase", "Tailwind CSS"],
+    category: "AI & Automation",
+    tagline: "Autonomous content generation and social media scheduling platform",
+    tech: ["Next.js", "TypeScript", "OpenAI API", "Supabase", "Tailwind CSS"],
     link: "https://github.com/andrewanuga/Socially",
     github: "https://github.com/andrewanuga/Socially",
     status: "Live Project",
-    accent: "#3b82f6",
-    customVisual: "socially"
+    image: "/assets/agentic-ai.jpg"
   },
   {
     id: "PROJ_02",
     index: "02",
     title: "Aurax Commerce",
     category: "E-Commerce",
-    tagline: "Modern high-speed online shopping experience",
-    description: "A lightning-fast e-commerce storefront designed with fluid navigation, real-time product inventory sync, and seamless, secure Stripe payment checkout.",
-    tech: ["Next.js", "React", "Stripe Checkout", "MongoDB", "Node.js"],
+    tagline: "Modern high-speed online shopping with real-time inventory sync",
+    tech: ["Next.js", "React", "Stripe Checkout", "Node.js", "MongoDB"],
     link: "https://aurax-henna.vercel.app/",
     github: "https://github.com/andrewanuga/Aurax",
     status: "Live Project",
-    image: "/aurax.png",
-    accent: "#3b82f6"
+    image: "/aurax.png"
   },
   {
     id: "PROJ_03",
     index: "03",
     title: "JohhTech Academic",
-    category: "Education & Collaboration",
-    tagline: "Collaborative university learning portal",
-    description: "A centralized academic platform connecting university students with shared research materials, lecture notes, and collaborative study groups.",
+    category: "EdTech & Collaboration",
+    tagline: "Centralized learning portal connecting students with research materials",
     tech: ["Next.js", "TypeScript", "Prisma ORM", "PostgreSQL", "Supabase"],
     link: "https://johh-tech-academic.vercel.app",
     github: "https://github.com/andrewanuga/JohhTechAcademic",
     status: "Live Project",
-    image: "/john_academy.png",
-    accent: "#3b82f6"
+    image: "/john_academy.png"
   },
   {
     id: "PROJ_04",
     index: "04",
     title: "VaultFlow SaaS",
     category: "Financial Analytics",
-    tagline: "Real-time startup cashflow and revenue dashboard",
-    description: "A high-clarity financial dashboard providing founders and finance teams with real-time MRR analytics, cash runway projections, and transactional streaming.",
+    tagline: "Startup cashflow intelligence and real-time revenue telemetry dashboard",
     tech: ["Next.js", "TypeScript", "Framer Motion", "Recharts", "Auth.js"],
     link: "https://github.com/andrewanuga/vaultflow",
     github: "https://github.com/andrewanuga/vaultflow",
     status: "Open Source",
-    accent: "#3b82f6",
-    customVisual: "vaultflow"
+    image: "/assets/full-stack.jpg"
   },
   {
     id: "PROJ_05",
     index: "05",
     title: "Nexus 3D",
-    category: "Web3 & 3D Graphics",
-    tagline: "Interactive 3D digital identity showcase",
-    description: "An experimental interactive web experience featuring custom WebGL 3D shaders, real-time particle effects, and decentralized identity verification.",
-    tech: ["Next.js", "Three.js", "WebGL Shaders", "Tailwind CSS"],
+    category: "3D & Interactive Web",
+    tagline: "Interactive 3D digital identity showcase powered by WebGL shaders",
+    tech: ["Next.js", "Three.js", "WebGL", "Tailwind CSS"],
     link: "https://nexus-beta-gold.vercel.app/",
     github: "https://github.com/andrewanuga/nexus",
     status: "Live Demo",
-    image: "/nexus.png",
-    accent: "#3b82f6"
+    image: "/nexus.png"
   },
   {
     id: "PROJ_06",
     index: "06",
     title: "Lumiere Showcase",
     category: "Editorial Design",
-    tagline: "Minimalist photography & editorial portfolio",
-    description: "An editorial portfolio crafted for photographers and creative directors with smooth inertial scrolling, high-resolution image decoding, and fluid typography.",
+    tagline: "Minimalist photography & creative director editorial portfolio",
     tech: ["Next.js", "GSAP", "Radix UI", "Tailwind CSS"],
     link: "https://lumiere-nu-nine.vercel.app/",
     github: "https://github.com/andrewanuga/lumiere",
     status: "Live Project",
-    image: "/lumiere.png",
-    accent: "#3b82f6"
+    image: "/lumiere.png"
   }
 ];
 
 function ProjectVisual({ project }: { project: Project }) {
-  if (project.image) {
-    return (
-      <div className="relative w-full h-full min-h-[220px] sm:min-h-[280px] rounded-2xl overflow-hidden bg-[#0a0b12] border border-white/10 group-hover:border-blue-500/30 transition-all shadow-xl">
-        <Image
-          src={project.image}
-          alt={project.title}
-          fill
-          sizes="(max-width: 768px) 100vw, 50vw"
-          className="object-cover object-top transition-transform duration-700 ease-out group-hover:scale-105"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20" />
-        <div className="absolute bottom-3 left-3 flex items-center gap-2 px-3 py-1 rounded-full bg-black/70 backdrop-blur-md border border-white/10 text-xs text-white/90">
-          <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
-          <span>Interactive Preview</span>
-        </div>
-      </div>
-    );
-  }
-
-  if (project.customVisual === "socially") {
-    return (
-      <div className="relative w-full h-full min-h-[220px] sm:min-h-[280px] rounded-2xl overflow-hidden bg-gradient-to-br from-[#0c1220] via-[#080d18] to-black border border-white/10 p-6 flex flex-col justify-between group-hover:border-blue-500/40 transition-all shadow-xl">
-        <div className="flex items-center justify-between text-xs text-white/50">
-          <span className="flex items-center gap-1.5 text-blue-400 font-semibold">
-            <Bot size={13} /> AI Content Engine
-          </span>
-          <span className="text-emerald-400 flex items-center gap-1">
-            <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
-            Ready
-          </span>
-        </div>
-
-        {/* Visual Mock Graph */}
-        <div className="space-y-3 my-auto">
-          <div className="p-4 rounded-xl bg-white/[0.04] border border-white/10">
-            <div className="flex justify-between items-center text-xs text-white/90 mb-2 font-medium">
-              <span>Viral Hook Generator</span>
-              <span className="text-blue-400 font-bold">98.4% Match</span>
-            </div>
-            <div className="h-2 w-full bg-white/10 rounded-full overflow-hidden">
-              <div className="h-full bg-gradient-to-r from-blue-500 to-cyan-400 rounded-full w-[85%]" />
-            </div>
-          </div>
-
-          <div className="grid grid-cols-3 gap-2 text-center text-xs">
-            <div className="p-2.5 rounded-xl bg-white/[0.03] border border-white/5">
-              <p className="text-[10px] text-white/40">Engine</p>
-              <p className="font-semibold text-white">GPT-4o</p>
-            </div>
-            <div className="p-2.5 rounded-xl bg-white/[0.03] border border-white/5">
-              <p className="text-[10px] text-white/40">Database</p>
-              <p className="font-semibold text-white">Supabase</p>
-            </div>
-            <div className="p-2.5 rounded-xl bg-white/[0.03] border border-white/5">
-              <p className="text-[10px] text-white/40">Framework</p>
-              <p className="font-semibold text-white">Next.js</p>
-            </div>
-          </div>
-        </div>
-
-        <div className="flex items-center justify-between text-[11px] text-white/40 pt-3 border-t border-white/10">
-          <span>Target Platform: Multi-Channel</span>
-          <span className="text-blue-400">Automated Sync</span>
-        </div>
-      </div>
-    );
-  }
-
-  // Vaultflow visual fallback
   return (
-    <div className="relative w-full h-full min-h-[220px] sm:min-h-[280px] rounded-2xl overflow-hidden bg-gradient-to-br from-[#0c1220] via-[#090e18] to-black border border-white/10 p-6 flex flex-col justify-between group-hover:border-blue-500/40 transition-all shadow-xl">
-      <div className="flex items-center justify-between text-xs text-white/50">
-        <span className="text-blue-400 font-semibold flex items-center gap-1.5">
-          <Layers size={13} /> Financial Telemetry
-        </span>
-        <span className="text-emerald-400 font-bold">+28.4% MoM</span>
-      </div>
-
-      <div className="space-y-4 my-auto">
-        <div>
-          <p className="text-xs text-white/50">Monthly Recurring Revenue</p>
-          <p className="text-3xl font-extrabold text-white tracking-tight mt-0.5">$124,500.00</p>
-        </div>
-
-        {/* Mini Bar Chart */}
-        <div className="flex items-end gap-1.5 h-16 pt-2">
-          {[40, 55, 45, 65, 80, 70, 95, 85, 100].map((h, i) => (
-            <div key={i} className="flex-1 bg-white/10 rounded-sm hover:bg-blue-500 transition-colors" style={{ height: `${h}%` }} />
-          ))}
-        </div>
-      </div>
-
-      <div className="flex justify-between items-center text-[11px] text-white/40 pt-3 border-t border-white/10">
-        <span>Runway: 18 Months</span>
-        <span className="text-blue-400 font-medium">Healthy Burn Rate</span>
+    <div className="relative w-full h-[220px] sm:h-[260px] lg:h-[300px] rounded-2xl overflow-hidden bg-[#0d101a] border border-white/10 group-hover:border-blue-500/30 transition-all shadow-xl">
+      <Image
+        src={project.image}
+        alt={project.title}
+        fill
+        sizes="(max-width: 768px) 100vw, 50vw"
+        className="object-cover object-center transition-transform duration-500 ease-out group-hover:scale-105"
+      />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent pointer-events-none" />
+      <div className="absolute bottom-3 left-3 flex items-center gap-2 px-3 py-1 rounded-full bg-black/60 backdrop-blur-md border border-white/10 text-xs text-white/90">
+        <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
+        <span className="text-[11px] font-medium">{project.status}</span>
       </div>
     </div>
   );
@@ -309,7 +207,7 @@ export default function ProjectSection() {
             </h2>
           </div>
 
-          {/* PROJECT COUNTER & DOTS */}
+          {/* PROJECT COUNTER & NAVIGATION DOTS */}
           <div className="flex items-center gap-6">
             <div className="text-right">
               <p className="text-xs text-white/40">Current Project</p>
@@ -319,14 +217,13 @@ export default function ProjectSection() {
               </p>
             </div>
 
-            {/* Quick Dots */}
             <div className="flex gap-1.5">
               {PROJECTS.map((p, i) => (
                 <button
                   key={p.id}
                   onClick={() => scrollToProject(i)}
                   aria-label={`Jump to ${p.title}`}
-                  className={`h-2.5 rounded-full transition-all duration-300 ${
+                  className={`h-2.5 rounded-full transition-all duration-300 cursor-pointer ${
                     i === activeIdx 
                       ? "w-8 bg-blue-500 shadow-[0_0_12px_rgba(59,130,246,0.6)]" 
                       : "w-2.5 bg-white/20 hover:bg-white/40"
@@ -346,19 +243,13 @@ export default function ProjectSection() {
             {PROJECTS.map((project, idx) => (
               <div
                 key={project.id}
-                className="group relative flex flex-col justify-between p-8 lg:p-9 rounded-3xl w-[70vw] lg:w-[58vw] max-w-[820px] shrink-0 border border-white/10 hover:border-blue-500/40 bg-[#090b12]/90 backdrop-blur-xl transition-all shadow-2xl"
+                className="group relative flex flex-col justify-between p-7 lg:p-8 rounded-3xl w-[70vw] lg:w-[54vw] max-w-[760px] shrink-0 border border-white/10 hover:border-blue-500/40 bg-[#090b12] transition-all shadow-xl"
               >
                 {/* CARD TOP INFO */}
-                <div className="flex items-center justify-between pb-4 mb-4 border-b border-white/10">
-                  <div className="flex items-center gap-3">
-                    <span className="px-3 py-1 rounded-full text-xs font-semibold bg-blue-500/10 text-blue-400 border border-blue-500/20">
-                      {project.category}
-                    </span>
-                    <span className="flex items-center gap-1.5 text-xs text-emerald-400">
-                      <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                      {project.status}
-                    </span>
-                  </div>
+                <div className="flex items-center justify-between pb-4 border-b border-white/10">
+                  <span className="px-3 py-1 rounded-full text-xs font-medium bg-white/[0.04] text-white/80 border border-white/10">
+                    {project.category}
+                  </span>
 
                   <span className="text-sm font-bold text-white/30 group-hover:text-blue-400 transition-colors">
                     0{idx + 1}
@@ -366,7 +257,7 @@ export default function ProjectSection() {
                 </div>
 
                 {/* CARD BODY: DETAILS & VISUAL */}
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center my-auto">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center my-auto py-3">
                   
                   {/* TEXT DETAILS */}
                   <div className="lg:col-span-6 space-y-4">
@@ -374,25 +265,18 @@ export default function ProjectSection() {
                       <h3 className="text-2xl lg:text-3xl font-extrabold text-white tracking-tight group-hover:text-blue-400 transition-colors">
                         {project.title}
                       </h3>
-                      <p className="text-sm text-white/60 mt-1 font-medium">
+                      <p className="text-sm text-white/60 mt-2 font-medium leading-relaxed">
                         {project.tagline}
                       </p>
                     </div>
 
-                    <p className="text-sm text-white/70 leading-relaxed">
-                      {project.description}
-                    </p>
-
                     {/* TECH PILLS */}
-                    <div className="pt-2">
-                      <p className="text-xs text-white/40 uppercase tracking-wider mb-2 font-semibold">
-                        Built With
-                      </p>
+                    <div className="pt-1">
                       <div className="flex flex-wrap gap-1.5">
                         {project.tech.map((t) => (
                           <span
                             key={t}
-                            className="px-2.5 py-1 rounded-md bg-white/[0.04] border border-white/10 text-xs text-white/80"
+                            className="px-2.5 py-1 rounded-full bg-white/[0.03] border border-white/10 text-[11px] text-white/70"
                           >
                             {t}
                           </span>
@@ -401,7 +285,7 @@ export default function ProjectSection() {
                     </div>
                   </div>
 
-                  {/* VISUAL MOCKUP VIEWPORT */}
+                  {/* VISUAL PREVIEW */}
                   <div className="lg:col-span-6 h-full flex items-center justify-center">
                     <ProjectVisual project={project} />
                   </div>
@@ -409,30 +293,30 @@ export default function ProjectSection() {
                 </div>
 
                 {/* CARD FOOTER BUTTONS */}
-                <div className="flex items-center justify-between pt-5 mt-5 border-t border-white/10">
+                <div className="flex items-center justify-between pt-4 border-t border-white/10">
                   <div className="flex items-center gap-3">
                     <a
                       href={project.link}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-blue-600 text-white text-xs font-semibold hover:bg-blue-500 transition-all shadow-[0_0_20px_rgba(37,99,235,0.4)]"
+                      className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-blue-600 text-white text-xs font-semibold hover:bg-blue-500 transition-all shadow-[0_0_15px_rgba(37,99,235,0.35)]"
                     >
                       <span>Live Preview</span>
-                      <ExternalLink size={14} />
+                      <ExternalLink size={13} />
                     </a>
                     <a
                       href={project.github}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-semibold transition-all"
+                      className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-white/[0.06] hover:bg-white/[0.12] border border-white/10 text-white text-xs font-semibold transition-all"
                     >
-                      <span>Source Code</span>
-                      <GitBranch size={14} />
+                      <span>Source</span>
+                      <GitBranch size={13} />
                     </a>
                   </div>
 
                   <span className="text-xs text-white/40 hidden sm:inline">
-                    Scroll down for next project →
+                    Scroll down for next →
                   </span>
                 </div>
               </div>
@@ -445,7 +329,7 @@ export default function ProjectSection() {
           <div className="h-1.5 flex-1 bg-white/10 rounded-full overflow-hidden">
             <div 
               ref={progressFillRef}
-              className="h-full bg-gradient-to-r from-blue-500 to-cyan-400 rounded-full w-0 transition-all duration-75 shadow-[0_0_10px_rgba(37,99,235,0.5)]"
+              className="h-full bg-blue-500 rounded-full w-0 transition-all duration-75 shadow-[0_0_10px_rgba(37,99,235,0.5)]"
             />
           </div>
           <span className="text-xs text-white/40 uppercase tracking-wider whitespace-nowrap font-medium">
@@ -481,37 +365,31 @@ export default function ProjectSection() {
             >
               {/* TOP HEADER */}
               <div className="flex items-center justify-between pb-3 border-b border-white/10">
-                <span className="px-3 py-1 rounded-full text-xs font-semibold bg-blue-500/10 text-blue-400 border border-blue-500/20">
+                <span className="px-3 py-1 rounded-full text-xs font-medium bg-white/[0.04] text-white/80 border border-white/10">
                   {project.category}
                 </span>
-                <span className="text-xs text-emerald-400 flex items-center gap-1.5">
-                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                  {project.status}
+                <span className="text-xs text-white/40 font-bold">
+                  0{idx + 1}
                 </span>
               </div>
 
               {/* IMAGE PREVIEW */}
-              <div className="aspect-[16/10] w-full rounded-2xl overflow-hidden">
-                <ProjectVisual project={project} />
-              </div>
+              <ProjectVisual project={project} />
 
               {/* DETAILS */}
-              <div className="space-y-2">
+              <div className="space-y-2 pt-1">
                 <h3 className="text-2xl font-bold text-white tracking-tight">
                   {project.title}
                 </h3>
-                <p className="text-sm text-white/60 font-medium">
+                <p className="text-sm text-white/60 font-medium leading-relaxed">
                   {project.tagline}
-                </p>
-                <p className="text-sm text-white/70 leading-relaxed pt-1">
-                  {project.description}
                 </p>
               </div>
 
               {/* TECH TAGS */}
               <div className="flex flex-wrap gap-1.5 pt-2">
                 {project.tech.map((t) => (
-                  <span key={t} className="px-2.5 py-1 rounded-md bg-white/[0.04] border border-white/10 text-xs text-white/70">
+                  <span key={t} className="px-2.5 py-1 rounded-full bg-white/[0.03] border border-white/10 text-xs text-white/70">
                     {t}
                   </span>
                 ))}
@@ -532,7 +410,7 @@ export default function ProjectSection() {
                   href={project.github}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl bg-white/10 text-white text-xs font-semibold"
+                  className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl bg-white/[0.06] border border-white/10 text-white text-xs font-semibold"
                 >
                   <span>Source</span>
                   <GitBranch size={13} />

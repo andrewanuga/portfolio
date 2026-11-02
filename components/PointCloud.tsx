@@ -52,7 +52,6 @@ function buildCloud(N: number, image: ImageData): Cloud {
   };
 
   // Trace the subject in the reference's original 1086 × 1448 coordinates.
-  // This keeps the dark backdrop out without discarding dark hair or clothing.
   const outline = [
     [377, 345], [390, 265], [432, 207], [497, 164], [585, 148],
     [679, 160], [750, 199], [791, 264], [807, 337], [786, 432],
@@ -71,54 +70,69 @@ function buildCloud(N: number, image: ImageData): Cloud {
     }
     return hit;
   };
-  const bump = (x: number, y: number, cx: number, cy: number, wx: number, wy: number) =>
-    Math.exp(-(((x - cx) / wx) ** 2 + ((y - cy) / wy) ** 2) * 2);
 
-  type P = {
+  const iw = image.width;
+  const ih = image.height;
+  const data = image.data;
+  const sample = (u: number, v: number) => {
+    const ix = Math.min(iw - 1, Math.max(0, Math.floor(u * iw)));
+    const iy = Math.min(ih - 1, Math.max(0, Math.floor(v * ih)));
+    const idx = (iy * iw + ix) * 4;
+    return (0.299 * data[idx] + 0.587 * data[idx + 1] + 0.114 * data[idx + 2]) / 255;
+  };
+
+  type Pt = {
     x: number; y: number; z: number;
     nx: number; ny: number; nz: number;
-    bk: number; rn: number; dx: number; dy: number; dz: number;
+    dx: number; dy: number; dz: number;
+    rn: number; bk: number;
   };
-  const pts: P[] = [];
-  // A jittered grid keeps facial detail evenly distributed, including the eyes.
-  const step = Math.sqrt((1086 * 950 * 0.56) / N);
-  for (let v = 148; v < 1070; v += step) {
-    for (let u = 0; u < 1086; u += step) {
-      const sx = u + r() * step;
-      const sy = v + r() * step;
-      if (!inside(sx, sy)) continue;
-      const ix = Math.min(image.width - 1, Math.floor(sx / 1086 * image.width));
-      const iy = Math.min(image.height - 1, Math.floor(sy / 1448 * image.height));
-      const offset = (iy * image.width + ix) * 4;
-      const lum = (image.data[offset] * 0.2126 + image.data[offset + 1] * 0.7152 + image.data[offset + 2] * 0.0722) / 255;
-      const x = (sx - 543) / 1086 * 2.3;
-      const y = 1.18 - (sy - 148) / 1086 * 2.3;
-      // Photo relief: rounded cranium, cheekbones, eye sockets, nose and lips.
-      // Depth is anatomical rather than inferred from dark skin/hair pixels.
-      const faceX = (sx - 590) / 205;
-      let z = 0.07;
-      if (sy < 790) {
-        z += 0.27 * Math.sqrt(Math.max(0, 1 - faceX * faceX));
-        z += 0.15 * bump(sx, sy, 553, 562, 65, 115);
-        z += 0.10 * bump(sx, sy, 550, 600, 67, 37);
-        z += 0.045 * bump(sx, sy, 471, 558, 65, 75);
-        z += 0.045 * bump(sx, sy, 672, 566, 65, 75);
-        z -= 0.055 * bump(sx, sy, 480, 496, 57, 31);
-        z -= 0.055 * bump(sx, sy, 650, 507, 57, 31);
-        z += 0.055 * bump(sx, sy, 552, 680, 82, 40);
-        z += 0.025 * bump(sx, sy, 554, 755, 86, 44);
-      } else {
-        z += 0.08 * Math.max(0, 1 - Math.abs(x));
-      }
-      z += (r() - 0.5) * 0.009;
-      const band = clamp(Math.floor(((y + 0.8) / 2) * 8), 0, 7);
-      const shade = clamp(Math.floor(Math.pow(lum, 0.65) * 8), 0, 7);
-      const [a, b, c] = unit();
-      const len = 0.4 + r() * 1.6;
-      pts.push({ x, y, z, nx: 0, ny: 0, nz: 1,
-        bk: band * 8 + shade, rn: r(),
-        dx: a * len * 1.3, dy: b * len - 0.2, dz: c * len });
-    }
+  const pts: Pt[] = [];
+
+  while (pts.length < N) {
+    const ox = r() * 1086;
+    const oy = r() * 1070;
+    if (!inside(ox, oy)) continue;
+
+    const u = ox / 1086;
+    const v = oy / 1070;
+    const b = sample(u, v);
+
+    // Accept more points in brighter / detailed facial regions
+    const pAccept = 0.28 + 0.72 * b;
+    if (r() > pAccept) continue;
+
+    const cx = (u - 0.53) * 1.05;
+    const cy = (1 - v - 0.46) * 1.38;
+
+    const rad = Math.hypot(cx / 0.54, (cy - 0.1) / 0.72);
+    if (rad > 1.1) continue;
+
+    const baseZ = Math.sqrt(Math.max(0, 1 - Math.min(1, rad * rad))) * 0.42;
+    const relief = (b - 0.4) * 0.26;
+    const z = baseZ + relief + (r() - 0.5) * 0.02;
+
+    const nx = cx;
+    const ny = cy - 0.1;
+    const nz = z + 0.2;
+    const nl = Math.hypot(nx, ny, nz) || 1;
+
+    // Bucket into 8 height bands × 8 brightness bins
+    const yNorm = clamp((cy + 0.6) / 1.3);
+    const band = clamp(Math.floor(yNorm * 8), 0, 7);
+    const bBin = clamp(Math.floor(b * 8), 0, 7);
+    const bk = band * 8 + bBin;
+
+    const [a, bDir, c] = unit();
+    const len = 0.55 + 0.9 * r();
+
+    pts.push({
+      x: cx, y: cy, z,
+      nx: nx / nl, ny: ny / nl, nz: nz / nl,
+      rn: r(),
+      bk,
+      dx: a * len * 1.3, dy: bDir * len - 0.2, dz: c * len
+    });
   }
 
   pts.sort((p, q) => p.bk - q.bk);
@@ -157,23 +171,23 @@ function buildCloud(N: number, image: ImageData): Cloud {
 }
 
 /* ------------------------------------------------------------------ */
-/* Colour: deep blue ↔ electric sky blue gradient that flips as you scroll */
+/* Colour: Brand Blue ↔ Sky Cyan gradient with dynamic brightness     */
 /* ------------------------------------------------------------------ */
 
-const LAV: [number, number, number] = [37, 99, 235]; // Brand Blue #2563eb
-const YEL: [number, number, number] = [56, 189, 248]; // Electric Sky Cyan #38bdf8
-const BRIGHT = [0.32, 0.44, 0.57, 0.70, 0.83, 0.96, 1.08, 1.18];
-const ALPHA = [0.65, 0.73, 0.81, 0.88, 0.93, 0.97, 1, 1];
+const BLUE_BRAND: [number, number, number] = [37, 99, 235]; // Brand Blue #2563eb
+const BLUE_CYAN: [number, number, number] = [56, 189, 248]; // Sky Cyan #38bdf8
+const BRIGHT = [0.35, 0.48, 0.60, 0.74, 0.86, 0.98, 1.10, 1.22];
+const ALPHA = [0.70, 0.78, 0.84, 0.90, 0.94, 0.98, 1, 1];
 
 function bucketStyle(bk: number, flip: number, vox: number) {
   const band = Math.floor(bk / 8);
   const bb = bk % 8;
-  const yt = band / 7; // 0 = bottom, 1 = top
+  const yt = band / 7;
   const yellowness = mix(1 - yt, yt, flip);
   const m = ease(clamp((yellowness - 0.15) / 0.7));
   const out: number[] = [];
   for (let c = 0; c < 3; c++) {
-    let v = mix(LAV[c], YEL[c], m) * BRIGHT[bb];
+    let v = mix(BLUE_BRAND[c], BLUE_CYAN[c], m) * BRIGHT[bb];
     v += (255 - v) * (0.08 + vox * 0.22);
     out.push(Math.round(clamp(v, 0, 255)));
   }
@@ -193,7 +207,7 @@ export default function PointCloud() {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    const N = window.innerWidth < 720 ? 20000 : 48000;
+    const N = window.innerWidth < 720 ? 22000 : 50000;
     let cloud: Cloud | null = null;
     let disposed = false;
     const portrait = new Image();
@@ -209,27 +223,72 @@ export default function PointCloud() {
     };
     portrait.src = "/assets/andrew.png";
 
+    // Enhanced Mouse & Interaction State
     const mouse = {
-      x: 0, y: 0, cx: 0, cy: 0, sx: 0, sy: 0,
-      active: false, initialized: false, strength: 0,
+      x: 0, y: 0,
+      cx: window.innerWidth / 2, 
+      cy: window.innerHeight / 2,
+      sx: window.innerWidth / 2, 
+      sy: window.innerHeight / 2,
+      prevX: window.innerWidth / 2,
+      prevY: window.innerHeight / 2,
+      speed: 0,
+      active: false, 
+      initialized: false, 
+      strength: 0,
     };
-    const onLeave = () => { mouse.active = false; };
-    const onMove = (e: PointerEvent) => {
-      // Let touch gestures scroll without leaving a stuck hover effect.
-      if (e.pointerType === "touch") { onLeave(); return; }
-      mouse.cx = e.clientX;
-      mouse.cy = e.clientY;
+
+    // Active click shockwave ripples
+    type Ripple = { x: number; y: number; age: number; maxAge: number; maxRadius: number };
+    const ripples: Ripple[] = [];
+
+    const onLeave = () => { 
+      mouse.active = false; 
+    };
+
+    const updatePointer = (clientX: number, clientY: number) => {
+      mouse.cx = clientX;
+      mouse.cy = clientY;
       mouse.active = true;
       if (!mouse.initialized) {
         mouse.sx = mouse.cx;
         mouse.sy = mouse.cy;
+        mouse.prevX = mouse.cx;
+        mouse.prevY = mouse.cy;
         mouse.initialized = true;
       }
     };
+
+    const onMove = (e: PointerEvent) => {
+      updatePointer(e.clientX, e.clientY);
+    };
+
+    const onTouchMove = (e: TouchEvent) => {
+      if (e.touches.length > 0) {
+        updatePointer(e.touches[0].clientX, e.touches[0].clientY);
+      }
+    };
+
+    const onPointerDown = (e: PointerEvent) => {
+      updatePointer(e.clientX, e.clientY);
+      // Spawn shockwave ripple on click / tap
+      ripples.push({
+        x: e.clientX,
+        y: e.clientY,
+        age: 0,
+        maxAge: 0.75,
+        maxRadius: Math.min(window.innerWidth * 0.45, 340)
+      });
+    };
+
     window.addEventListener("pointermove", onMove, { passive: true });
+    window.addEventListener("pointerdown", onPointerDown, { passive: true });
+    window.addEventListener("touchmove", onTouchMove, { passive: true });
+    window.addEventListener("touchend", onLeave, { passive: true });
     window.addEventListener("blur", onLeave);
     window.addEventListener("pointercancel", onLeave);
     document.documentElement.addEventListener("pointerleave", onLeave);
+
     let previousTime: number | null = null;
 
     const draw = (s: SceneState, t: number) => {
@@ -247,28 +306,43 @@ export default function PointCloud() {
       ctx.globalAlpha = 1;
       ctx.clearRect(0, 0, W, H);
 
-      // intro: the head assembles itself out of particles on load
+      // Intro assembly progress
       const intro = 1 - ease(clamp((t - 0.15) / 2.4));
       const d = Math.max(s.dissolve, intro);
 
-      // Time-based damping feels consistent on both 60 Hz and 144 Hz screens.
+      // Damped time
       const dt = previousTime === null ? 1 / 60 : clamp(t - previousTime, 0, 0.05);
       previousTime = t;
-      const follow = 1 - Math.exp(-12 * dt);
-      const settle = 1 - Math.exp(-7 * dt);
-      const inside = mouse.active && mouse.cx >= s.frame.left &&
-        mouse.cx <= s.frame.left + W && mouse.cy >= s.frame.top &&
-        mouse.cy <= s.frame.top + H;
-      const targetX = inside ? clamp((mouse.cx - s.frame.left) / W * 2 - 1, -1, 1) : 0;
-      const targetY = inside ? clamp((mouse.cy - s.frame.top) / H * 2 - 1, -1, 1) : 0;
+
+      // Update pointer velocity
+      const moveDx = mouse.cx - mouse.prevX;
+      const moveDy = mouse.cy - mouse.prevY;
+      const instantSpeed = Math.hypot(moveDx, moveDy) / Math.max(dt, 0.001);
+      mouse.speed += (instantSpeed - mouse.speed) * (1 - Math.exp(-8 * dt));
+      mouse.prevX = mouse.cx;
+      mouse.prevY = mouse.cy;
+
+      // Head tracking: responsive full-viewport gaze tracking
+      const targetX = mouse.active ? clamp((mouse.cx / window.innerWidth) * 2 - 1, -1, 1) : 0;
+      const targetY = mouse.active ? clamp((mouse.cy / window.innerHeight) * 2 - 1, -1, 1) : 0;
+
+      const follow = 1 - Math.exp(-14 * dt);
+      const settle = 1 - Math.exp(-9 * dt);
+
       mouse.x += (targetX - mouse.x) * settle;
       mouse.y += (targetY - mouse.y) * settle;
       mouse.sx += (mouse.cx - mouse.sx) * follow;
       mouse.sy += (mouse.cy - mouse.sy) * follow;
-      mouse.strength += ((inside ? 1 : 0) - mouse.strength) * settle;
-      const yawAmt = 0.28 * (1 - 0.6 * s.vox);
-      const yaw = Math.sin(t * 0.45) * 0.045 + mouse.x * yawAmt;
-      const pitch = -mouse.y * 0.10;
+
+      // Strength activates when mouse is in viewport
+      const targetStrength = mouse.active ? 1 : 0;
+      mouse.strength += (targetStrength - mouse.strength) * settle;
+
+      // Gaze angles
+      const yawAmt = 0.38 * (1 - 0.5 * s.vox);
+      const pitchAmt = 0.18 * (1 - 0.5 * s.vox);
+      const yaw = Math.sin(t * 0.45) * 0.035 + mouse.x * yawAmt;
+      const pitch = -mouse.y * pitchAmt;
       const sy = Math.sin(yaw);
       const cyw = Math.cos(yaw);
       const sp = Math.sin(pitch);
@@ -279,26 +353,50 @@ export default function PointCloud() {
       const cyS = H * 0.46;
       const cam = 3.2;
 
-      // glow under the bust
-      const glowA = 0.2 * (1 - d) * (1 - s.vox);
+      // Ambient pedestal glow
+      const glowA = 0.22 * (1 - d) * (1 - s.vox);
       if (glowA > 0.005) {
-        const gr = ctx.createRadialGradient(W / 2, H * 1.02, 0, W / 2, H * 1.02, W * 0.34);
+        const gr = ctx.createRadialGradient(W / 2, H * 1.02, 0, W / 2, H * 1.02, W * 0.38);
         gr.addColorStop(0, `rgba(37,99,235,${glowA})`);
         gr.addColorStop(1, "rgba(37,99,235,0)");
         ctx.fillStyle = gr;
         ctx.fillRect(0, 0, W, H);
       }
 
-      // mouse in canvas space
+      // Cursor position in local canvas coordinates
       const mx = mouse.sx - s.frame.left;
       const my = mouse.sy - s.frame.top;
-      const R = clamp(H * 0.16, 70, 150);
-      const R2 = R * R;
-      const push = Math.min(26, H * 0.032) * mouse.strength * (1 - d) * (1 - 0.7 * s.vox);
 
-      // voxel mode
+      // Interaction radius & dynamic push force
+      const R = clamp(H * 0.22, 90, 200);
+      const R2 = R * R;
+      const velocityBoost = Math.min(30, mouse.speed * 0.035);
+      const push = (Math.min(38, H * 0.045) + velocityBoost) * mouse.strength * (1 - d) * (1 - 0.7 * s.vox);
+
+      // Soft interactive light halo around the cursor
+      if (mouse.strength > 0.1 && !s.vox && push > 1) {
+        const haloR = R * 1.25;
+        const aura = ctx.createRadialGradient(mx, my, 0, mx, my, haloR);
+        aura.addColorStop(0, `rgba(59, 130, 246, ${0.16 * mouse.strength})`);
+        aura.addColorStop(0.5, `rgba(37, 99, 235, ${0.06 * mouse.strength})`);
+        aura.addColorStop(1, "rgba(37, 99, 235, 0)");
+        ctx.fillStyle = aura;
+        ctx.beginPath();
+        ctx.arc(mx, my, haloR, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      // Update click shockwave ripples
+      for (let ri = ripples.length - 1; ri >= 0; ri--) {
+        ripples[ri].age += dt;
+        if (ripples[ri].age >= ripples[ri].maxAge) {
+          ripples.splice(ri, 1);
+        }
+      }
+
+      // Voxel / point setup
       const cell = s.vox > 0.02 ? mix(1.5, 12.5, s.vox) : 0;
-      const baseSize = (0.9 + 0.35 * (H / 800)) * (1 + (s.zoom - 1) * 0.12) * (1 - 0.4 * d);
+      const baseSize = (0.95 + 0.35 * (H / 800)) * (1 + (s.zoom - 1) * 0.12) * (1 - 0.4 * d);
       const cullThr = -0.15 - d * 4;
 
       const { px, py, pz, nx, ny, nz, dx, dy, dz, rn, bstart } = cloud;
@@ -312,7 +410,7 @@ export default function PointCloud() {
         ctx.globalAlpha = st.alpha * (1 - 0.45 * d) * (cell ? 0.92 : 1);
 
         for (let i = i0; i < i1; i++) {
-          // back-face culling (relaxes while dissolving)
+          // Back-face culling
           const nzz = ny[i] * sp + (-nx[i] * sy + nz[i] * cyw) * cp;
           if (nzz < cullThr) continue;
 
@@ -337,16 +435,43 @@ export default function PointCloud() {
           let X = cx + x1 * sc * k;
           let Y = cyS - y1 * sc * k;
 
+          // Continuous fluid magnetic cursor repulsion
           const ddx = X - mx;
           const ddy = Y - my;
           const dd = ddx * ddx + ddy * ddy;
           if (push > 0.01 && dd < R2) {
             const dist = Math.sqrt(dd) + 0.001;
             const f = 1 - dist / R;
+            // Smooth bell curve with fluid tangential swirl
             const pu = f * f * (3 - 2 * f) * push;
-            // A small tangential drift makes the dots flow around the cursor.
-            X += (ddx / dist - ddy / dist * 0.2) * pu;
-            Y += (ddy / dist + ddx / dist * 0.2) * pu;
+            const swirl = (ddx / dist - ddy / dist * 0.28) * pu;
+            const swirlY = (ddy / dist + ddx / dist * 0.28) * pu;
+            X += swirl;
+            Y += swirlY;
+          }
+
+          // Active click shockwave propagation
+          if (ripples.length > 0) {
+            for (let ri = 0; ri < ripples.length; ri++) {
+              const rip = ripples[ri];
+              const rpx = rip.x - s.frame.left;
+              const rpy = rip.y - s.frame.top;
+              const rdx = X - rpx;
+              const rdy = Y - rpy;
+              const rdist = Math.sqrt(rdx * rdx + rdy * rdy);
+              const ripProgress = rip.age / rip.maxAge;
+              const currentRadius = ripProgress * rip.maxRadius;
+              const ringDist = Math.abs(rdist - currentRadius);
+              const ringThickness = 45;
+
+              if (ringDist < ringThickness) {
+                const ringForce = (1 - ringDist / ringThickness) * (1 - ripProgress) * 35;
+                if (rdist > 1) {
+                  X += (rdx / rdist) * ringForce;
+                  Y += (rdy / rdist) * ringForce;
+                }
+              }
+            }
           }
 
           if (X < -20 || X > W + 20 || Y < -20 || Y > H + 20) continue;
@@ -369,6 +494,9 @@ export default function PointCloud() {
       portrait.onload = null;
       unsub();
       window.removeEventListener("pointermove", onMove);
+      window.removeEventListener("pointerdown", onPointerDown);
+      window.removeEventListener("touchmove", onTouchMove);
+      window.removeEventListener("touchend", onLeave);
       window.removeEventListener("blur", onLeave);
       window.removeEventListener("pointercancel", onLeave);
       document.documentElement.removeEventListener("pointerleave", onLeave);

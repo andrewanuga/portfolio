@@ -8,8 +8,7 @@ import {
   Briefcase, 
   GraduationCap, 
   ArrowUpRight,
-  CheckCircle2,
-  Sparkle
+  CheckCircle2
 } from "lucide-react";
 
 const STATS = [
@@ -21,7 +20,10 @@ const STATS = [
 
 export default function BioSection() {
   return (
-    <section id="about" className="relative w-full bg-[#050506] py-28 px-4 sm:px-6 md:px-14 border-t border-white/10 text-white">
+    <section 
+      id="about" 
+      className="relative w-full bg-[#050506] py-28 px-4 sm:px-6 md:px-14 rounded-t-[40px] sm:rounded-t-[56px] md:rounded-t-[64px] border-t border-white/10 text-white shadow-[0_-25px_60px_rgba(0,0,0,0.6)] relative z-30 -mt-8 sm:-mt-12"
+    >
       
       {/* BACKGROUND AMBIENT GLOW */}
       <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-gradient-to-r from-blue-600/10 via-blue-500/5 to-cyan-500/10 blur-[180px] pointer-events-none rounded-full" />

@@ -379,3 +379,5 @@ export default function PointCloud() {
 }
 
 // Calibrated camera perspective projection and back-face culling threshold
+
+// Added smoothed pointer inertia tracking and ambient under-glow

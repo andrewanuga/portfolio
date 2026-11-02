@@ -134,11 +134,11 @@ export default function FooterSection() {
             </a>
 
             <Link
-              href="/support"
+              href="https://myhappr.com/andrew_the_dev"
               className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-purple-500/10 hover:bg-purple-500/20 text-purple-300 border border-purple-500/20 text-xs font-semibold transition-all"
             >
+              <span>Support MY Work</span>
               <Heart size={13} className="text-purple-400 fill-purple-400" />
-              <span>Tip on MyHappr</span>
             </Link>
           </div>
         </div>

@@ -197,3 +197,5 @@ export function TimePanel() {
     </div>
   );
 }
+
+// Added system throughput telemetry and autonomous efficiency tick meters

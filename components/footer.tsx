@@ -69,10 +69,10 @@ export default function FooterSection() {
   };
 
   return (
-    <footer className="relative w-full bg-[#030305] border-t border-white/10 overflow-hidden text-white">
+    <footer className="relative w-full bg-[#030305] border-t border-white/10 overflow-hidden text-white rounded-t-[40px] sm:rounded-t-[56px] md:rounded-t-[64px] shadow-[0_-25px_60px_rgba(0,0,0,0.6)] relative z-40 -mt-8 sm:-mt-12">
       
       {/* BACKGROUND AMBIENT GRADIENT */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[300px] bg-gradient-to-b from-blue-600/10 via-cyan-500/5 to-transparent blur-[160px] pointer-events-none rounded-full" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] bg-gradient-to-b from-blue-600/10 via-cyan-500/5 to-transparent blur-[160px] pointer-events-none rounded-full" />
 
       {/* TOP STATEMENT CALLOUT WITH SCROLL SCALE ANIMATION (FULL VIEWPORT HEIGHT CARD) */}
       <div ref={calloutRef} className="max-w-6xl mx-auto px-4 sm:px-6 my-16 sm:my-24 relative z-10 flex justify-center">

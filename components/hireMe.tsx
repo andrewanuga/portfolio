@@ -62,11 +62,11 @@ export default function HireMeSection() {
   return (
     <section 
       id="hire" 
-      className="relative w-full bg-gradient-to-b from-[#dbe1ea] via-[#141824] to-[#050506] py-28 px-4 sm:px-6 md:px-14 rounded-t-[40px] sm:rounded-t-[56px] md:rounded-t-[64px] shadow-[0_-25px_60px_rgba(0,0,0,0.5)] relative z-30 -mt-8 sm:-mt-12 overflow-visible"
+      className="relative w-full bg-[#e2e6eb] py-28 px-4 sm:px-6 md:px-14 rounded-t-[40px] sm:rounded-t-[56px] md:rounded-t-[64px] shadow-[0_-25px_60px_rgba(0,0,0,0.4)] relative z-30 -mt-8 sm:-mt-12 overflow-visible"
     >
       
       {/* BACKGROUND AMBIENT GLOW */}
-      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-gradient-to-r from-blue-600/10 via-blue-500/5 to-cyan-500/10 blur-[180px] pointer-events-none rounded-full" />
+      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-gradient-to-r from-blue-500/[0.06] via-cyan-500/[0.04] to-blue-600/[0.05] blur-[160px] pointer-events-none rounded-full" />
 
       {/* SECTION HEADER */}
       <div className="max-w-6xl mx-auto mb-16 relative z-10">

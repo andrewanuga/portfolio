@@ -137,7 +137,7 @@ export default function FloatingUI() {
       {/* Toast */}
       <Reveal i={5} bob={1.1} className="left-[69.5%] top-[68%] hidden lg:block">
         <div className="glass flex items-center gap-2.5 rounded-full py-1.5 pl-2 pr-4 text-[10px] text-white/80">
-          <span className="h-5 w-5 rounded-full bg-gradient-to-br from-kin-lav to-[#9a7be0] flex items-center justify-center text-[10px] text-black font-bold">
+          <span className="h-5 w-5 rounded-full bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center text-[10px] text-white font-bold shadow-[0_0_10px_rgba(37,99,235,0.4)]">
             ✓
           </span>
           <span>Ready for hire · Response in &lt; 1 hr</span>
@@ -149,10 +149,10 @@ export default function FloatingUI() {
         <div className="glass rounded-2xl p-3.5 text-white">
           <p className="min-h-[1.5rem] text-[clamp(12px,1.05vw,15px)] text-white/90 font-mono">
             <span ref={typedRef} />
-            <span className="ml-px inline-block h-[1.05em] w-px translate-y-[2px] animate-blink bg-kin-lime" />
+            <span className="ml-px inline-block h-[1.05em] w-px translate-y-[2px] animate-blink bg-blue-500" />
           </p>
           <div className="mt-3 flex items-center gap-2 text-[10px] text-white/70">
-            <span className="flex h-6 w-6 items-center justify-center rounded-md bg-white/10 text-sm leading-none text-kin-lime">
+            <span className="flex h-6 w-6 items-center justify-center rounded-md bg-white/10 text-sm leading-none text-blue-400 font-mono">
               &gt;
             </span>
             <span className="rounded-md bg-white/10 px-2 py-1">LLMs</span>
@@ -163,7 +163,7 @@ export default function FloatingUI() {
             <a
               href="#hire"
               aria-label="Send"
-              className="flex h-6 w-6 items-center justify-center rounded-md bg-kin-lime text-black transition hover:brightness-95"
+              className="flex h-6 w-6 items-center justify-center rounded-md bg-blue-600 text-white transition hover:bg-blue-500 shadow-[0_0_12px_rgba(37,99,235,0.45)]"
             >
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M12 19V5M5 12l7-7 7 7" />

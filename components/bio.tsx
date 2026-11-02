@@ -50,7 +50,7 @@ const TIMELINE: Milestone[] = [
     org: "Autonomous Systems",
     detail: "Pioneering stateful multi-agent workflows using LangGraph, autonomous tool execution, and real-time retrieval-augmented generation (RAG).",
     icon: Bot,
-    accent: "#e6f43c"
+    accent: "#3b82f6"
   },
   { 
     year: "2026", 
@@ -181,13 +181,13 @@ export default function BioSection() {
             <a
               href="/Adakole_Andrew_Oche_Resume.pdf"
               download
-              className="flex items-center justify-between p-4 rounded-xl bg-kin-lime text-black font-mono font-bold text-xs uppercase tracking-wider hover:brightness-95 transition-all shadow-[0_0_20px_rgba(230,244,60,0.3)] group"
+              className="flex items-center justify-between p-4 rounded-xl bg-blue-600 text-white font-mono font-bold text-xs uppercase tracking-wider hover:bg-blue-500 transition-all shadow-[0_0_20px_rgba(37,99,235,0.4)] group"
             >
               <div>
-                <p className="text-[8px] opacity-70">CONFIRMED DOSSIER</p>
+                <p className="text-[8px] opacity-75">CONFIRMED DOSSIER</p>
                 <p className="text-sm italic">Download Resume</p>
               </div>
-              <div className="p-2 rounded-lg bg-black text-kin-lime group-hover:scale-105 transition-transform">
+              <div className="p-2 rounded-lg bg-black/40 text-blue-200 group-hover:scale-105 transition-transform">
                 <Download size={16} />
               </div>
             </a>

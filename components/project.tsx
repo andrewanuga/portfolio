@@ -39,7 +39,7 @@ const PROJECTS: Project[] = [
     link: "https://github.com/andrewanuga/Socially",
     github: "https://github.com/andrewanuga/Socially",
     status: "OPERATIONAL",
-    accent: "#e6f43c",
+    accent: "#3b82f6",
     customVisual: "socially"
   },
   {
@@ -131,9 +131,9 @@ function ProjectVisual({ project }: { project: Project }) {
 
   if (project.customVisual === "socially") {
     return (
-      <div className="relative w-full h-full min-h-[220px] sm:min-h-[280px] rounded-xl overflow-hidden bg-gradient-to-br from-[#12111c] via-[#090812] to-black border border-white/10 p-6 flex flex-col justify-between group-hover:border-[#e6f43c]/30 transition-all">
+      <div className="relative w-full h-full min-h-[220px] sm:min-h-[280px] rounded-xl overflow-hidden bg-gradient-to-br from-[#0c1220] via-[#080d18] to-black border border-white/10 p-6 flex flex-col justify-between group-hover:border-blue-500/40 transition-all">
         <div className="flex items-center justify-between font-mono text-[9px] text-white/50">
-          <span className="flex items-center gap-1.5 text-kin-lime">
+          <span className="flex items-center gap-1.5 text-blue-400">
             <Bot size={11} /> AI_ORCHESTRATOR
           </span>
           <span>LATENCY // 18ms</span>
@@ -144,10 +144,10 @@ function ProjectVisual({ project }: { project: Project }) {
           <div className="glass p-3 rounded-lg border border-white/10">
             <div className="flex justify-between items-center text-[10px] text-white/80 font-mono mb-2">
               <span>Viral Hook Generator</span>
-              <span className="text-kin-lime font-bold">98.4% Match</span>
+              <span className="text-blue-400 font-bold">98.4% Match</span>
             </div>
             <div className="h-1.5 w-full bg-white/10 rounded-full overflow-hidden">
-              <div className="h-full bg-gradient-to-r from-kin-lav to-kin-lime rounded-full w-[85%]" />
+              <div className="h-full bg-gradient-to-r from-blue-400 to-blue-600 rounded-full w-[85%]" />
             </div>
           </div>
 
@@ -327,7 +327,7 @@ export default function ProjectSection() {
                   aria-label={`Jump to ${p.title}`}
                   className={`h-2.5 rounded-full transition-all duration-300 ${
                     i === activeIdx 
-                      ? "w-8 bg-kin-lime shadow-[0_0_10px_rgba(230,244,60,0.6)]" 
+                      ? "w-8 bg-blue-500 shadow-[0_0_12px_rgba(59,130,246,0.6)]" 
                       : "w-2.5 bg-white/20 hover:bg-white/40"
                   }`}
                 />
@@ -410,7 +410,7 @@ export default function ProjectSection() {
                       href={project.link}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-2 px-4 py-2 rounded-xl bg-kin-lime text-black font-mono text-xs font-bold hover:brightness-95 transition-all shadow-[0_0_15px_rgba(230,244,60,0.25)]"
+                      className="flex items-center gap-2 px-4 py-2 rounded-xl bg-blue-600 text-white font-mono text-xs font-bold hover:bg-blue-500 transition-all shadow-[0_0_15px_rgba(37,99,235,0.4)]"
                     >
                       <span>Live Deploy</span>
                       <ExternalLink size={13} />
@@ -440,7 +440,7 @@ export default function ProjectSection() {
           <div className="h-1 flex-1 bg-white/10 rounded-full overflow-hidden">
             <div 
               ref={progressFillRef}
-              className="h-full bg-gradient-to-r from-kin-lav to-kin-lime rounded-full w-0 transition-all duration-75 shadow-[0_0_10px_rgba(230,244,60,0.5)]"
+              className="h-full bg-gradient-to-r from-blue-400 to-blue-600 rounded-full w-0 transition-all duration-75 shadow-[0_0_10px_rgba(37,99,235,0.5)]"
             />
           </div>
           <span className="text-[9px] font-mono text-white/40 uppercase tracking-widest whitespace-nowrap">
@@ -532,7 +532,7 @@ export default function ProjectSection() {
                     href={project.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-xl bg-kin-lime text-black font-mono text-[11px] font-bold"
+                    className="flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-xl bg-blue-600 text-white font-mono text-[11px] font-bold shadow-[0_0_12px_rgba(37,99,235,0.4)]"
                   >
                     <span>Deploy</span>
                     <ExternalLink size={12} />
@@ -555,7 +555,7 @@ export default function ProjectSection() {
         {/* MOBILE PAGINATION */}
         <div className="mt-6 flex items-center justify-between font-mono text-[10px] text-white/50">
           <span>{PROJECTS.length} Systems Active</span>
-          <a href="https://github.com/andrewanuga" target="_blank" rel="noopener noreferrer" className="text-kin-lime underline">
+          <a href="https://github.com/andrewanuga" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300 underline">
             View All On GitHub →
           </a>
         </div>

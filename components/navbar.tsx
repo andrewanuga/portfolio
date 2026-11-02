@@ -80,7 +80,7 @@ export default function Navbar() {
           </a>
           <a
             href="#hire"
-            className="rounded-lg bg-kin-lime px-3 py-1.5 font-semibold text-black shadow-[0_0_0_2px_rgba(0,0,0,.85)] transition hover:brightness-95"
+            className="rounded-lg bg-blue-600 px-3.5 py-1.5 font-semibold text-white shadow-[0_0_15px_rgba(37,99,235,0.45)] transition hover:bg-blue-500 hover:shadow-[0_0_20px_rgba(37,99,235,0.6)]"
           >
             Hire Me
           </a>

@@ -66,10 +66,10 @@ const SKILL_GROUPS: SkillCategory[] = [
     id: "ai",
     category: "AI_&_Agentic_Logic",
     icon: BrainCircuit,
-    colorName: "Kin Lime",
-    gradient: "linear-gradient(90deg, #e6f43c 0%, #00f5a0 100%)",
-    glowColor: "rgba(230, 244, 60, 0.7)",
-    accentHex: "#e6f43c",
+    colorName: "Electric Sapphire",
+    gradient: "linear-gradient(90deg, #2563eb 0%, #38bdf8 100%)",
+    glowColor: "rgba(37, 99, 235, 0.7)",
+    accentHex: "#3b82f6",
     skills: [
       { name: "Python (NumPy / SciPy)", level: 92, badge: "PRODUCTION" },
       { name: "PyTorch & TensorFlow", level: 85, badge: "PRODUCTION" },
@@ -276,10 +276,10 @@ export default function SkillSection() {
           {/* REPLAY ANIMATION BUTTON */}
           <button
             onClick={handleReplay}
-            className="self-start sm:self-auto flex items-center gap-2 px-4 py-2 rounded-xl bg-white/5 hover:bg-white/15 border border-white/10 text-white font-mono text-xs transition-all hover:border-kin-lime/50"
+            className="self-start sm:self-auto flex items-center gap-2 px-4 py-2 rounded-xl bg-white/5 hover:bg-white/15 border border-white/10 text-white font-mono text-xs transition-all hover:border-blue-500/50"
             title="Re-run skill loading sequence"
           >
-            <RotateCcw size={13} className="text-kin-lime" />
+            <RotateCcw size={13} className="text-blue-400" />
             <span>Replay Loading</span>
           </button>
         </div>
@@ -290,7 +290,7 @@ export default function SkillSection() {
             onClick={() => setActiveCategory("all")}
             className={`px-3 py-1.5 rounded-lg text-xs font-mono transition-all ${
               activeCategory === "all"
-                ? "bg-kin-lime text-black font-bold shadow-[0_0_12px_rgba(230,244,60,0.4)]"
+                ? "bg-blue-600 text-white font-bold shadow-[0_0_15px_rgba(37,99,235,0.5)]"
                 : "bg-white/5 text-white/60 hover:text-white hover:bg-white/10"
             }`}
           >
@@ -305,14 +305,14 @@ export default function SkillSection() {
                 onClick={() => setActiveCategory(g.id)}
                 className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-mono transition-all ${
                   isActive
-                    ? "text-black font-bold shadow-lg"
+                    ? "text-white font-bold shadow-lg"
                     : "bg-white/5 text-white/60 hover:text-white hover:bg-white/10"
                 }`}
-                style={isActive ? { backgroundColor: g.accentHex, color: "#000" } : {}}
+                style={isActive ? { backgroundColor: g.accentHex, color: "#ffffff" } : {}}
               >
                 <span 
                   className="h-1.5 w-1.5 rounded-full" 
-                  style={{ backgroundColor: isActive ? "#000" : g.accentHex }} 
+                  style={{ backgroundColor: isActive ? "#ffffff" : g.accentHex }} 
                 />
                 <span>{g.category.replace("_", " ")}</span>
               </button>

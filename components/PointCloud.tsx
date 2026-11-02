@@ -157,11 +157,11 @@ function buildCloud(N: number, image: ImageData): Cloud {
 }
 
 /* ------------------------------------------------------------------ */
-/* Colour: lavender ↔ lime gradient that flips as you scroll           */
+/* Colour: deep blue ↔ electric sky blue gradient that flips as you scroll */
 /* ------------------------------------------------------------------ */
 
-const LAV: [number, number, number] = [200, 178, 244];
-const YEL: [number, number, number] = [228, 240, 96];
+const LAV: [number, number, number] = [37, 99, 235]; // Brand Blue #2563eb
+const YEL: [number, number, number] = [56, 189, 248]; // Electric Sky Cyan #38bdf8
 const BRIGHT = [0.32, 0.44, 0.57, 0.70, 0.83, 0.96, 1.08, 1.18];
 const ALPHA = [0.65, 0.73, 0.81, 0.88, 0.93, 0.97, 1, 1];
 
@@ -283,8 +283,8 @@ export default function PointCloud() {
       const glowA = 0.2 * (1 - d) * (1 - s.vox);
       if (glowA > 0.005) {
         const gr = ctx.createRadialGradient(W / 2, H * 1.02, 0, W / 2, H * 1.02, W * 0.34);
-        gr.addColorStop(0, `rgba(226,240,90,${glowA})`);
-        gr.addColorStop(1, "rgba(226,240,90,0)");
+        gr.addColorStop(0, `rgba(37,99,235,${glowA})`);
+        gr.addColorStop(1, "rgba(37,99,235,0)");
         ctx.fillStyle = gr;
         ctx.fillRect(0, 0, W, H);
       }

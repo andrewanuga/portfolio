@@ -12,7 +12,7 @@ import SkillSection from "@/components/skills";
 
 export default function MainPage() {
   return (
-    <main className="relative min-h-screen w-full bg-[#050506] text-white selection:bg-[#e6f43c]/30 selection:text-white">
+    <main className="relative min-h-screen w-full bg-[#050506] text-white selection:bg-blue-600/30 selection:text-white">
       <Navbar />
       <Stage />
       <ProjectSection />

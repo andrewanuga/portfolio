@@ -109,7 +109,7 @@ export default function HireMeSection() {
                 className="text-5xl sm:text-6xl font-black text-white tracking-tighter"
               >
                 ${budget.toLocaleString()}
-                <span className="text-sm font-mono text-kin-lime ml-2">USD</span>
+                <span className="text-sm font-mono text-blue-400 ml-2">USD</span>
               </motion.div>
               <input
                 type="range"
@@ -118,7 +118,7 @@ export default function HireMeSection() {
                 step="500"
                 value={budget}
                 onChange={(e) => setBudget(Number(e.target.value))}
-                className="w-full h-1.5 bg-white/10 rounded-lg appearance-none cursor-pointer accent-[#e6f43c]"
+                className="w-full h-1.5 bg-white/10 rounded-lg appearance-none cursor-pointer accent-[#2563eb]"
               />
               <div className="flex justify-between text-white/40 text-xs font-mono">
                 <span>$1K (Sprint MVP)</span>
@@ -153,7 +153,7 @@ export default function HireMeSection() {
                     type="text" 
                     placeholder="Ada Lovelace" 
                     disabled={loading}
-                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white text-sm font-mono focus:border-kin-lime outline-none transition-all placeholder:text-white/20 disabled:opacity-50" 
+                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white text-sm font-mono focus:border-blue-500 outline-none transition-all placeholder:text-white/20 disabled:opacity-50" 
                   />
                 </FormField>
 
@@ -164,7 +164,7 @@ export default function HireMeSection() {
                     type="email" 
                     placeholder="ada@domain.com" 
                     disabled={loading}
-                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white text-sm font-mono focus:border-kin-lime outline-none transition-all placeholder:text-white/20 disabled:opacity-50" 
+                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white text-sm font-mono focus:border-blue-500 outline-none transition-all placeholder:text-white/20 disabled:opacity-50" 
                   />
                 </FormField>
 
@@ -172,7 +172,7 @@ export default function HireMeSection() {
                   <select 
                     name="project_type" 
                     disabled={loading}
-                    className="w-full bg-[#1c1c20] border border-white/10 rounded-xl px-4 py-3 text-white text-sm font-mono focus:border-kin-lime outline-none appearance-none cursor-pointer disabled:opacity-50"
+                    className="w-full bg-[#1c1c20] border border-white/10 rounded-xl px-4 py-3 text-white text-sm font-mono focus:border-blue-500 outline-none appearance-none cursor-pointer disabled:opacity-50"
                   >
                     <option>FULL-STACK WEB ARCHITECTURE</option>
                     <option>AGENTIC AI &amp; MULTI-AGENT SYSTEMS</option>
@@ -186,7 +186,7 @@ export default function HireMeSection() {
                   <select 
                     name="priority_level" 
                     disabled={loading}
-                    className="w-full bg-[#1c1c20] border border-white/10 rounded-xl px-4 py-3 text-white text-sm font-mono focus:border-kin-lime outline-none appearance-none cursor-pointer disabled:opacity-50"
+                    className="w-full bg-[#1c1c20] border border-white/10 rounded-xl px-4 py-3 text-white text-sm font-mono focus:border-blue-500 outline-none appearance-none cursor-pointer disabled:opacity-50"
                   >
                     <option>NORMAL_DEPLOYMENT (2-4 WEEKS)</option>
                     <option>CRITICAL_PATH (URGENT SPRINT)</option>
@@ -203,7 +203,7 @@ export default function HireMeSection() {
                       rows={4} 
                       placeholder="Outline system goals, deliverables, timeline, or architecture requirements..." 
                       disabled={loading}
-                      className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white text-sm font-mono focus:border-kin-lime outline-none resize-none transition-all placeholder:text-white/20 disabled:opacity-50" 
+                      className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white text-sm font-mono focus:border-blue-500 outline-none resize-none transition-all placeholder:text-white/20 disabled:opacity-50" 
                     />
                   </FormField>
                 </div>
@@ -222,7 +222,7 @@ export default function HireMeSection() {
                     className={`w-full rounded-xl py-4 font-black uppercase tracking-[0.3em] text-xs flex items-center justify-center gap-3 transition-all ${
                       loading 
                         ? "bg-white/10 text-white/50 cursor-not-allowed" 
-                        : "bg-kin-lime text-black hover:brightness-95 active:scale-[0.99]"
+                        : "bg-blue-600 text-white hover:bg-blue-500 shadow-[0_0_25px_rgba(37,99,235,0.4)] active:scale-[0.99]"
                     }`}
                   >
                     {loading ? (
@@ -246,13 +246,13 @@ export default function HireMeSection() {
                 animate={{ opacity: 1, y: 0 }}
                 className="py-12 font-mono text-center max-w-lg mx-auto"
               >
-                <div className="text-xs uppercase tracking-[0.5em] mb-4 text-kin-lime font-bold">
+                <div className="text-xs uppercase tracking-[0.5em] mb-4 text-blue-400 font-bold">
                   ✓ Handshake_Complete
                 </div>
                 <p className="text-2xl sm:text-3xl font-black italic uppercase leading-tight text-white tracking-tight">
                   {statusMsg}
                   {!typingComplete && (
-                    <span className="inline-block w-2 h-6 bg-kin-lime ml-2 align-middle animate-pulse" />
+                    <span className="inline-block w-2 h-6 bg-blue-500 ml-2 align-middle animate-pulse" />
                   )}
                 </p>
                 <button

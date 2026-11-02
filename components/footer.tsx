@@ -61,7 +61,7 @@ export default function FooterSection() {
     <footer className="relative w-full bg-[#030305] border-t border-white/10 pt-28 pb-14 px-6 md:px-14 overflow-hidden text-white">
       
       {/* BACKGROUND AMBIENT GRADIENT */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[300px] bg-gradient-to-b from-kin-lime/5 via-blue-500/5 to-transparent blur-[160px] pointer-events-none rounded-full" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[300px] bg-gradient-to-b from-blue-600/10 via-cyan-500/5 to-transparent blur-[160px] pointer-events-none rounded-full" />
 
       {/* TOP STATEMENT CALLOUT */}
       <div className="max-w-7xl mx-auto mb-20 relative z-10">
@@ -70,7 +70,7 @@ export default function FooterSection() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             
             <div className="lg:col-span-8 space-y-4">
-              <div className="flex items-center gap-2 text-[10px] font-mono text-kin-lime uppercase tracking-[0.4em]">
+              <div className="flex items-center gap-2 text-[10px] font-mono text-blue-400 uppercase tracking-[0.4em]">
                 <Radio size={14} className="animate-pulse" />
                 <span>Ready to deploy // High-Stakes Collaboration</span>
               </div>
@@ -86,7 +86,7 @@ export default function FooterSection() {
             <div className="lg:col-span-4 flex flex-col sm:flex-row lg:flex-col gap-3 justify-center">
               <a
                 href="#hire"
-                className="flex items-center justify-center gap-3 px-8 py-4 rounded-xl bg-kin-lime text-black font-mono text-xs font-bold uppercase tracking-widest hover:brightness-95 transition-all shadow-[0_0_25px_rgba(230,244,60,0.35)] active:scale-[0.98]"
+                className="flex items-center justify-center gap-3 px-8 py-4 rounded-xl bg-blue-600 text-white font-mono text-xs font-bold uppercase tracking-widest hover:bg-blue-500 transition-all shadow-[0_0_25px_rgba(37,99,235,0.4)] active:scale-[0.98]"
               >
                 <span>Transmit Project Request</span>
                 <ArrowUpRight size={16} />
@@ -121,7 +121,7 @@ export default function FooterSection() {
         <div className="lg:col-span-4 space-y-5">
           <div className="flex items-center gap-3">
             <span className="text-2xl font-black italic tracking-tight text-white uppercase">
-              ANDREW_OCHE<span className="text-kin-lime">.SYS</span>
+              ANDREW_OCHE<span className="text-blue-500">.SYS</span>
             </span>
           </div>
           <p className="text-xs font-mono text-white/60 leading-relaxed max-w-sm">
@@ -134,7 +134,7 @@ export default function FooterSection() {
               download
               className="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg bg-white/10 hover:bg-white/20 text-white font-mono text-xs transition-all"
             >
-              <Download size={13} className="text-kin-lime" />
+              <Download size={13} className="text-blue-400" />
               <span>Download CV</span>
             </a>
 
@@ -164,7 +164,7 @@ export default function FooterSection() {
               <li key={link.label}>
                 <a 
                   href={link.href} 
-                  className="text-white/70 hover:text-kin-lime hover:translate-x-1 transition-all inline-block"
+                  className="text-white/70 hover:text-blue-400 hover:translate-x-1 transition-all inline-block"
                 >
                   → {link.label}
                 </a>
@@ -183,7 +183,7 @@ export default function FooterSection() {
             <li>Full-Stack Next.js 16</li>
             <li>ML &amp; PyTorch Pipelines</li>
             <li>Native React Native</li>
-            <li>Thecla Startup Engine</li>
+            <li>Edge Cloud Architecture</li>
           </ul>
         </div>
 
@@ -204,7 +204,7 @@ export default function FooterSection() {
           <div className="glass p-3 rounded-xl border border-white/5 font-mono text-[10px] space-y-1.5 text-white/50">
             <div className="flex items-center justify-between">
               <span className="flex items-center gap-1.5 text-white/70">
-                <MapPin size={11} className="text-kin-lime" />
+                <MapPin size={11} className="text-blue-400" />
                 Lagos, NG
               </span>
               <span className="text-emerald-400 font-bold">● ONLINE</span>
@@ -215,7 +215,7 @@ export default function FooterSection() {
             </div>
             <div className="flex items-center justify-between text-white/40">
               <span>LATENCY</span>
-              <span className="text-kin-lime">24ms // STABLE</span>
+              <span className="text-blue-400">24ms // STABLE</span>
             </div>
           </div>
         </div>

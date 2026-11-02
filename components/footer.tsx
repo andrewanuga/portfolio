@@ -75,10 +75,10 @@ export default function FooterSection() {
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] bg-gradient-to-b from-blue-600/10 via-cyan-500/5 to-transparent blur-[160px] pointer-events-none rounded-full" />
 
       {/* TOP STATEMENT CALLOUT WITH SCROLL SCALE ANIMATION (FULL VIEWPORT HEIGHT CARD) */}
-      <div ref={calloutRef} className="max-w-6xl mx-auto px-4 sm:px-6 my-16 sm:my-24 relative z-10 flex justify-center">
+      <div ref={calloutRef} className="mx-auto px-4 sm:px-6 my-16 sm:my-24 relative z-10 flex justify-center">
         <motion.div 
           style={{ scale, opacity }}
-          className="w-full h-dvh min-h-[580px] max-h-[920px] origin-center p-8 sm:p-12 md:p-16 rounded-3xl border border-slate-300/80 relative overflow-hidden bg-[#e2e6eb] shadow-[0_30px_70px_-15px_rgba(0,0,0,0.35)] hover:border-blue-500/40 transition-colors flex flex-col justify-between text-slate-900"
+          className="w-full h-dvh origin-center p-8 sm:p-12 md:p-16 rounded-3xl border border-slate-300/80 relative overflow-hidden bg-[#e2e6eb] shadow-[0_30px_70px_-15px_rgba(0,0,0,0.35)] hover:border-blue-500/40 transition-colors flex flex-col justify-between text-slate-900"
         >
           {/* Subtle Ambient Backlight inside the Card */}
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[300px] bg-blue-500/[0.08] blur-[120px] pointer-events-none rounded-full" />
@@ -111,9 +111,7 @@ export default function FooterSection() {
               <span className="text-slate-500 font-light">SOMETHING EXCEPTIONAL.</span>
             </h2>
 
-            <p className="text-sm sm:text-base text-slate-700 max-w-xl mx-auto leading-relaxed font-medium">
-              Available for freelance engineering, full-stack product sprints, and AI system architecture. Let&apos;s build software that makes an impact.
-            </p>
+            
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
               <a

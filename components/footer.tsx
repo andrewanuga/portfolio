@@ -78,47 +78,47 @@ export default function FooterSection() {
       <div ref={calloutRef} className="max-w-6xl mx-auto px-4 sm:px-6 my-16 sm:my-24 relative z-10 flex justify-center">
         <motion.div 
           style={{ scale, opacity }}
-          className="w-full h-dvh min-h-[580px] max-h-[920px] origin-center p-8 sm:p-12 md:p-16 rounded-3xl border border-white/10 relative overflow-hidden bg-[#090b12] shadow-2xl hover:border-blue-500/30 transition-colors flex flex-col justify-between"
+          className="w-full h-dvh min-h-[580px] max-h-[920px] origin-center p-8 sm:p-12 md:p-16 rounded-3xl border border-slate-300/80 relative overflow-hidden bg-[#e2e6eb] shadow-[0_30px_70px_-15px_rgba(0,0,0,0.35)] hover:border-blue-500/40 transition-colors flex flex-col justify-between text-slate-900"
         >
           {/* Subtle Ambient Backlight inside the Card */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[300px] bg-blue-600/10 blur-[120px] pointer-events-none rounded-full" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[300px] bg-blue-500/[0.08] blur-[120px] pointer-events-none rounded-full" />
 
           {/* TOP BAR: Status & Timezone */}
-          <div className="relative z-10 flex flex-wrap items-center justify-between gap-4 pb-6 border-b border-white/10">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-semibold">
-              <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
+          <div className="relative z-10 flex flex-wrap items-center justify-between gap-4 pb-6 border-b border-slate-300">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-100 border border-emerald-300 text-emerald-800 text-xs font-semibold">
+              <span className="h-2 w-2 rounded-full bg-emerald-600 animate-pulse" />
               <span>Available for New Projects</span>
             </div>
 
-            <div className="flex items-center gap-3 text-xs text-white/50">
-              <span className="flex items-center gap-1.5 text-white/70">
-                <MapPin size={13} className="text-blue-400" />
+            <div className="flex items-center gap-3 text-xs text-slate-600 font-medium">
+              <span className="flex items-center gap-1.5 text-slate-800">
+                <MapPin size={13} className="text-blue-600" />
                 <span>Lagos, Nigeria</span>
               </span>
-              <span className="text-white/20">•</span>
-              <span className="font-mono text-white/80">{lagosTime} (WAT)</span>
+              <span className="text-slate-400">•</span>
+              <span className="font-mono text-slate-700 font-semibold">{lagosTime} (WAT)</span>
             </div>
           </div>
 
           {/* CENTER HERO AREA: Large Statement & Action CTAs */}
           <div className="relative z-10 my-auto py-8 text-center max-w-3xl mx-auto space-y-6">
-            <div className="inline-block text-xs font-bold tracking-[0.2em] text-blue-400 uppercase">
+            <div className="inline-block text-xs font-bold tracking-[0.2em] text-blue-600 uppercase">
               Got an Ambitious Vision?
             </div>
 
-            <h2 className="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-white leading-[1.08]">
+            <h2 className="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-slate-900 leading-[1.08]">
               LET&apos;S BUILD <br />
-              <span className="text-white/30 font-light">SOMETHING EXCEPTIONAL.</span>
+              <span className="text-slate-500 font-light">SOMETHING EXCEPTIONAL.</span>
             </h2>
 
-            <p className="text-sm sm:text-base text-white/60 max-w-xl mx-auto leading-relaxed">
+            <p className="text-sm sm:text-base text-slate-700 max-w-xl mx-auto leading-relaxed font-medium">
               Available for freelance engineering, full-stack product sprints, and AI system architecture. Let&apos;s build software that makes an impact.
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
               <a
                 href="#hire"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-full bg-blue-600 text-white font-semibold text-sm hover:bg-blue-500 transition-all shadow-[0_0_30px_rgba(37,99,235,0.45)] hover:scale-105 active:scale-95 cursor-pointer"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-full bg-blue-600 text-white font-semibold text-sm hover:bg-blue-500 transition-all shadow-[0_0_25px_rgba(37,99,235,0.4)] hover:scale-105 active:scale-95 cursor-pointer"
               >
                 <span>Get in Touch</span>
                 <ArrowUpRight size={16} />
@@ -126,16 +126,16 @@ export default function FooterSection() {
 
               <button
                 onClick={copyToClipboard}
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-7 py-4 rounded-full bg-white/[0.05] hover:bg-white/[0.1] border border-white/10 text-white text-xs font-semibold backdrop-blur-md transition-all hover:scale-105 active:scale-95 cursor-pointer"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-7 py-4 rounded-full bg-white/80 hover:bg-white text-slate-800 border border-slate-300 shadow-sm text-xs font-semibold backdrop-blur-md transition-all hover:scale-105 active:scale-95 cursor-pointer"
               >
                 {copied ? (
                   <>
-                    <Check size={14} className="text-emerald-400" />
-                    <span className="text-emerald-400 font-semibold">Copied to Clipboard!</span>
+                    <Check size={14} className="text-emerald-600" />
+                    <span className="text-emerald-700 font-semibold">Copied to Clipboard!</span>
                   </>
                 ) : (
                   <>
-                    <Copy size={14} className="text-white/60" />
+                    <Copy size={14} className="text-slate-600" />
                     <span>Copy Email Address</span>
                   </>
                 )}
@@ -144,18 +144,18 @@ export default function FooterSection() {
           </div>
 
           {/* BOTTOM HIGHLIGHTS ROW: Value Pillars */}
-          <div className="relative z-10 pt-6 border-t border-white/10 grid grid-cols-1 sm:grid-cols-3 gap-4 text-left">
+          <div className="relative z-10 pt-6 border-t border-slate-300 grid grid-cols-1 sm:grid-cols-3 gap-4 text-left">
             <div className="space-y-1">
-              <span className="text-[10px] font-bold uppercase tracking-wider text-blue-400">01 / High Velocity</span>
-              <p className="text-xs text-white/60">Rapid delivery from concept to production launch.</p>
+              <span className="text-[10px] font-bold uppercase tracking-wider text-blue-600">01 / High Velocity</span>
+              <p className="text-xs text-slate-600 font-medium">Rapid delivery from concept to production launch.</p>
             </div>
             <div className="space-y-1">
-              <span className="text-[10px] font-bold uppercase tracking-wider text-blue-400">02 / Full Ownership</span>
-              <p className="text-xs text-white/60">System architecture, backend APIs, and sleek UI polish.</p>
+              <span className="text-[10px] font-bold uppercase tracking-wider text-blue-600">02 / Full Ownership</span>
+              <p className="text-xs text-slate-600 font-medium">System architecture, backend APIs, and sleek UI polish.</p>
             </div>
             <div className="space-y-1">
-              <span className="text-[10px] font-bold uppercase tracking-wider text-blue-400">03 / Global Remote</span>
-              <p className="text-xs text-white/60">Seamless asynchronous collaboration across timezones.</p>
+              <span className="text-[10px] font-bold uppercase tracking-wider text-blue-600">03 / Global Remote</span>
+              <p className="text-xs text-slate-600 font-medium">Seamless asynchronous collaboration across timezones.</p>
             </div>
           </div>
 

@@ -168,19 +168,7 @@ export default function FooterSection() {
           </ul>
         </div>
 
-        {/* SPECIALIZATION (2/12) */}
-        <div className="lg:col-span-2 space-y-3">
-          <p className="text-xs text-white/40 uppercase tracking-widest font-semibold">
-            Expertise
-          </p>
-          <ul className="space-y-2 text-white/60 text-sm">
-            <li>Next.js &amp; React</li>
-            <li>TypeScript</li>
-            <li>AI &amp; Machine Learning</li>
-            <li>AI Agents &amp; LangGraph</li>
-            <li>React Native Mobile</li>
-          </ul>
-        </div>
+        
 
         {/* SOCIAL CHANNELS & TELEMETRY (3/12) */}
         <div className="lg:col-span-3 space-y-4">
@@ -194,24 +182,7 @@ export default function FooterSection() {
             <SocialIcon url="https://twitter.com" label="Twitter / X" href="https://x.com/adakole56andrew" target="_blank" />
             <SocialIcon url="https://instagram.com" label="Instagram" href="https://www.instagram.com/andrew_phiip_neri/" target="_blank" />
           </div>
-
-          {/* LOCATION STATUS BOX */}
-          <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/5 text-xs space-y-2 text-white/60">
-            <div className="flex items-center justify-between">
-              <span className="flex items-center gap-1.5 text-white/80">
-                <MapPin size={13} className="text-blue-400" />
-                Lagos, Nigeria
-              </span>
-              <span className="text-emerald-400 font-semibold flex items-center gap-1">
-                <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                Online
-              </span>
-            </div>
-            <div className="flex items-center justify-between text-white/40 pt-1 border-t border-white/5">
-              <span>Local Time</span>
-              <span className="font-semibold text-white tabular-nums">{lagosTime} WAT</span>
-            </div>
-          </div>
+          
         </div>
 
       </div>

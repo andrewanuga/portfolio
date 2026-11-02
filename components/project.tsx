@@ -565,5 +565,3 @@ export default function ProjectSection() {
     </section>
   );
 }
-
-// Added high-fidelity image viewports and interactive telemetry visualizers

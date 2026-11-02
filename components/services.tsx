@@ -127,15 +127,15 @@ export default function ServicesSection() {
                   top: stickyTop,
                   zIndex: idx + 10
                 }}
-                className="sticky rounded-3xl p-6 sm:p-8 md:p-10 transition-all duration-300 border border-slate-300/80 group bg-white shadow-[0_20px_50px_-15px_rgba(15,23,42,0.09),0_0_1px_rgba(15,23,42,0.06)] hover:border-blue-500/50 hover:shadow-[0_25px_60px_-15px_rgba(37,99,235,0.15)]"
+                className="sticky rounded-3xl p-6 sm:p-8 md:p-10 transition-all duration-300 border border-black/10 group bg-[#090c15] text-white shadow-[0_25px_60px_-15px_rgba(0,0,0,0.35)] hover:border-blue-500/40 hover:shadow-[0_30px_70px_-15px_rgba(37,99,235,0.25)]"
               >
                 {/* CARD HEADER */}
-                <div className="flex items-center justify-between pb-5 mb-6 border-b border-slate-100">
-                  <span className="px-3 py-1 rounded-full text-xs font-semibold tracking-wide bg-blue-50 text-blue-700 border border-blue-100">
+                <div className="flex items-center justify-between pb-5 mb-6 border-b border-white/10">
+                  <span className="px-3 py-1 rounded-full text-xs font-semibold tracking-wide bg-blue-500/10 text-blue-400 border border-blue-500/20">
                     {service.category}
                   </span>
 
-                  <span className="text-sm font-semibold text-slate-400 group-hover:text-blue-600 transition-colors">
+                  <span className="text-sm font-semibold text-white/30 group-hover:text-blue-400 transition-colors">
                     0{idx + 1}
                   </span>
                 </div>
@@ -147,31 +147,31 @@ export default function ServicesSection() {
                   <div className="lg:col-span-7 flex flex-col justify-between space-y-6">
                     <div>
                       <div className="flex items-center gap-3.5 mb-3">
-                        <div className="p-3 rounded-2xl bg-blue-50 border border-blue-100 text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-all duration-200 shrink-0">
+                        <div className="p-3 rounded-2xl bg-white/[0.04] border border-white/10 text-white/80 group-hover:bg-blue-600 group-hover:text-white transition-all duration-200 shrink-0">
                           <Icon size={22} strokeWidth={2} />
                         </div>
                         <div>
-                          <h3 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight group-hover:text-blue-600 transition-colors">
+                          <h3 className="text-2xl sm:text-3xl font-bold text-white tracking-tight group-hover:text-blue-400 transition-colors">
                             {service.title}
                           </h3>
-                          <p className="text-sm text-slate-500 mt-1 font-medium">
+                          <p className="text-sm text-white/60 mt-1 font-medium">
                             {service.tagline}
                           </p>
                         </div>
                       </div>
 
                       {/* CLEAN BULLET POINTS */}
-                      <div className="mt-6 pt-5 border-t border-slate-100 space-y-2.5">
+                      <div className="mt-6 pt-5 border-t border-white/10 space-y-2.5">
                         {service.deliverables.map((item) => (
                           <div 
                             key={item} 
-                            className="flex items-start gap-3 p-3 rounded-xl bg-slate-50 border border-slate-100 hover:bg-blue-50/70 hover:border-blue-200 transition-colors group/item"
+                            className="flex items-start gap-3 p-3 rounded-xl bg-white/[0.03] border border-white/5 hover:bg-white/[0.06] hover:border-blue-500/30 transition-colors group/item"
                           >
                             <CheckCircle2 
                               size={16} 
-                              className="text-blue-600 shrink-0 mt-0.5" 
+                              className="text-blue-400 shrink-0 mt-0.5" 
                             />
-                            <span className="text-sm text-slate-700 leading-relaxed group-hover/item:text-slate-900 font-medium transition-colors">
+                            <span className="text-sm text-white/80 leading-relaxed group-hover/item:text-white font-medium transition-colors">
                               {item}
                             </span>
                           </div>
@@ -180,14 +180,14 @@ export default function ServicesSection() {
                     </div>
 
                     {/* CARD FOOTER */}
-                    <div className="pt-5 border-t border-slate-100 flex items-center justify-between text-xs">
-                      <span className="text-slate-500 font-medium">
+                    <div className="pt-5 border-t border-white/10 flex items-center justify-between text-xs">
+                      <span className="text-white/40 font-medium">
                         Tailored Architecture &amp; Delivery
                       </span>
 
                       <a
                         href="#hire"
-                        className="inline-flex items-center gap-2 font-semibold text-slate-700 hover:text-blue-600 transition-colors group/link"
+                        className="inline-flex items-center gap-2 font-semibold text-white/70 hover:text-blue-400 transition-colors group/link"
                       >
                         <span>Start a Project</span>
                         <ArrowUpRight size={15} className="group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform" />
@@ -197,7 +197,7 @@ export default function ServicesSection() {
                   </div>
 
                   {/* RIGHT COLUMN: SERVICE IMAGE VIEWPORT */}
-                  <div className="lg:col-span-5 relative w-full aspect-[16/11] sm:aspect-[16/10] lg:aspect-[4/3] rounded-2xl overflow-hidden border border-slate-200 group-hover:border-blue-500/40 transition-all duration-300 shadow-lg bg-slate-100">
+                  <div className="lg:col-span-5 relative w-full aspect-[16/11] sm:aspect-[16/10] lg:aspect-[4/3] rounded-2xl overflow-hidden border border-white/10 group-hover:border-blue-500/40 transition-all duration-300 shadow-xl bg-black">
                     
                     <Image
                       src={service.image}

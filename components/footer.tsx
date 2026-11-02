@@ -1,156 +1,250 @@
 "use client";
 
-import React from "react";
-import { motion } from "framer-motion";
-import {
-  FileText,
-  ArrowUpRight,
-  Terminal,
-  Download,
-  Heart
-} from "lucide-react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { SocialIcon } from 'react-social-icons'
+import { 
+  ArrowUpRight, 
+  Download, 
+  Heart, 
+  Copy, 
+  Check, 
+  Terminal, 
+  MapPin, 
+  Radio, 
+  ExternalLink,
+  Sparkles,
+  Zap
+} from "lucide-react";
+import { SocialIcon } from "react-social-icons";
 
-const SocialLink = ({ icon: Icon, label, href }: { icon: any; label: string; href: string }) => (
-  <a 
-    href={href} 
-    target="_blank" 
-    rel="noopener noreferrer"
-    className="group flex items-center justify-between py-6 border-b border-white/5 hover:border-blue-500/30 transition-all duration-500"
-  >
-    <div className="flex items-center gap-6">
-      <div className="p-3 rounded-xl bg-zinc-900 border border-white/5 text-zinc-600 group-hover:text-blue-500 group-hover:border-blue-500/20 transition-all">
-        <Icon size={20} strokeWidth={1.5} />
-      </div>
-      <span className="text-xl md:text-2xl font-bold text-zinc-500 group-hover:text-white group-hover:italic transition-all uppercase tracking-tighter">
-        {label}
-      </span>
-    </div>
-    <ArrowUpRight className="text-zinc-800 group-hover:text-blue-500 group-hover:translate-x-1 group-hover:-translate-y-1 transition-all" size={24} />
-  </a>
-);
+function useLagosClock() {
+  const [time, setTime] = useState("--:--:--");
+  useEffect(() => {
+    const tick = () => {
+      try {
+        const d = new Date();
+        const lagosTime = d.toLocaleTimeString("en-GB", {
+          timeZone: "Africa/Lagos",
+          hour12: false,
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+        });
+        setTime(lagosTime);
+      } catch (e) {
+        const d = new Date();
+        setTime(d.toTimeString().split(" ")[0]);
+      }
+    };
+    tick();
+    const id = setInterval(tick, 1000);
+    return () => clearInterval(id);
+  }, []);
+  return time;
+}
 
 export default function FooterSection() {
+  const lagosTime = useLagosClock();
+  const [copied, setCopied] = useState(false);
+  const email = "adakole56andrew@gmail.com";
+
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(email);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2500);
+  };
+
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
-    <footer className="relative w-full bg-[#0a0a0a] border-t border-white/10 pt-24 pb-10 px-6 md:px-20 overflow-hidden">
-        {/* Background Decorative "07" */}
-        <div className="absolute -bottom-10 -left-10 text-[20rem] font-black text-white/[0.02] select-none pointer-events-none">
-          07
-        </div>
-      {/* Background Decorative Element */}
-      <div className="absolute top-0 right-0 p-20 opacity-[0.02] pointer-events-none select-none">
-        <Terminal size={400} className="text-white" />
-      </div>
+    <footer className="relative w-full bg-[#030305] border-t border-white/10 pt-28 pb-14 px-6 md:px-14 overflow-hidden text-white">
+      
+      {/* BACKGROUND AMBIENT GRADIENT */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[300px] bg-gradient-to-b from-kin-lime/5 via-blue-500/5 to-transparent blur-[160px] pointer-events-none rounded-full" />
 
-      <div className="relative z-10 grid grid-cols-1 md:grid-cols-12 gap-16 md:gap-24">
-        
-        {/* --- LEFT: BRANDING & CV (5/12) --- */}
-        <div className="md:col-span-5 flex flex-col justify-between">
-          <div>
-            <motion.div 
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              className="flex items-center gap-4 mb-8"
-            >
-              <div className="h-[1px] w-12 bg-blue-600 shadow-[0_0_8px_#3b82f6]" />
-              <span className="text-[10px] font-mono tracking-[0.5em] text-blue-500 uppercase">Export_Data // 07</span>
-            </motion.div>
+      {/* TOP STATEMENT CALLOUT */}
+      <div className="max-w-7xl mx-auto mb-20 relative z-10">
+        <div className="glass p-10 sm:p-14 rounded-3xl border border-white/10 relative overflow-hidden">
+          
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             
-            <h2 className="text-5xl md:text-7xl font-black tracking-tighter text-white uppercase italic leading-none mb-10">
-              STAY <br />
-              <span className="text-zinc-800 not-italic">CONNECTED.</span>
-            </h2>
-
-            <p className="text-zinc-500 text-sm font-light leading-relaxed max-w-xs uppercase tracking-widest mb-12">
-              Ready to <span className="text-white">collaborate</span> on high-performance systems or hire me? 
-            </p>
-          </div>
-
-          {/* DOWNLOAD CV BUTTON */}
-          <motion.a 
-            href="/Adakole_Andrew_Oche_Resume.pdf"
-            download
-            whileHover={{ scale: 0.98 }}
-            whileTap={{ scale: 0.95 }}
-            className="group relative flex items-center justify-between w-full max-w-xs p-6 rounded-2xl bg-blue-600 text-white overflow-hidden transition-all shadow-[0_0_30px_rgba(59,130,246,0.2)]"
-          >
-            <div className="relative z-10">
-              <span className="text-[10px] font-mono uppercase tracking-[0.3em] opacity-70">Curriculum_Vitae</span>
-              <h3 className="text-xl font-black italic uppercase tracking-tighter mt-1">Download_CV</h3>
-            </div>
-            <div className="relative z-10 p-3 rounded-xl bg-white/10 group-hover:bg-white/20 transition-colors">
-              <Download size={20} />
-            </div>
-            {/* Glossy overlay effect */}
-            <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
-          </motion.a>
-        </div>
-
-        {/* --- RIGHT: SOCIAL LINKS (7/12) --- */}
-        <div className="md:col-span-7 flex flex-col justify-end">
-          <div className="grid grid-cols-1 gap-3">
-            <SocialIcon url="https://linkedin.com" label="LinkedIn" href="https://www.linkedin.com/in/andrew-adakole-63462227a" />
-            <SocialIcon url="https://twitter.com" label="Twitter / X" href="https://x.com/adakole56andrew" />
-            <SocialIcon url="https://instagram.com" label="Instagram" href="https://www.instagram.com/andrew_phiip_neri/" />
-            <SocialIcon url="https://github.com" label="GitHub" href="https://github.com/andrewanuga" />
-          </div>
-
-          {/* SUPPORT / TIP LINK */}
-          <Link
-            href="/support"
-            className="group mt-6 flex items-center justify-between p-5 rounded-2xl bg-blue-600/10 border border-blue-500/20 hover:bg-blue-600 hover:border-blue-500 transition-all duration-500"
-          >
-            <div className="flex items-center gap-4">
-              <Heart size={20} className="text-blue-500 fill-blue-500 group-hover:text-white group-hover:fill-white transition-colors" />
-              <div>
-                <p className="text-white text-sm font-black italic uppercase tracking-tighter">Support_My_Work</p>
-                <p className="text-zinc-500 text-[9px] font-mono uppercase tracking-widest group-hover:text-white/70 transition-colors">Tip me on MyHappr</p>
+            <div className="lg:col-span-8 space-y-4">
+              <div className="flex items-center gap-2 text-[10px] font-mono text-kin-lime uppercase tracking-[0.4em]">
+                <Sparkles size={14} />
+                <span>Ready to deploy // High-Stakes Collaboration</span>
               </div>
+              <h2 className="text-4xl sm:text-6xl lg:text-7xl font-black italic uppercase tracking-tighter leading-none">
+                LET&apos;S BUILD <br />
+                <span className="text-white/30 not-italic">SOMETHING EXCEPTIONAL.</span>
+              </h2>
+              <p className="text-xs sm:text-sm font-mono text-white/60 max-w-xl leading-relaxed pt-2">
+                Available for contract sprints, AI agent integrations, and founding engineering leadership. Have an ambitious system in mind?
+              </p>
             </div>
-            <ArrowUpRight className="text-zinc-600 group-hover:text-white group-hover:translate-x-1 group-hover:-translate-y-1 transition-all" size={22} />
-          </Link>
-        </div>
-      </div>
 
-      {/* --- BOTTOM BAR: COPYRIGHT & METADATA --- */}
-      <div className="relative z-10 mt-32 pt-10 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-8">
-        
-        {/* Logo/Copy */}
-        <div className="flex items-center gap-6">
-          <span className="text-white font-black italic tracking-tighter text-lg uppercase">
-            Andrew_Oche<span className="text-blue-600">.SYS</span>
-          </span>
-          <span className="text-[10px] font-mono text-zinc-700 uppercase tracking-widest">
-            &copy; Andrew_2026. ALL_RIGHTS_RESERVED
-          </span>
-        </div>
+            <div className="lg:col-span-4 flex flex-col sm:flex-row lg:flex-col gap-3 justify-center">
+              <a
+                href="#hire"
+                className="flex items-center justify-center gap-3 px-8 py-4 rounded-xl bg-kin-lime text-black font-mono text-xs font-bold uppercase tracking-widest hover:brightness-95 transition-all shadow-[0_0_25px_rgba(230,244,60,0.35)] active:scale-[0.98]"
+              >
+                <span>Transmit Project Request</span>
+                <ArrowUpRight size={16} />
+              </a>
 
-        {/* System Details */}
-        <div className="hidden lg:flex items-center gap-12 text-[8px] font-mono text-zinc-800 uppercase tracking-[0.4em]">
-          <span>Lagos_NG // 6.5244° N, 3.3792° E</span>
-          <span>Latency: 24ms</span>
-          <span>Status: Online</span>
-        </div>
+              <button
+                onClick={copyToClipboard}
+                className="flex items-center justify-center gap-2.5 px-6 py-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-white font-mono text-xs transition-all"
+              >
+                {copied ? (
+                  <>
+                    <Check size={14} className="text-emerald-400" />
+                    <span className="text-emerald-400 font-bold">Copied to Clipboard!</span>
+                  </>
+                ) : (
+                  <>
+                    <Copy size={14} className="text-white/60" />
+                    <span>Copy Email Address</span>
+                  </>
+                )}
+              </button>
+            </div>
 
-        {/* Back to Top */}
-        <button 
-          onClick={scrollToTop}
-          className="group flex items-center gap-3 text-[10px] font-mono text-zinc-500 hover:text-blue-500 transition-colors uppercase tracking-widest"
-        >
-          Return_To_Top 
-          <div className="p-2 rounded-full border border-zinc-800 group-hover:border-blue-500 group-hover:-translate-y-1 transition-all">
-            <ArrowUpRight className="-rotate-45" size={12} />
           </div>
-        </button>
+        </div>
       </div>
 
-      {/* Final Industrial Marker */}
-      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 w-full max-w-[90%] h-[1px] bg-gradient-to-r from-transparent via-zinc-900 to-transparent" />
+      {/* DIRECTORY COLUMNS */}
+      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 pb-16 border-b border-white/10 relative z-10">
+        
+        {/* BRANDING (4/12) */}
+        <div className="lg:col-span-4 space-y-5">
+          <div className="flex items-center gap-3">
+            <span className="text-2xl font-black italic tracking-tight text-white uppercase">
+              ANDREW_OCHE<span className="text-kin-lime">.SYS</span>
+            </span>
+          </div>
+          <p className="text-xs font-mono text-white/60 leading-relaxed max-w-sm">
+            Full-Stack &amp; AI Engineer. Architecting production Next.js ecosystems, autonomous agent workflows with LangGraph, and scalable machine intelligence.
+          </p>
+
+          <div className="flex items-center gap-2 pt-2">
+            <a
+              href="/Adakole_Andrew_Oche_Resume.pdf"
+              download
+              className="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg bg-white/10 hover:bg-white/20 text-white font-mono text-xs transition-all"
+            >
+              <Download size={13} className="text-kin-lime" />
+              <span>Download CV</span>
+            </a>
+
+            <Link
+              href="/support"
+              className="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg bg-purple-500/10 hover:bg-purple-500/20 text-purple-300 border border-purple-500/20 font-mono text-xs transition-all"
+            >
+              <Heart size={13} className="text-purple-400 fill-purple-400" />
+              <span>Tip on MyHappr</span>
+            </Link>
+          </div>
+        </div>
+
+        {/* NAVIGATION DIRECTORY (3/12) */}
+        <div className="lg:col-span-3 space-y-3 font-mono text-xs">
+          <p className="text-[10px] text-white/40 uppercase tracking-widest font-bold">
+            // System Directory
+          </p>
+          <ul className="space-y-2">
+            {[
+              { label: "Active Production Nodes", href: "#projects" },
+              { label: "Tech Capability Matrix", href: "#skills" },
+              { label: "Modular Services", href: "#services" },
+              { label: "Operator Dossier", href: "#about" },
+              { label: "Transmit Project", href: "#hire" },
+            ].map((link) => (
+              <li key={link.label}>
+                <a 
+                  href={link.href} 
+                  className="text-white/70 hover:text-kin-lime hover:translate-x-1 transition-all inline-block"
+                >
+                  → {link.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* DOMAINS & SPECIALIZATION (2/12) */}
+        <div className="lg:col-span-2 space-y-3 font-mono text-xs">
+          <p className="text-[10px] text-white/40 uppercase tracking-widest font-bold">
+            // Specialization
+          </p>
+          <ul className="space-y-2 text-white/50 text-[11px]">
+            <li>Agentic AI Workflows</li>
+            <li>Full-Stack Next.js 16</li>
+            <li>ML &amp; PyTorch Pipelines</li>
+            <li>Native React Native</li>
+            <li>Thecla Startup Engine</li>
+          </ul>
+        </div>
+
+        {/* SOCIAL CHANNELS & TELEMETRY (3/12) */}
+        <div className="lg:col-span-3 space-y-4">
+          <p className="text-[10px] font-mono text-white/40 uppercase tracking-widest font-bold">
+            // Direct Networks
+          </p>
+          
+          <div className="flex flex-wrap gap-2">
+            <SocialIcon url="https://linkedin.com" label="LinkedIn" href="https://www.linkedin.com/in/andrew-adakole-63462227a" target="_blank" />
+            <SocialIcon url="https://github.com" label="GitHub" href="https://github.com/andrewanuga" target="_blank" />
+            <SocialIcon url="https://twitter.com" label="Twitter / X" href="https://x.com/adakole56andrew" target="_blank" />
+            <SocialIcon url="https://instagram.com" label="Instagram" href="https://www.instagram.com/andrew_phiip_neri/" target="_blank" />
+          </div>
+
+          {/* TELEMETRY BOX */}
+          <div className="glass p-3 rounded-xl border border-white/5 font-mono text-[10px] space-y-1.5 text-white/50">
+            <div className="flex items-center justify-between">
+              <span className="flex items-center gap-1.5 text-white/70">
+                <MapPin size={11} className="text-kin-lime" />
+                Lagos, NG
+              </span>
+              <span className="text-emerald-400 font-bold">● ONLINE</span>
+            </div>
+            <div className="flex items-center justify-between text-white/40">
+              <span>LOCAL TIME</span>
+              <span className="font-bold text-white tabular-nums">{lagosTime} WAT</span>
+            </div>
+            <div className="flex items-center justify-between text-white/40">
+              <span>LATENCY</span>
+              <span className="text-kin-lime">24ms // STABLE</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      {/* BOTTOM LEGAL BAR */}
+      <div className="max-w-7xl mx-auto mt-10 flex flex-col sm:flex-row items-center justify-between gap-6 font-mono text-[10px] text-white/40 relative z-10">
+        <div>
+          <span>&copy; {new Date().getFullYear()} ANDREW ADAKOLE OCHE. ALL RIGHTS RESERVED.</span>
+        </div>
+
+        <div className="flex items-center gap-6">
+          <span className="hidden md:inline">ENCRYPTED // TLS 1.3 PROTOCOL</span>
+          
+          {/* RETURN TO TOP BUTTON */}
+          <button
+            onClick={scrollToTop}
+            className="flex items-center gap-2 text-white/60 hover:text-kin-lime transition-colors uppercase tracking-wider group"
+          >
+            <span>Return To Origin</span>
+            <div className="p-1 rounded bg-white/10 group-hover:bg-kin-lime group-hover:text-black transition-all">
+              <ArrowUpRight size={13} className="-rotate-45" />
+            </div>
+          </button>
+        </div>
+      </div>
+
     </footer>
   );
 }

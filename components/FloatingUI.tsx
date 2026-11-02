@@ -175,5 +175,3 @@ export default function FloatingUI() {
     </div>
   );
 }
-
-// Added interactive self-typing prompt terminal with blinking cursor

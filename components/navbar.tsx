@@ -119,5 +119,3 @@ export default function Navbar() {
     </>
   );
 }
-
-// Integrated live digital clock and responsive mobile navigation drawer

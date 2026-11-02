@@ -132,31 +132,9 @@ export default function ServicesSection() {
             </h2>
           </div>
 
-          <div className="max-w-md font-mono text-xs text-white/60 space-y-2">
-            <p className="flex items-center gap-2 text-blue-400 font-bold uppercase tracking-wider text-[11px]">
-              <Workflow size={14} className="text-blue-500" />
-              <span>Full-Spectrum Engineering Protocol</span>
-            </p>
-            <p className="leading-relaxed">
-              Scroll through the stack below. Each discipline is architected with strict type safety, neural model integrations, and high-concurrency production reliability.
-            </p>
-          </div>
+          
         </div>
-
-        {/* STACK TELEMETRY / DECK STATUS */}
-        <div className="flex items-center justify-between pt-4 text-[10px] font-mono text-white/50">
-          <div className="flex items-center gap-3">
-            <span className="flex items-center gap-1.5 text-blue-400">
-              <Activity size={12} className="animate-pulse" />
-              <span>STACK_DECK // 04 PILLARS</span>
-            </span>
-            <span className="hidden sm:inline text-white/20">|</span>
-            <span className="hidden sm:inline text-white/40">SCROLL DOWN TO REVEAL &amp; STACK CARDS</span>
-          </div>
-          <span className="px-2.5 py-1 rounded-md bg-blue-500/10 border border-blue-500/30 text-blue-400 font-bold">
-            4 ACTIVE PROTOCOLS
-          </span>
-        </div>
+        
       </div>
 
       {/* STACKING CARDS SCROLL CONTAINER */}

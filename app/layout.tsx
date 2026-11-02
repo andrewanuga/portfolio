@@ -1,7 +1,14 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import ClientLayout from "@/components/clientLayout";
+
+const sans = Plus_Jakarta_Sans({
+  subsets: ["latin"],
+  variable: "--font-sans",
+  display: "swap",
+  weight: ["300", "400", "500", "600", "700", "800"],
+});
 
 
 export const metadata: Metadata = {
@@ -63,9 +70,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`h-full antialiased`}
+      className={`h-full antialiased ${sans.variable}`}
     >
-      <body className="min-h-full flex flex-col">
+      <body className={`${sans.className} min-h-full flex flex-col font-sans bg-[#050506] text-white selection:bg-blue-600/30 selection:text-white`}>
         <ClientLayout>{children}</ClientLayout>
       </body>
     </html>

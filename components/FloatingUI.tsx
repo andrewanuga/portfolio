@@ -63,8 +63,8 @@ export default function FloatingUI() {
             </div>
           </div>
           <div className="flex items-center justify-between px-1.5 pb-0.5 pt-2 text-[10px] text-white/70">
-            <span>Operator</span>
-            <span className="text-[9px] font-mono text-kin-lime">LAGOS_NG</span>
+            <span>Engineer</span>
+            <span className="text-[9px] font-semibold text-blue-400">Lagos, NG</span>
           </div>
         </div>
       </Reveal>
@@ -83,15 +83,15 @@ export default function FloatingUI() {
       <Reveal i={2} bob={1.6} className="left-[13.5%] top-[52%] hidden w-[12vw] min-w-[150px] max-w-[200px] lg:block">
         <div className="glass overflow-hidden rounded-2xl p-2.5">
           <div className="flex items-center justify-between text-[10px] text-white/80 pb-2 border-b border-white/10">
-            <span className="font-mono text-kin-lime font-medium">SOCIALLY_AI</span>
-            <span className="text-[8px] font-mono text-white/50">NODE_01</span>
+            <span className="text-blue-400 font-semibold">Socially AI</span>
+            <span className="text-[8px] text-white/50">Featured</span>
           </div>
-          <p className="pt-2 text-[10px] text-white/60 leading-tight">
-            Neural content orchestration with OpenAI &amp; Supabase
+          <p className="pt-2 text-[10px] text-white/70 leading-tight">
+            AI content creation &amp; social media automation
           </p>
-          <div className="mt-2.5 flex items-center justify-between text-[9px] font-mono text-white/40">
-            <span>Next.js 16</span>
-            <span className="text-emerald-400">ACTIVE</span>
+          <div className="mt-2.5 flex items-center justify-between text-[9px] text-white/40">
+            <span>Next.js &amp; OpenAI</span>
+            <span className="text-emerald-400 font-medium">LIVE</span>
           </div>
         </div>
       </Reveal>

@@ -1,402 +1,247 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import { 
   Globe, 
   Database, 
   Smartphone, 
-  Cloud, 
-  Binary, 
   BrainCircuit, 
-  RotateCcw,
-  Zap
+  Layers,
+  Code2,
+  Server,
+  Cpu,
+  CheckCircle2
 } from "lucide-react";
 
-type Skill = {
+type TechItem = {
   name: string;
-  level: number;
-  badge: string;
+  category: "frontend" | "backend" | "ai" | "mobile";
+  categoryLabel: string;
+  description: string;
+  isPrimary?: boolean;
 };
 
-type SkillCategory = {
-  id: string;
-  category: string;
-  icon: any;
-  colorName: string;
-  gradient: string;
-  glowColor: string;
-  accentHex: string;
-  skills: Skill[];
-};
+const TECH_STACK: TechItem[] = [
+  // FRONTEND
+  {
+    name: "Next.js",
+    category: "frontend",
+    categoryLabel: "Frontend",
+    description: "Modern App Router, React Server Components & Edge SSR",
+    isPrimary: true
+  },
+  {
+    name: "TypeScript",
+    category: "frontend",
+    categoryLabel: "Frontend",
+    description: "Strict end-to-end type safety and developer productivity",
+    isPrimary: true
+  },
+  {
+    name: "React",
+    category: "frontend",
+    categoryLabel: "Frontend",
+    description: "Component architecture, hooks & interactive state",
+    isPrimary: true
+  },
+  {
+    name: "Tailwind CSS",
+    category: "frontend",
+    categoryLabel: "Frontend",
+    description: "Utility-first responsive layouts & design systems",
+    isPrimary: true
+  },
 
-const SKILL_GROUPS: SkillCategory[] = [
+  // BACKEND
   {
-    id: "frontend",
-    category: "Frontend_Core",
-    icon: Globe,
-    colorName: "Neon Cyan",
-    gradient: "linear-gradient(90deg, #00f2fe 0%, #4facfe 100%)",
-    glowColor: "rgba(0, 242, 254, 0.6)",
-    accentHex: "#00f2fe",
-    skills: [
-      { name: "TypeScript", level: 95, badge: "MASTERED" },
-      { name: "React JS", level: 95, badge: "MASTERED" },
-      { name: "Next JS 15/16", level: 92, badge: "PRODUCTION" },
-      { name: "JavaScript (ESNext)", level: 98, badge: "MASTERED" },
-      { name: "TailwindCSS & CSS3", level: 95, badge: "MASTERED" },
-    ],
+    name: "Node.js & Express",
+    category: "backend",
+    categoryLabel: "Backend",
+    description: "High-concurrency RESTful APIs and microservices",
+    isPrimary: true
   },
   {
-    id: "backend",
-    category: "Backend_Infrastructure",
-    icon: Database,
-    colorName: "Vivid Violet",
-    gradient: "linear-gradient(90deg, #c471ed 0%, #f64f59 100%)",
-    glowColor: "rgba(196, 113, 237, 0.6)",
-    accentHex: "#c471ed",
-    skills: [
-      { name: "Node JS", level: 90, badge: "PRODUCTION" },
-      { name: "Express JS", level: 92, badge: "PRODUCTION" },
-      { name: "Prisma ORM", level: 86, badge: "PRODUCTION" },
-      { name: "PostgreSQL", level: 88, badge: "PRODUCTION" },
-      { name: "MongoDB & Mongoose", level: 82, badge: "ADVANCED" },
-    ],
+    name: "PostgreSQL",
+    category: "backend",
+    categoryLabel: "Backend",
+    description: "Robust relational database with indexing & ACID compliance",
+    isPrimary: true
   },
   {
-    id: "ai",
-    category: "AI_&_Agentic_Logic",
-    icon: BrainCircuit,
-    colorName: "Electric Sapphire",
-    gradient: "linear-gradient(90deg, #2563eb 0%, #38bdf8 100%)",
-    glowColor: "rgba(37, 99, 235, 0.7)",
-    accentHex: "#3b82f6",
-    skills: [
-      { name: "Python (NumPy / SciPy)", level: 92, badge: "PRODUCTION" },
-      { name: "PyTorch & TensorFlow", level: 85, badge: "PRODUCTION" },
-      { name: "LangChain & LangGraph", level: 90, badge: "PRODUCTION" },
-      { name: "RAG & Vector Embeddings", level: 88, badge: "PRODUCTION" },
-      { name: "Multi-Agent Systems", level: 90, badge: "ACTIVE_R&D" },
-    ],
+    name: "Prisma ORM",
+    category: "backend",
+    categoryLabel: "Backend",
+    description: "Type-safe database modeling, migrations & queries",
+    isPrimary: true
   },
   {
-    id: "mobile",
-    category: "Mobile_Native",
-    icon: Smartphone,
-    colorName: "Electric Coral",
-    gradient: "linear-gradient(90deg, #ff5858 0%, #f09819 100%)",
-    glowColor: "rgba(255, 88, 88, 0.6)",
-    accentHex: "#ff5858",
-    skills: [
-      { name: "React Native", level: 88, badge: "PRODUCTION" },
-      { name: "Expo Ecosystem", level: 86, badge: "PRODUCTION" },
-      { name: "Native Mobile UI", level: 85, badge: "ADVANCED" },
-      { name: "Appwrite Mobile", level: 80, badge: "ADVANCED" },
-    ],
+    name: "Supabase",
+    category: "backend",
+    categoryLabel: "Backend",
+    description: "Cloud PostgreSQL backend, auth & real-time synchronization",
+    isPrimary: true
+  },
+
+  // AI & ML
+  {
+    name: "Python",
+    category: "ai",
+    categoryLabel: "AI & ML",
+    description: "Core language for ML pipelines, scripts & data processing",
+    isPrimary: true
   },
   {
-    id: "cloud",
-    category: "Cloud_&_BaaS",
-    icon: Cloud,
-    colorName: "Emerald Mint",
-    gradient: "linear-gradient(90deg, #38ef7d 0%, #11998e 100%)",
-    glowColor: "rgba(56, 239, 125, 0.6)",
-    accentHex: "#38ef7d",
-    skills: [
-      { name: "Supabase BaaS", level: 92, badge: "MASTERED" },
-      { name: "Firebase Platform", level: 90, badge: "PRODUCTION" },
-      { name: "AWS (S3, EC2, Lambda)", level: 78, badge: "ADVANCED" },
-      { name: "Docker & CI/CD", level: 82, badge: "PRODUCTION" },
-    ],
+    name: "PyTorch & TensorFlow",
+    category: "ai",
+    categoryLabel: "AI & ML",
+    description: "Deep learning models, fine-tuning & model evaluation",
+    isPrimary: true
   },
   {
-    id: "logic",
-    category: "Computational_Logic",
-    icon: Binary,
-    colorName: "Radiant Rose",
-    gradient: "linear-gradient(90deg, #f857a6 0%, #ff5858 100%)",
-    glowColor: "rgba(248, 87, 166, 0.6)",
-    accentHex: "#f857a6",
-    skills: [
-      { name: "C / C++ Systems", level: 80, badge: "ACADEMIC" },
-      { name: "MATLAB (Matrix & DSP)", level: 78, badge: "ENGINEERING" },
-      { name: "Algorithms & Math", level: 88, badge: "PRODUCTION" },
-    ],
+    name: "LangGraph & LangChain",
+    category: "ai",
+    categoryLabel: "AI & ML",
+    description: "Multi-agent workflows, autonomous tool calling & RAG",
+    isPrimary: true
   },
+  {
+    name: "Vector Databases",
+    category: "ai",
+    categoryLabel: "AI & ML",
+    description: "Semantic embeddings, similarity search & context retrieval",
+    isPrimary: false
+  },
+
+  // MOBILE
+  {
+    name: "React Native",
+    category: "mobile",
+    categoryLabel: "Mobile",
+    description: "Cross-platform native iOS & Android applications",
+    isPrimary: true
+  },
+  {
+    name: "Expo Ecosystem",
+    category: "mobile",
+    categoryLabel: "Mobile",
+    description: "Rapid mobile prototyping, native APIs & OTA updates",
+    isPrimary: true
+  },
+  {
+    name: "Docker & CI/CD",
+    category: "backend",
+    categoryLabel: "DevOps",
+    description: "Containerized deployments and automated GitHub Actions",
+    isPrimary: false
+  },
+  {
+    name: "Git & GitHub",
+    category: "frontend",
+    categoryLabel: "Tools",
+    description: "Version control, code reviews & collaborative workflows",
+    isPrimary: false
+  }
 ];
 
-function AnimatedSkillBar({ 
-  skill, 
-  group, 
-  animate 
-}: { 
-  skill: Skill; 
-  group: SkillCategory; 
-  animate: boolean; 
-}) {
-  const [currentLevel, setCurrentLevel] = useState(0);
-
-  useEffect(() => {
-    if (!animate) {
-      setCurrentLevel(0);
-      return;
-    }
-
-    let frame = 0;
-    const startTime = performance.now();
-    const duration = 1200; // 1.2s animation
-
-    const update = (now: number) => {
-      const elapsed = now - startTime;
-      const progress = Math.min(1, elapsed / duration);
-      // Ease out cubic
-      const ease = 1 - Math.pow(1 - progress, 3);
-      setCurrentLevel(Math.round(skill.level * ease));
-
-      if (progress < 1) {
-        frame = requestAnimationFrame(update);
-      }
-    };
-
-    frame = requestAnimationFrame(update);
-    return () => cancelAnimationFrame(frame);
-  }, [animate, skill.level]);
-
-  return (
-    <div className="p-4 rounded-xl bg-black/40 border border-white/5 hover:border-white/15 transition-all group">
-      
-      {/* HEADER: NAME, BADGE, AND COUNT-UP VALUE */}
-      <div className="flex justify-between items-baseline mb-2.5">
-        <div className="flex items-center gap-2">
-          <span className="text-xs font-mono font-bold text-white group-hover:text-white transition-colors">
-            {skill.name}
-          </span>
-          <span 
-            className="text-[8px] font-mono px-1.5 py-0.5 rounded"
-            style={{ 
-              backgroundColor: `${group.accentHex}15`, 
-              color: group.accentHex,
-              border: `1px solid ${group.accentHex}35`
-            }}
-          >
-            {skill.badge}
-          </span>
-        </div>
-
-        <div className="flex items-center gap-1 font-mono">
-          <span 
-            className="text-sm font-black tabular-nums transition-all"
-            style={{ color: group.accentHex }}
-          >
-            {currentLevel}%
-          </span>
-          <span className="text-[9px] text-white/30">LOAD</span>
-        </div>
-      </div>
-
-      {/* PROMINENT VISIBLE LOADING TRACK */}
-      <div className="relative h-2.5 w-full bg-[#121218] rounded-full overflow-hidden p-[2px] border border-white/10 shadow-inner">
-        {/* ANIMATED GLOWING PROGRESS BAR */}
-        <div
-          className="relative h-full rounded-full transition-all duration-75"
-          style={{
-            width: `${currentLevel}%`,
-            background: group.gradient,
-            boxShadow: `0 0 14px ${group.glowColor}, 0 0 4px ${group.accentHex}`,
-          }}
-        >
-          {/* SHIMMER BEAM EFFECT */}
-          <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/40 to-transparent animate-shimmer" />
-        </div>
-      </div>
-    </div>
-  );
-}
+const CATEGORIES = [
+  { id: "all", label: "All Technologies" },
+  { id: "frontend", label: "Frontend & Web" },
+  { id: "backend", label: "Backend & Cloud" },
+  { id: "ai", label: "AI & Machine Learning" },
+  { id: "mobile", label: "Mobile Apps" }
+];
 
 export default function SkillSection() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const [isInView, setIsInView] = useState(false);
-  const [activeCategory, setActiveCategory] = useState<string>("all");
-  const [key, setKey] = useState(0);
+  const [activeCategory, setActiveCategory] = useState("all");
 
-  // Trigger loading animation on intersection
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setIsInView(true);
-          }
-        });
-      },
-      { threshold: 0.15 }
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
-
-  const handleReplay = () => {
-    setIsInView(false);
-    setTimeout(() => {
-      setKey((k) => k + 1);
-      setIsInView(true);
-    }, 50);
-  };
-
-  const filteredGroups = activeCategory === "all" 
-    ? SKILL_GROUPS 
-    : SKILL_GROUPS.filter((g) => g.id === activeCategory);
+  const filteredTech = activeCategory === "all" 
+    ? TECH_STACK 
+    : TECH_STACK.filter(t => t.category === activeCategory);
 
   return (
-    <section 
-      id="skills" 
-      ref={sectionRef} 
-      key={key}
-      className="relative min-h-screen w-full bg-[#050506] py-28 px-6 md:px-14 border-t border-white/10"
-    >
+    <section id="skills" className="relative w-full bg-[#050506] py-28 px-4 sm:px-6 md:px-14 border-t border-white/10 text-white">
+      
+      {/* BACKGROUND AMBIENT GLOW */}
+      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-gradient-to-r from-blue-600/10 via-blue-500/5 to-cyan-500/10 blur-[180px] pointer-events-none rounded-full" />
+
       {/* SECTION HEADER */}
-      <div className="max-w-7xl mx-auto mb-12">
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 pb-6 border-b border-white/10">
+      <div className="max-w-6xl mx-auto mb-14 relative z-10">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 border-b border-white/10">
           <div>
-            <div className="flex items-center gap-2 text-[10px] font-mono text-white/50 uppercase tracking-[0.4em] mb-3">
-              <span className="h-1.5 w-1.5 rounded-full bg-kin-lime animate-pulse" />
-              <span>Capability_Matrix // Dynamic Load</span>
+            <div className="flex items-center gap-2 text-xs font-semibold text-blue-400 uppercase tracking-widest mb-3">
+              <span className="h-2 w-2 rounded-full bg-blue-500 animate-pulse" />
+              <span>Skills &amp; Expertise</span>
             </div>
-            <h2 className="text-5xl md:text-7xl lg:text-8xl font-black italic text-white uppercase tracking-tighter leading-none">
-              SKILL <span className="text-white/30 not-italic">INTEGRATION.</span>
+            <h2 className="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-white leading-none">
+              TECH <span className="text-white/30 font-light">STACK.</span>
             </h2>
-            <p className="mt-4 text-white/60 text-xs md:text-sm font-mono max-w-xl">
-              Real-time visualization of engineering proficiency across full-stack systems, machine learning architectures, and native platforms.
-            </p>
           </div>
 
-          {/* REPLAY ANIMATION BUTTON */}
-          <button
-            onClick={handleReplay}
-            className="self-start sm:self-auto flex items-center gap-2 px-4 py-2 rounded-xl bg-white/5 hover:bg-white/15 border border-white/10 text-white font-mono text-xs transition-all hover:border-blue-500/50"
-            title="Re-run skill loading sequence"
-          >
-            <RotateCcw size={13} className="text-blue-400" />
-            <span>Replay Loading</span>
-          </button>
+          <p className="max-w-md text-sm text-white/60 leading-relaxed">
+            The modern frameworks, programming languages, and cloud tools I leverage to build dependable products.
+          </p>
         </div>
 
         {/* CATEGORY FILTER TABS */}
         <div className="flex flex-wrap gap-2 pt-6">
-          <button
-            onClick={() => setActiveCategory("all")}
-            className={`px-3 py-1.5 rounded-lg text-xs font-mono transition-all ${
-              activeCategory === "all"
-                ? "bg-blue-600 text-white font-bold shadow-[0_0_15px_rgba(37,99,235,0.5)]"
-                : "bg-white/5 text-white/60 hover:text-white hover:bg-white/10"
-            }`}
-          >
-            [ALL_DOMAINS]
-          </button>
-
-          {SKILL_GROUPS.map((g) => {
-            const isActive = activeCategory === g.id;
+          {CATEGORIES.map((cat) => {
+            const isActive = activeCategory === cat.id;
             return (
               <button
-                key={g.id}
-                onClick={() => setActiveCategory(g.id)}
-                className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-mono transition-all ${
+                key={cat.id}
+                onClick={() => setActiveCategory(cat.id)}
+                className={`px-4 py-2 rounded-full text-xs font-semibold transition-all ${
                   isActive
-                    ? "text-white font-bold shadow-lg"
-                    : "bg-white/5 text-white/60 hover:text-white hover:bg-white/10"
+                    ? "bg-blue-600 text-white shadow-[0_0_15px_rgba(37,99,235,0.45)]"
+                    : "bg-white/[0.04] text-white/70 hover:text-white hover:bg-white/[0.08]"
                 }`}
-                style={isActive ? { backgroundColor: g.accentHex, color: "#ffffff" } : {}}
               >
-                <span 
-                  className="h-1.5 w-1.5 rounded-full" 
-                  style={{ backgroundColor: isActive ? "#ffffff" : g.accentHex }} 
-                />
-                <span>{g.category.replace("_", " ")}</span>
+                {cat.label}
               </button>
             );
           })}
         </div>
       </div>
 
-      {/* SKILLS CARDS GRID */}
-      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {filteredGroups.map((group) => {
-          const Icon = group.icon;
-          return (
-            <div 
-              key={group.id} 
-              className="glass p-6 sm:p-7 rounded-2xl flex flex-col justify-between border border-white/10 hover:border-white/20 transition-all shadow-xl"
-            >
-              <div>
-                {/* CATEGORY TITLE & ICON */}
-                <div className="flex items-center justify-between pb-4 mb-4 border-b border-white/10">
-                  <div className="flex items-center gap-3">
-                    <div 
-                      className="p-2.5 rounded-xl flex items-center justify-center"
-                      style={{ 
-                        backgroundColor: `${group.accentHex}15`, 
-                        color: group.accentHex,
-                        border: `1px solid ${group.accentHex}30`
-                      }}
-                    >
-                      <Icon size={18} strokeWidth={2} />
-                    </div>
-                    <div>
-                      <h3 className="text-xs font-mono font-bold text-white uppercase tracking-wider">
-                        {group.category}
-                      </h3>
-                      <span className="text-[9px] font-mono text-white/40">
-                        {group.skills.length} Capabilities Loaded
-                      </span>
-                    </div>
-                  </div>
-
-                  <span 
-                    className="h-2 w-2 rounded-full animate-pulse"
-                    style={{ 
-                      backgroundColor: group.accentHex,
-                      boxShadow: `0 0 8px ${group.accentHex}`
-                    }}
-                  />
-                </div>
-
-                {/* SKILLS LIST WITH VIBRANT PROGRESS BARS */}
-                <div className="space-y-3">
-                  {group.skills.map((skill) => (
-                    <AnimatedSkillBar 
-                      key={skill.name} 
-                      skill={skill} 
-                      group={group} 
-                      animate={isInView} 
-                    />
-                  ))}
-                </div>
+      {/* TECH CARDS GRID */}
+      <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 relative z-10">
+        {filteredTech.map((item) => (
+          <div
+            key={item.name}
+            className="p-5 rounded-2xl bg-[#090b12] border border-white/10 hover:border-blue-500/40 transition-all duration-300 hover:shadow-xl group flex flex-col justify-between space-y-4"
+          >
+            <div className="space-y-2">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-semibold text-blue-400">
+                  {item.categoryLabel}
+                </span>
+                {item.isPrimary && (
+                  <span className="flex items-center gap-1 text-[11px] text-emerald-400 font-medium">
+                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                    Core
+                  </span>
+                )}
               </div>
 
-              {/* CARD FOOTER */}
-              <div className="mt-5 pt-3 border-t border-white/5 flex items-center justify-between text-[9px] font-mono text-white/30">
-                <span>INDEX // {group.id.toUpperCase()}</span>
-                <span style={{ color: group.accentHex }}>CALIBRATED ✓</span>
-              </div>
+              <h3 className="text-lg font-bold text-white tracking-tight group-hover:text-blue-400 transition-colors">
+                {item.name}
+              </h3>
+
+              <p className="text-xs text-white/60 leading-relaxed">
+                {item.description}
+              </p>
             </div>
-          );
-        })}
+
+            <div className="pt-3 border-t border-white/5 flex items-center justify-between text-[11px] text-white/40">
+              <span className="flex items-center gap-1.5">
+                <CheckCircle2 size={13} className="text-blue-500" />
+                Production Ready
+              </span>
+            </div>
+          </div>
+        ))}
       </div>
 
-      {/* BOTTOM FOOTER SUMMARY */}
-      <div className="max-w-7xl mx-auto mt-14 glass p-6 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-4 font-mono text-xs text-white/60">
-        <div className="flex items-center gap-3">
-          <Zap size={16} className="text-kin-lime" />
-          <span>Full-Stack Mastery: Typescript, Python, Next.js, PyTorch, Supabase &amp; LangGraph</span>
-        </div>
-        <div className="flex items-center gap-4 text-[10px] text-white/40">
-          <span>Benchmarked 2026</span>
-          <span className="text-emerald-400">● 100% Operational Readiness</span>
-        </div>
-      </div>
     </section>
   );
 }

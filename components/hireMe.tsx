@@ -2,55 +2,39 @@
 
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Send, User, Mail, Briefcase, MessageSquare, Terminal, AlertTriangle, Loader2 } from "lucide-react";
-
-const FormField = ({ label, icon: Icon, children }: any) => (
-  <div className="space-y-2 group">
-    <label className="flex items-center gap-2 font-mono text-[10px] text-white/50 uppercase tracking-widest group-focus-within:text-kin-lime transition-colors">
-      <Icon size={12} /> {label}
-    </label>
-    {children}
-  </div>
-);
+import { 
+  Send, 
+  CheckCircle2, 
+  AlertCircle, 
+  User, 
+  Mail, 
+  Briefcase, 
+  Clock, 
+  MessageSquare,
+  Loader2
+} from "lucide-react";
 
 export default function HireMeSection() {
   const [budget, setBudget] = useState(5000);
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
-  const [statusMsg, setStatusMsg] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
-  const [typingComplete, setTypingComplete] = useState(false);
-
-  const typeMessage = (text: string) => {
-    let i = 0;
-    setTypingComplete(false);
-    const interval = setInterval(() => {
-      setStatusMsg(text.slice(0, i));
-      i++;
-      if (i > text.length) {
-        clearInterval(interval);
-        setTypingComplete(true);
-      }
-    }, 40);
-  };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (loading) return;
-
     setLoading(true);
     setErrorMsg("");
-    setStatusMsg("");
 
-    const formData = new FormData(e.currentTarget);
+    const form = e.currentTarget;
+    const formData = new FormData(form);
 
     const payload = {
-      full_name: formData.get("full_name") as string,
-      email: formData.get("email") as string,
-      project_type: formData.get("project_type") as string,
-      priority_level: formData.get("priority_level") as string,
-      requirements: formData.get("requirements") as string,
+      full_name: formData.get("full_name"),
+      email: formData.get("email"),
+      project_type: formData.get("project_type"),
+      timeline: formData.get("timeline"),
       budget: budget,
+      requirements: formData.get("requirements")
     };
 
     try {
@@ -64,53 +48,55 @@ export default function HireMeSection() {
 
       if (!res.ok) {
         const message: string = result.error || `Request failed (${res.status})`;
-        setErrorMsg(`INSERT_ERROR: ${message}`);
+        setErrorMsg(message);
       } else {
         setSubmitted(true);
-        typeMessage("Message received. I will get back to you within 1 hour.");
       }
     } catch (err: any) {
-      setErrorMsg(`NETWORK_ERROR: ${err.message || "Failed to transmit. Please check connection."}`);
+      setErrorMsg(err.message || "Something went wrong. Please check your connection.");
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <section id="hire" className="relative min-h-screen w-full bg-[#050506] py-28 px-6 md:px-14 border-t border-white/10">
+    <section id="hire" className="relative w-full bg-[#050506] py-28 px-4 sm:px-6 md:px-14 border-t border-white/10 text-white">
       
+      {/* BACKGROUND AMBIENT GLOW */}
+      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-gradient-to-r from-blue-600/10 via-blue-500/5 to-cyan-500/10 blur-[180px] pointer-events-none rounded-full" />
+
       {/* SECTION HEADER */}
-      <div className="max-w-7xl mx-auto mb-16">
-        <div className="flex items-center gap-2 text-[10px] font-mono text-white/60 uppercase tracking-[0.4em] mb-4">
-          <Terminal className="text-kin-lime" size={14} />
-          <span>Handshake_Protocol // Hire &amp; Contract</span>
+      <div className="max-w-6xl mx-auto mb-16 relative z-10">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 border-b border-white/10">
+          <div>
+            <div className="flex items-center gap-2 text-xs font-semibold text-blue-400 uppercase tracking-widest mb-3">
+              <span className="h-2 w-2 rounded-full bg-blue-500 animate-pulse" />
+              <span>Get In Touch</span>
+            </div>
+            <h2 className="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-white leading-none">
+              LET&apos;S WORK <span className="text-white/30 font-light">TOGETHER.</span>
+            </h2>
+          </div>
+
+          <p className="max-w-md text-sm text-white/60 leading-relaxed">
+            Have a project in mind, need technical advice, or looking to build a new platform? Send me a message and let&apos;s start a conversation.
+          </p>
         </div>
-        <h2 className="text-5xl md:text-7xl lg:text-8xl font-black italic text-white uppercase tracking-tighter leading-none">
-          TRANSMIT <span className="text-white/30 not-italic">REQUEST.</span>
-        </h2>
-        <p className="mt-4 text-white/50 text-xs md:text-sm font-mono max-w-xl">
-          Ready to deploy intelligent web platforms, production ML models, or custom agentic workflows? Transmit your project requirements.
-        </p>
       </div>
 
-      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8">
+      <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 relative z-10">
         
-        {/* BUDGET SELECTOR (4 cols) */}
-        <div className="lg:col-span-4 glass p-8 rounded-2xl flex flex-col justify-between">
+        {/* BUDGET & GUARANTEES (4 cols) */}
+        <div className="lg:col-span-4 p-8 rounded-3xl bg-[#090b12] border border-white/10 shadow-xl flex flex-col justify-between space-y-8">
           <div>
-            <div className="text-[10px] font-mono uppercase tracking-[0.4em] text-white/50 mb-8 font-bold">
-              Investment_Target
+            <div className="text-xs font-semibold uppercase tracking-wider text-white/50 mb-6">
+              Estimated Budget
             </div>
             <div className="space-y-6">
-              <motion.div 
-                key={budget}
-                initial={{ scale: 0.95, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                className="text-5xl sm:text-6xl font-black text-white tracking-tighter"
-              >
+              <div className="text-5xl font-extrabold text-white tracking-tight">
                 ${budget.toLocaleString()}
-                <span className="text-sm font-mono text-blue-400 ml-2">USD</span>
-              </motion.div>
+                <span className="text-sm font-semibold text-blue-400 ml-2">USD</span>
+              </div>
               <input
                 type="range"
                 min="1000"
@@ -118,153 +104,165 @@ export default function HireMeSection() {
                 step="500"
                 value={budget}
                 onChange={(e) => setBudget(Number(e.target.value))}
-                className="w-full h-1.5 bg-white/10 rounded-lg appearance-none cursor-pointer accent-[#2563eb]"
+                className="w-full h-2 bg-white/10 rounded-lg appearance-none cursor-pointer accent-blue-600"
               />
-              <div className="flex justify-between text-white/40 text-xs font-mono">
-                <span>$1K (Sprint MVP)</span>
-                <span>$50K+ (Enterprise)</span>
+              <div className="flex justify-between text-white/40 text-xs font-medium">
+                <span>$1K (Quick Sprint)</span>
+                <span>$50K+ (Large Platform)</span>
               </div>
             </div>
           </div>
 
-          <div className="mt-12 pt-6 border-t border-white/10 font-mono text-[10px] text-white/45 space-y-2">
-            <p>✓ Direct engineer communication</p>
-            <p>✓ NDA &amp; IP ownership guaranteed</p>
-            <p>✓ Response time &lt; 1 hour</p>
+          <div className="pt-6 border-t border-white/10 text-xs text-white/60 space-y-3">
+            <div className="flex items-center gap-2">
+              <CheckCircle2 size={15} className="text-blue-400" />
+              <span>Direct communication with the engineer</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <CheckCircle2 size={15} className="text-blue-400" />
+              <span>Clear milestones, upfront estimates &amp; transparency</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <CheckCircle2 size={15} className="text-blue-400" />
+              <span>Fast response time in less than 24 hours</span>
+            </div>
           </div>
         </div>
 
-        {/* TRANSMIT FORM (8 cols) */}
-        <div className="lg:col-span-8 glass p-8 sm:p-10 rounded-2xl">
+        {/* CONTACT FORM (8 cols) */}
+        <div className="lg:col-span-8 p-8 sm:p-10 rounded-3xl bg-[#090b12] border border-white/10 shadow-xl">
           <AnimatePresence mode="wait">
             {!submitted ? (
-              <motion.form 
-                key="contact-form"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0, scale: 0.98 }}
+              <form 
                 onSubmit={handleSubmit} 
                 className="grid grid-cols-1 md:grid-cols-2 gap-6"
               >
-                <FormField label="Full_Identity" icon={User}>
+                <div className="space-y-2">
+                  <label className="flex items-center gap-2 text-xs font-semibold text-white/70">
+                    <User size={14} className="text-blue-400" />
+                    <span>Your Name</span>
+                  </label>
                   <input 
                     name="full_name" 
                     required 
                     type="text" 
-                    placeholder="Ada Lovelace" 
+                    placeholder="Sarah Connor" 
                     disabled={loading}
-                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white text-sm font-mono focus:border-blue-500 outline-none transition-all placeholder:text-white/20 disabled:opacity-50" 
+                    className="w-full bg-white/[0.03] border border-white/10 rounded-xl px-4 py-3 text-white text-sm focus:border-blue-500 outline-none transition-all placeholder:text-white/20 disabled:opacity-50" 
                   />
-                </FormField>
+                </div>
 
-                <FormField label="Digital_Contact" icon={Mail}>
+                <div className="space-y-2">
+                  <label className="flex items-center gap-2 text-xs font-semibold text-white/70">
+                    <Mail size={14} className="text-blue-400" />
+                    <span>Email Address</span>
+                  </label>
                   <input 
                     name="email" 
                     required 
                     type="email" 
-                    placeholder="ada@domain.com" 
+                    placeholder="sarah@company.com" 
                     disabled={loading}
-                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white text-sm font-mono focus:border-blue-500 outline-none transition-all placeholder:text-white/20 disabled:opacity-50" 
+                    className="w-full bg-white/[0.03] border border-white/10 rounded-xl px-4 py-3 text-white text-sm focus:border-blue-500 outline-none transition-all placeholder:text-white/20 disabled:opacity-50" 
                   />
-                </FormField>
+                </div>
 
-                <FormField label="Project_Type" icon={Briefcase}>
+                <div className="space-y-2">
+                  <label className="flex items-center gap-2 text-xs font-semibold text-white/70">
+                    <Briefcase size={14} className="text-blue-400" />
+                    <span>Project Type</span>
+                  </label>
                   <select 
                     name="project_type" 
                     disabled={loading}
-                    className="w-full bg-[#1c1c20] border border-white/10 rounded-xl px-4 py-3 text-white text-sm font-mono focus:border-blue-500 outline-none appearance-none cursor-pointer disabled:opacity-50"
+                    className="w-full bg-[#141622] border border-white/10 rounded-xl px-4 py-3 text-white text-sm focus:border-blue-500 outline-none cursor-pointer disabled:opacity-50"
                   >
-                    <option>FULL-STACK WEB ARCHITECTURE</option>
-                    <option>AGENTIC AI &amp; MULTI-AGENT SYSTEMS</option>
-                    <option>MACHINE LEARNING &amp; MODEL PIPELINES</option>
-                    <option>MOBILE APP DEVELOPMENT (REACT NATIVE)</option>
-                    <option>STARTUP MVP DEVELOPMENT</option>
+                    <option>Web Application Development</option>
+                    <option>AI &amp; Machine Learning Integration</option>
+                    <option>AI Agents &amp; Workflow Automation</option>
+                    <option>Mobile App (iOS &amp; Android)</option>
+                    <option>Startup MVP or Consultation</option>
                   </select>
-                </FormField>
+                </div>
 
-                <FormField label="Priority_Level" icon={Terminal}>
+                <div className="space-y-2">
+                  <label className="flex items-center gap-2 text-xs font-semibold text-white/70">
+                    <Clock size={14} className="text-blue-400" />
+                    <span>Desired Timeline</span>
+                  </label>
                   <select 
-                    name="priority_level" 
+                    name="timeline" 
                     disabled={loading}
-                    className="w-full bg-[#1c1c20] border border-white/10 rounded-xl px-4 py-3 text-white text-sm font-mono focus:border-blue-500 outline-none appearance-none cursor-pointer disabled:opacity-50"
+                    className="w-full bg-[#141622] border border-white/10 rounded-xl px-4 py-3 text-white text-sm focus:border-blue-500 outline-none cursor-pointer disabled:opacity-50"
                   >
-                    <option>NORMAL_DEPLOYMENT (2-4 WEEKS)</option>
-                    <option>CRITICAL_PATH (URGENT SPRINT)</option>
-                    <option>LONG_TERM_CONTRACT</option>
-                    <option>R&amp;D_EXPLORATION</option>
+                    <option>As soon as possible (1-2 weeks)</option>
+                    <option>Within the next month</option>
+                    <option>Flexible / Exploring options</option>
                   </select>
-                </FormField>
+                </div>
 
-                <div className="md:col-span-2">
-                  <FormField label="System_Requirements" icon={MessageSquare}>
-                    <textarea 
-                      name="requirements" 
-                      required 
-                      rows={4} 
-                      placeholder="Outline system goals, deliverables, timeline, or architecture requirements..." 
-                      disabled={loading}
-                      className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white text-sm font-mono focus:border-blue-500 outline-none resize-none transition-all placeholder:text-white/20 disabled:opacity-50" 
-                    />
-                  </FormField>
+                <div className="md:col-span-2 space-y-2">
+                  <label className="flex items-center gap-2 text-xs font-semibold text-white/70">
+                    <MessageSquare size={14} className="text-blue-400" />
+                    <span>Project Details</span>
+                  </label>
+                  <textarea 
+                    name="requirements" 
+                    required 
+                    rows={4} 
+                    placeholder="Tell me about your project, goals, or what you'd like to build together..." 
+                    disabled={loading}
+                    className="w-full bg-white/[0.03] border border-white/10 rounded-xl px-4 py-3 text-white text-sm focus:border-blue-500 outline-none resize-none transition-all placeholder:text-white/20 disabled:opacity-50" 
+                  />
                 </div>
 
                 <div className="md:col-span-2 space-y-4">
                   {errorMsg && (
-                    <div className="flex items-start gap-3 p-4 bg-red-500/10 border border-red-500/20 rounded-xl text-red-400 text-xs font-mono">
-                      <AlertTriangle size={14} className="mt-0.5 flex-shrink-0" />
-                      <div>{errorMsg}</div>
+                    <div className="flex items-center gap-2 p-4 bg-red-500/10 border border-red-500/20 rounded-xl text-red-400 text-xs">
+                      <AlertCircle size={16} />
+                      <span>{errorMsg}</span>
                     </div>
                   )}
 
                   <button 
                     type="submit"
                     disabled={loading}
-                    className={`w-full rounded-xl py-4 font-black uppercase tracking-[0.3em] text-xs flex items-center justify-center gap-3 transition-all ${
-                      loading 
-                        ? "bg-white/10 text-white/50 cursor-not-allowed" 
-                        : "bg-blue-600 text-white hover:bg-blue-500 shadow-[0_0_25px_rgba(37,99,235,0.4)] active:scale-[0.99]"
-                    }`}
+                    className="w-full rounded-xl py-4 font-bold text-sm flex items-center justify-center gap-2.5 transition-all bg-blue-600 text-white hover:bg-blue-500 shadow-[0_0_25px_rgba(37,99,235,0.4)] disabled:opacity-50"
                   >
                     {loading ? (
                       <>
                         <Loader2 size={16} className="animate-spin" />
-                        TRANSMITTING_DATA...
+                        <span>Sending Message...</span>
                       </>
                     ) : (
                       <>
-                        Transmit Project Request 
-                        <Send size={14} />
+                        <span>Send Message</span>
+                        <Send size={15} />
                       </>
                     )}
                   </button>
                 </div>
-              </motion.form>
+              </form>
             ) : (
               <motion.div 
-                key="success-message"
-                initial={{ opacity: 0, y: 15 }} 
-                animate={{ opacity: 1, y: 0 }}
-                className="py-12 font-mono text-center max-w-lg mx-auto"
+                initial={{ opacity: 0, scale: 0.95 }} 
+                animate={{ opacity: 1, scale: 1 }}
+                className="py-12 text-center max-w-md mx-auto space-y-4"
               >
-                <div className="text-xs uppercase tracking-[0.5em] mb-4 text-blue-400 font-bold">
-                  ✓ Handshake_Complete
+                <div className="h-16 w-16 mx-auto rounded-full bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400">
+                  <CheckCircle2 size={32} />
                 </div>
-                <p className="text-2xl sm:text-3xl font-black italic uppercase leading-tight text-white tracking-tight">
-                  {statusMsg}
-                  {!typingComplete && (
-                    <span className="inline-block w-2 h-6 bg-blue-500 ml-2 align-middle animate-pulse" />
-                  )}
+                <h3 className="text-2xl font-bold text-white tracking-tight">
+                  Message Sent Successfully!
+                </h3>
+                <p className="text-sm text-white/60 leading-relaxed">
+                  Thank you for reaching out. I have received your message and will review it and get back to you shortly.
                 </p>
                 <button
-                  onClick={() => {
-                    setSubmitted(false);
-                    setStatusMsg("");
-                    setTypingComplete(false);
-                    setBudget(5000);
-                  }}
-                  className="mt-8 text-xs font-mono uppercase tracking-[0.3em] text-white/60 hover:text-white transition-colors"
+                  onClick={() => setSubmitted(false)}
+                  className="mt-4 px-6 py-2.5 rounded-xl bg-white/10 hover:bg-white/15 text-white text-xs font-semibold transition-all"
                 >
-                  Send Another Transmission →
+                  Send Another Message
                 </button>
               </motion.div>
             )}

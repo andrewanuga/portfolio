@@ -90,20 +90,20 @@ export function MemoryPanel() {
 
       <div className="glass mt-3 rounded-2xl p-4">
         <div className="mb-3 flex items-center justify-between">
-          <span className="text-[12px] font-medium text-white/90">Architecture Stack</span>
-          <span className="rounded-md bg-white/10 px-2 py-1 text-[9px] text-kin-lime font-mono">Next.js 16 + PyTorch</span>
+          <span className="text-[12px] font-medium text-white/90">Core Stack</span>
+          <span className="rounded-md bg-white/10 px-2 py-1 text-[9px] text-blue-400 font-medium">Next.js &amp; PyTorch</span>
         </div>
         <div className="h-3.5 overflow-hidden rounded-md bg-white/10">
-          <div data-fill="100" className="h-full w-0 rounded-md bg-kin-lav" />
+          <div data-fill="100" className="h-full w-0 rounded-md bg-blue-500" />
         </div>
-        <div className="mt-2 flex gap-4 text-[9px] text-white/50 font-mono">
+        <div className="mt-2 flex gap-4 text-[9px] text-white/50">
           <span className="flex items-center gap-1.5">
             <i className="h-1.5 w-1.5 rounded-[2px] bg-white/80" />
-            TypeScript · 100%
+            TypeScript · Modern Web
           </span>
           <span className="flex items-center gap-1.5">
-            <i className="h-1.5 w-1.5 rounded-[2px] bg-kin-lime" />
-            Zero-Downtime CI/CD
+            <i className="h-1.5 w-1.5 rounded-[2px] bg-emerald-400" />
+            Production Tested
           </span>
         </div>
         <div className="mt-3 flex gap-2 text-[10px] text-white/80">

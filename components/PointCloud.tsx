@@ -377,7 +377,3 @@ export default function PointCloud() {
 
   return <canvas ref={canvasRef} className="absolute inset-0 h-full w-full" aria-hidden />;
 }
-
-// Calibrated camera perspective projection and back-face culling threshold
-
-// Added smoothed pointer inertia tracking and ambient under-glow

@@ -17,3 +17,29 @@ html, body {
   background: #050506;
   color: #ededed;
 }
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-7px); }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+@keyframes pxIn {
+  from { opacity: 0; transform: scale(0.3); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes scrollLine {
+  0% { transform: scaleY(0); transform-origin: top; }
+  50% { transform: scaleY(1); transform-origin: top; }
+  51% { transform-origin: bottom; }
+  100% { transform: scaleY(0); transform-origin: bottom; }
+}
+
+.animate-float { animation: float 6s ease-in-out infinite; }
+.animate-blink { animation: blink 1s steps(1) infinite; }
+.px { transform-box: fill-box; transform-origin: center; animation: pxIn 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) both; }

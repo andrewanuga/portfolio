@@ -99,3 +99,5 @@ export default function PixelHeadline() {
     </div>
   );
 }
+
+// Configured deterministic entrance stagger delay

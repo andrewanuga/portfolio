@@ -9,7 +9,6 @@ import {
   Binary, 
   BrainCircuit, 
   RotateCcw,
-  Sparkles,
   Zap
 } from "lucide-react";
 

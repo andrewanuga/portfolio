@@ -12,7 +12,6 @@ import {
   MapPin, 
   Radio, 
   ExternalLink,
-  Sparkles,
   Zap
 } from "lucide-react";
 import { SocialIcon } from "react-social-icons";
@@ -72,7 +71,7 @@ export default function FooterSection() {
             
             <div className="lg:col-span-8 space-y-4">
               <div className="flex items-center gap-2 text-[10px] font-mono text-kin-lime uppercase tracking-[0.4em]">
-                <Sparkles size={14} />
+                <Radio size={14} className="animate-pulse" />
                 <span>Ready to deploy // High-Stakes Collaboration</span>
               </div>
               <h2 className="text-4xl sm:text-6xl lg:text-7xl font-black italic uppercase tracking-tighter leading-none">

@@ -12,7 +12,6 @@ import {
   Cpu, 
   Zap, 
   CheckCircle2, 
-  Sparkles,
   ShieldCheck,
   Workflow
 } from "lucide-react";
@@ -140,7 +139,7 @@ export default function ServicesSection() {
 
           <div className="max-w-md font-mono text-xs text-white/60 space-y-1">
             <p className="flex items-center gap-2 text-kin-lime">
-              <Sparkles size={13} />
+              <Workflow size={13} />
               <span>Full-Spectrum Engineering Protocol</span>
             </p>
             <p>

@@ -8,7 +8,7 @@ import {
   Cpu, 
   Database, 
   Microscope, 
-  Sparkles, 
+  Bot, 
   ShieldCheck, 
   Terminal, 
   MapPin, 
@@ -49,7 +49,7 @@ const TIMELINE: Milestone[] = [
     role: "Agentic AI Systems Architect", 
     org: "Autonomous Systems",
     detail: "Pioneering stateful multi-agent workflows using LangGraph, autonomous tool execution, and real-time retrieval-augmented generation (RAG).",
-    icon: Sparkles,
+    icon: Bot,
     accent: "#e6f43c"
   },
   { 
@@ -100,7 +100,7 @@ export default function BioSection() {
           <div>
             <div className="flex items-center gap-2 text-[10px] font-mono text-white/50 uppercase tracking-[0.4em] mb-3">
               <Microscope className="text-kin-lime" size={14} />
-              <span>Operator_Dossier // Biography &amp; Background</span>
+              <span>Dossier: Biography &amp; Background</span>
             </div>
             <h2 className="text-5xl md:text-7xl lg:text-8xl font-black italic text-white uppercase tracking-tighter leading-none">
               MY <span className="text-white/30 not-italic">BIO.</span>
@@ -110,7 +110,7 @@ export default function BioSection() {
           <div className="max-w-md font-mono text-xs text-white/60">
             <p className="text-kin-lime mb-1 flex items-center gap-1.5 font-bold">
               <span className="h-2 w-2 rounded-full bg-kin-lime animate-pulse" />
-              Andrew Oche // Operator Identity
+              Andrew Oche // Identity
             </p>
             <p>
               Full-Stack &amp; AI Engineer living at the bridge between clean architectures, pixel-perfect user experiences, and scalable machine intelligence.

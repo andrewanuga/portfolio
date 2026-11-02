@@ -9,7 +9,7 @@ import {
   ChevronLeft, 
   ChevronRight, 
   Terminal, 
-  Sparkles,
+  Bot,
   Layers
 } from "lucide-react";
 
@@ -134,7 +134,7 @@ function ProjectVisual({ project }: { project: Project }) {
       <div className="relative w-full h-full min-h-[220px] sm:min-h-[280px] rounded-xl overflow-hidden bg-gradient-to-br from-[#12111c] via-[#090812] to-black border border-white/10 p-6 flex flex-col justify-between group-hover:border-[#e6f43c]/30 transition-all">
         <div className="flex items-center justify-between font-mono text-[9px] text-white/50">
           <span className="flex items-center gap-1.5 text-kin-lime">
-            <Sparkles size={11} /> AI_ORCHESTRATOR
+            <Bot size={11} /> AI_ORCHESTRATOR
           </span>
           <span>LATENCY // 18ms</span>
         </div>

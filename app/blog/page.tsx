@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { BookOpen, Hash, Clock, ArrowLeft, Share2, Bookmark, Terminal, ChevronRight, Sparkles, GitBranch, Database, Shield } from "lucide-react";
+import { BookOpen, Hash, Clock, ArrowLeft, Share2, Bookmark, Terminal, ChevronRight, Bell, GitBranch, Database, Shield } from "lucide-react";
 import { cn } from "@/components/lib/utils";
 import NavBar from "@/components/navbar";
 
@@ -379,7 +379,7 @@ export default function BlogSpace() {
           {/* LOAD MORE PLACEHOLDER */}
           <div className="pt-20 border-t border-white/5 flex justify-center">
              <button className="group flex items-center gap-3 px-8 py-4 border border-white/10 rounded-full text-[10px] font-mono text-zinc-500 uppercase tracking-[0.4em] hover:border-blue-500 hover:text-white transition-all">
-                Subscribe_For_Updates <Sparkles size={14} className="group-hover:text-blue-500" />
+                Subscribe_For_Updates <Bell size={14} className="group-hover:text-blue-500" />
              </button>
           </div>
         </div>

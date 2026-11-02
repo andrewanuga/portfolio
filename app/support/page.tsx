@@ -6,12 +6,12 @@ import {
   Heart,
   HeartHandshake,
   Coffee,
-  Sparkles,
+  Boxes,
   Zap,
   ArrowUpRight,
   Check,
   ShieldCheck,
-  Star,
+  Target,
 } from "lucide-react";
 import NavBar from "@/components/navbar";
 
@@ -29,7 +29,7 @@ const supportReasons = [
     desc: "Support the free tools, experiments and write-ups I ship for the community.",
   },
   {
-    icon: Sparkles,
+    icon: Boxes,
     title: "New_Builds",
     desc: "Help fund the next side project, lab experiment and engineering log.",
   },
@@ -157,7 +157,7 @@ export default function SupportPortal() {
         {/* Reasons grid */}
         <div className="w-full max-w-3xl mx-auto">
           <div className="flex items-center gap-4 mb-8">
-            <Star size={14} className="text-blue-500" />
+            <Target size={14} className="text-blue-500" />
             <span className="text-[10px] font-mono text-zinc-600 uppercase tracking-[0.3em]">
               Where_Your_Support_Goes
             </span>

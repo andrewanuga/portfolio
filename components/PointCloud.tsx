@@ -4,10 +4,10 @@ import { useEffect, useRef } from "react";
 import { clamp, ease, mix, subscribe, type SceneState } from "@/lib/stage";
 
 /* ------------------------------------------------------------------ */
-/* Procedural bust: head + ears + neck + shoulders, sampled as points  */
+/* Portrait sampled as a sculpted point relief with facial detail      */
 /* ------------------------------------------------------------------ */
 
-const NB = 24; // colour buckets: 8 height bands × 3 shading levels
+const NB = 64; // 8 height bands × 8 photographic shading levels
 
 type Cloud = {
   n: number;
@@ -35,7 +35,7 @@ function rng(seed: number) {
   };
 }
 
-function buildCloud(N: number): Cloud {
+function buildCloud(N: number, image: ImageData): Cloud {
   const r = rng(1337);
   const g = () => {
     let u = 0;
@@ -51,114 +51,74 @@ function buildCloud(N: number): Cloud {
     return [a / l, b / l, c / l];
   };
 
-  const Lr = Math.hypot(-0.4, 0.7, 0.6);
-  const L = [-0.4 / Lr, 0.7 / Lr, 0.6 / Lr];
+  // Trace the subject in the reference's original 1086 × 1448 coordinates.
+  // This keeps the dark backdrop out without discarding dark hair or clothing.
+  const outline = [
+    [377, 345], [390, 265], [432, 207], [497, 164], [585, 148],
+    [679, 160], [750, 199], [791, 264], [807, 337], [786, 432],
+    [779, 464], [790, 469], [786, 521], [761, 562], [741, 575],
+    [708, 689], [706, 740], [765, 785], [874, 834], [1028, 883],
+    [1065, 980], [1086, 1070], [0, 1070], [31, 990], [79, 887],
+    [240, 831], [352, 775], [421, 727], [424, 682], [399, 588],
+    [384, 535], [379, 486], [386, 444],
+  ];
+  const inside = (x: number, y: number) => {
+    let hit = false;
+    for (let i = 0, j = outline.length - 1; i < outline.length; j = i++) {
+      const [xi, yi] = outline[i];
+      const [xj, yj] = outline[j];
+      if ((yi > y) !== (yj > y) && x < ((xj - xi) * (y - yi)) / (yj - yi) + xi) hit = !hit;
+    }
+    return hit;
+  };
+  const bump = (x: number, y: number, cx: number, cy: number, wx: number, wy: number) =>
+    Math.exp(-(((x - cx) / wx) ** 2 + ((y - cy) / wy) ** 2) * 2);
 
   type P = {
-    x: number;
-    y: number;
-    z: number;
-    nx: number;
-    ny: number;
-    nz: number;
-    bk: number;
-    rn: number;
-    dx: number;
-    dy: number;
-    dz: number;
+    x: number; y: number; z: number;
+    nx: number; ny: number; nz: number;
+    bk: number; rn: number; dx: number; dy: number; dz: number;
   };
   const pts: P[] = [];
-
-  for (let i = 0; i < N; i++) {
-    const k = r();
-    let x = 0;
-    let y = 0;
-    let z = 0;
-    let nx = 0;
-    let ny = 0;
-    let nz = 1;
-
-    if (k < 0.5) {
-      // head
-      const [ux, uy, uz] = unit();
-      const jaw = Math.max(0, -uy);
-      const f = 1 + (r() - 0.5) * 0.03;
-      x = 0.36 * ux * (1 - 0.22 * jaw) * f;
-      y = 0.55 + 0.48 * uy * f;
-      z = 0.4 * uz * (1 - 0.1 * jaw) * f;
-      nx = ux;
-      ny = uy;
-      nz = uz;
-    } else if (k < 0.525) {
-      // ears
-      const sign = r() < 0.5 ? -1 : 1;
-      const [ux, uy, uz] = unit();
-      x = sign * 0.37 + 0.045 * ux;
-      y = 0.5 + 0.1 * uy;
-      z = -0.02 + 0.07 * uz;
-      nx = sign * 0.7 + ux * 0.3;
-      ny = uy * 0.3;
-      nz = uz * 0.3;
-    } else if (k < 0.6) {
-      // neck
-      const a = r() * Math.PI * 2;
-      y = -0.12 + r() * 0.26;
-      x = 0.19 * Math.cos(a);
-      z = 0.17 * Math.sin(a);
-      nx = Math.cos(a);
-      ny = 0;
-      nz = Math.sin(a);
-    } else if (k < 0.69) {
-      // trapezius: a flared cone that blends the neck into the shoulders
-      const a = r() * Math.PI * 2;
-      const tt = r();
-      y = -0.12 - 0.3 * tt;
-      x = (0.19 + 0.78 * Math.pow(tt, 1.2)) * Math.cos(a);
-      z = (0.17 + 0.28 * tt) * Math.sin(a);
-      nx = Math.cos(a);
-      ny = 0.7;
-      nz = Math.sin(a);
-    } else {
-      // shoulders / upper torso
-      const [ux, uy, uz] = unit();
-      const uy2 = Math.abs(uy);
-      x = 1.15 * ux;
-      y = -0.62 + 0.26 * uy2 - 0.1 * ux * ux;
-      z = 0.5 * uz;
-      nx = ux;
-      ny = uy2 * 1.4;
-      nz = uz * 1.2;
+  // A jittered grid keeps facial detail evenly distributed, including the eyes.
+  const step = Math.sqrt((1086 * 950 * 0.56) / N);
+  for (let v = 148; v < 1070; v += step) {
+    for (let u = 0; u < 1086; u += step) {
+      const sx = u + r() * step;
+      const sy = v + r() * step;
+      if (!inside(sx, sy)) continue;
+      const ix = Math.min(image.width - 1, Math.floor(sx / 1086 * image.width));
+      const iy = Math.min(image.height - 1, Math.floor(sy / 1448 * image.height));
+      const offset = (iy * image.width + ix) * 4;
+      const lum = (image.data[offset] * 0.2126 + image.data[offset + 1] * 0.7152 + image.data[offset + 2] * 0.0722) / 255;
+      const x = (sx - 543) / 1086 * 2.3;
+      const y = 1.18 - (sy - 148) / 1086 * 2.3;
+      // Photo relief: rounded cranium, cheekbones, eye sockets, nose and lips.
+      // Depth is anatomical rather than inferred from dark skin/hair pixels.
+      const faceX = (sx - 590) / 205;
+      let z = 0.07;
+      if (sy < 790) {
+        z += 0.27 * Math.sqrt(Math.max(0, 1 - faceX * faceX));
+        z += 0.15 * bump(sx, sy, 553, 562, 65, 115);
+        z += 0.10 * bump(sx, sy, 550, 600, 67, 37);
+        z += 0.045 * bump(sx, sy, 471, 558, 65, 75);
+        z += 0.045 * bump(sx, sy, 672, 566, 65, 75);
+        z -= 0.055 * bump(sx, sy, 480, 496, 57, 31);
+        z -= 0.055 * bump(sx, sy, 650, 507, 57, 31);
+        z += 0.055 * bump(sx, sy, 552, 680, 82, 40);
+        z += 0.025 * bump(sx, sy, 554, 755, 86, 44);
+      } else {
+        z += 0.08 * Math.max(0, 1 - Math.abs(x));
+      }
+      z += (r() - 0.5) * 0.009;
+      const band = clamp(Math.floor(((y + 0.8) / 2) * 8), 0, 7);
+      const shade = clamp(Math.floor(Math.pow(lum, 0.65) * 8), 0, 7);
+      const [a, b, c] = unit();
+      const len = 0.4 + r() * 1.6;
+      pts.push({ x, y, z, nx: 0, ny: 0, nz: 1,
+        bk: band * 8 + shade, rn: r(),
+        dx: a * len * 1.3, dy: b * len - 0.2, dz: c * len });
     }
-
-    x += (r() - 0.5) * 0.004;
-    y += (r() - 0.5) * 0.004;
-    z += (r() - 0.5) * 0.004;
-
-    const nl = Math.hypot(nx, ny, nz) || 1;
-    nx /= nl;
-    ny /= nl;
-    nz /= nl;
-
-    const yb = clamp(Math.floor(((y + 0.8) / 1.9) * 8), 0, 7);
-    const dot = Math.max(0, nx * L[0] + ny * L[1] + nz * L[2]);
-    const bb = dot < 0.3 ? 0 : dot < 0.65 ? 1 : 2;
-
-    const [a, b, c] = unit();
-    const len = 0.4 + r() * 1.6;
-
-    pts.push({
-      x,
-      y,
-      z,
-      nx,
-      ny,
-      nz,
-      bk: yb * 3 + bb,
-      rn: r(),
-      dx: a * len * 1.3,
-      dy: b * len - 0.2,
-      dz: c * len,
-    });
   }
 
   pts.sort((p, q) => p.bk - q.bk);
@@ -202,19 +162,19 @@ function buildCloud(N: number): Cloud {
 
 const LAV: [number, number, number] = [200, 178, 244];
 const YEL: [number, number, number] = [228, 240, 96];
-const BRIGHT = [0.62, 0.88, 1.12];
-const ALPHA = [0.5, 0.78, 1];
+const BRIGHT = [0.32, 0.44, 0.57, 0.70, 0.83, 0.96, 1.08, 1.18];
+const ALPHA = [0.65, 0.73, 0.81, 0.88, 0.93, 0.97, 1, 1];
 
 function bucketStyle(bk: number, flip: number, vox: number) {
-  const band = Math.floor(bk / 3);
-  const bb = bk % 3;
+  const band = Math.floor(bk / 8);
+  const bb = bk % 8;
   const yt = band / 7; // 0 = bottom, 1 = top
   const yellowness = mix(1 - yt, yt, flip);
   const m = ease(clamp((yellowness - 0.15) / 0.7));
   const out: number[] = [];
   for (let c = 0; c < 3; c++) {
     let v = mix(LAV[c], YEL[c], m) * BRIGHT[bb];
-    v += (255 - v) * vox * 0.3;
+    v += (255 - v) * (0.08 + vox * 0.22);
     out.push(Math.round(clamp(v, 0, 255)));
   }
   return { fill: `rgb(${out[0]},${out[1]},${out[2]})`, alpha: ALPHA[bb] };
@@ -234,23 +194,46 @@ export default function PointCloud() {
     if (!ctx) return;
 
     const N = window.innerWidth < 720 ? 20000 : 48000;
-    const cloud = buildCloud(N);
+    let cloud: Cloud | null = null;
+    let disposed = false;
+    const portrait = new Image();
+    portrait.onload = () => {
+      if (disposed) return;
+      const sample = document.createElement("canvas");
+      sample.width = 543;
+      sample.height = 724;
+      const sampleCtx = sample.getContext("2d", { willReadFrequently: true });
+      if (!sampleCtx) return;
+      sampleCtx.drawImage(portrait, 0, 0, sample.width, sample.height);
+      cloud = buildCloud(N, sampleCtx.getImageData(0, 0, sample.width, sample.height));
+    };
+    portrait.src = "/assets/andrew.png";
 
-    const mouse = { tx: 0, ty: 0, x: 0, y: 0, cx: -9999, cy: -9999, sx: 0, sy: 0 };
+    const mouse = {
+      x: 0, y: 0, cx: 0, cy: 0, sx: 0, sy: 0,
+      active: false, initialized: false, strength: 0,
+    };
+    const onLeave = () => { mouse.active = false; };
     const onMove = (e: PointerEvent) => {
-      mouse.tx = (e.clientX / window.innerWidth) * 2 - 1;
-      mouse.ty = (e.clientY / window.innerHeight) * 2 - 1;
+      // Let touch gestures scroll without leaving a stuck hover effect.
+      if (e.pointerType === "touch") { onLeave(); return; }
       mouse.cx = e.clientX;
       mouse.cy = e.clientY;
-    };
-    const onLeave = () => {
-      mouse.cx = -9999;
-      mouse.cy = -9999;
+      mouse.active = true;
+      if (!mouse.initialized) {
+        mouse.sx = mouse.cx;
+        mouse.sy = mouse.cy;
+        mouse.initialized = true;
+      }
     };
     window.addEventListener("pointermove", onMove, { passive: true });
-    document.addEventListener("pointerleave", onLeave);
+    window.addEventListener("blur", onLeave);
+    window.addEventListener("pointercancel", onLeave);
+    document.documentElement.addEventListener("pointerleave", onLeave);
+    let previousTime: number | null = null;
 
     const draw = (s: SceneState, t: number) => {
+      if (!cloud) return;
       const W = Math.max(1, Math.round(s.frame.width));
       const H = Math.max(1, Math.round(s.frame.height));
       const dpr = Math.min(2, window.devicePixelRatio || 1);
@@ -268,12 +251,24 @@ export default function PointCloud() {
       const intro = 1 - ease(clamp((t - 0.15) / 2.4));
       const d = Math.max(s.dissolve, intro);
 
-      // smoothed mouse → head rotation
-      mouse.x += (mouse.tx - mouse.x) * 0.06;
-      mouse.y += (mouse.ty - mouse.y) * 0.06;
-      const yawAmt = 0.5 * (1 - 0.6 * s.vox);
-      const yaw = Math.sin(t * 0.45) * 0.09 + mouse.x * yawAmt;
-      const pitch = mouse.y * 0.12;
+      // Time-based damping feels consistent on both 60 Hz and 144 Hz screens.
+      const dt = previousTime === null ? 1 / 60 : clamp(t - previousTime, 0, 0.05);
+      previousTime = t;
+      const follow = 1 - Math.exp(-12 * dt);
+      const settle = 1 - Math.exp(-7 * dt);
+      const inside = mouse.active && mouse.cx >= s.frame.left &&
+        mouse.cx <= s.frame.left + W && mouse.cy >= s.frame.top &&
+        mouse.cy <= s.frame.top + H;
+      const targetX = inside ? clamp((mouse.cx - s.frame.left) / W * 2 - 1, -1, 1) : 0;
+      const targetY = inside ? clamp((mouse.cy - s.frame.top) / H * 2 - 1, -1, 1) : 0;
+      mouse.x += (targetX - mouse.x) * settle;
+      mouse.y += (targetY - mouse.y) * settle;
+      mouse.sx += (mouse.cx - mouse.sx) * follow;
+      mouse.sy += (mouse.cy - mouse.sy) * follow;
+      mouse.strength += ((inside ? 1 : 0) - mouse.strength) * settle;
+      const yawAmt = 0.28 * (1 - 0.6 * s.vox);
+      const yaw = Math.sin(t * 0.45) * 0.045 + mouse.x * yawAmt;
+      const pitch = -mouse.y * 0.10;
       const sy = Math.sin(yaw);
       const cyw = Math.cos(yaw);
       const sp = Math.sin(pitch);
@@ -295,11 +290,11 @@ export default function PointCloud() {
       }
 
       // mouse in canvas space
-      const mx = mouse.cx - s.frame.left;
-      const my = mouse.cy - s.frame.top;
-      const R = Math.max(70, H * 0.14);
+      const mx = mouse.sx - s.frame.left;
+      const my = mouse.sy - s.frame.top;
+      const R = clamp(H * 0.16, 70, 150);
       const R2 = R * R;
-      const push = H * 0.05;
+      const push = Math.min(26, H * 0.032) * mouse.strength * (1 - d) * (1 - 0.7 * s.vox);
 
       // voxel mode
       const cell = s.vox > 0.02 ? mix(1.5, 12.5, s.vox) : 0;
@@ -345,12 +340,13 @@ export default function PointCloud() {
           const ddx = X - mx;
           const ddy = Y - my;
           const dd = ddx * ddx + ddy * ddy;
-          if (dd < R2) {
+          if (push > 0.01 && dd < R2) {
             const dist = Math.sqrt(dd) + 0.001;
             const f = 1 - dist / R;
-            const pu = f * f * push;
-            X += (ddx / dist) * pu;
-            Y += (ddy / dist) * pu;
+            const pu = f * f * (3 - 2 * f) * push;
+            // A small tangential drift makes the dots flow around the cursor.
+            X += (ddx / dist - ddy / dist * 0.2) * pu;
+            Y += (ddy / dist + ddx / dist * 0.2) * pu;
           }
 
           if (X < -20 || X > W + 20 || Y < -20 || Y > H + 20) continue;
@@ -369,9 +365,13 @@ export default function PointCloud() {
 
     const unsub = subscribe(draw);
     return () => {
+      disposed = true;
+      portrait.onload = null;
       unsub();
       window.removeEventListener("pointermove", onMove);
-      document.removeEventListener("pointerleave", onLeave);
+      window.removeEventListener("blur", onLeave);
+      window.removeEventListener("pointercancel", onLeave);
+      document.documentElement.removeEventListener("pointerleave", onLeave);
     };
   }, []);
 

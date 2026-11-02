@@ -88,26 +88,26 @@ export default function ServicesSection() {
   return (
     <section 
       id="services" 
-      className="relative min-h-screen w-full bg-[#f8fafc] text-slate-900 py-28 px-4 sm:px-6 md:px-14 rounded-t-[40px] sm:rounded-t-[56px] md:rounded-t-[64px] shadow-[0_-25px_60px_rgba(0,0,0,0.35)] relative z-20 overflow-visible"
+      className="relative min-h-screen w-full bg-[#e2e6eb] text-slate-900 py-28 px-4 sm:px-6 md:px-14 rounded-t-[40px] sm:rounded-t-[56px] md:rounded-t-[64px] shadow-[0_-25px_60px_rgba(0,0,0,0.4)] relative z-20 overflow-visible"
     >
       
-      {/* SUBTLE AMBIENT ACCENT GLOW FOR LIGHT BACKGROUND */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-gradient-to-r from-blue-500/[0.08] via-cyan-500/[0.05] to-blue-600/[0.07] blur-[160px] pointer-events-none rounded-full" />
+      {/* SUBTLE AMBIENT ACCENT GLOW */}
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-gradient-to-r from-blue-500/[0.06] via-cyan-500/[0.04] to-blue-600/[0.05] blur-[160px] pointer-events-none rounded-full" />
 
       {/* SECTION HEADER */}
       <div className="max-w-6xl mx-auto mb-16 relative z-10">
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 border-b border-slate-200">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 border-b border-slate-300">
           <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-200/80 text-xs font-semibold text-blue-600 uppercase tracking-widest mb-3">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-100 text-blue-800 border border-blue-200 text-xs font-semibold uppercase tracking-widest mb-3">
               <span className="h-2 w-2 rounded-full bg-blue-600 animate-pulse" />
               <span>What I Offer</span>
             </div>
             <h2 className="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-slate-900 leading-none">
-              SERVICES &amp; <span className="text-slate-400 font-light">SOLUTIONS.</span>
+              SERVICES &amp; <span className="text-slate-500 font-light">SOLUTIONS.</span>
             </h2>
           </div>
 
-          <p className="max-w-md text-sm text-slate-600 leading-relaxed font-medium">
+          <p className="max-w-md text-sm text-slate-700 leading-relaxed font-medium">
             I partner with startups and forward-thinking teams to design, build, and ship modern web platforms, intelligent AI features, and mobile apps.
           </p>
         </div>
@@ -127,7 +127,7 @@ export default function ServicesSection() {
                   top: stickyTop,
                   zIndex: idx + 10
                 }}
-                className="sticky rounded-3xl p-6 sm:p-8 md:p-10 transition-all duration-300 border border-slate-200/80 group bg-white shadow-[0_20px_50px_-15px_rgba(0,0,0,0.08),0_0_1px_rgba(0,0,0,0.06)] hover:border-blue-500/40 hover:shadow-[0_25px_60px_-15px_rgba(37,99,235,0.12)]"
+                className="sticky rounded-3xl p-6 sm:p-8 md:p-10 transition-all duration-300 border border-slate-300/80 group bg-white shadow-[0_20px_50px_-15px_rgba(15,23,42,0.09),0_0_1px_rgba(15,23,42,0.06)] hover:border-blue-500/50 hover:shadow-[0_25px_60px_-15px_rgba(37,99,235,0.15)]"
               >
                 {/* CARD HEADER */}
                 <div className="flex items-center justify-between pb-5 mb-6 border-b border-slate-100">
@@ -165,7 +165,7 @@ export default function ServicesSection() {
                         {service.deliverables.map((item) => (
                           <div 
                             key={item} 
-                            className="flex items-start gap-3 p-3 rounded-xl bg-slate-50 border border-slate-100 hover:bg-blue-50/60 hover:border-blue-100 transition-colors group/item"
+                            className="flex items-start gap-3 p-3 rounded-xl bg-slate-50 border border-slate-100 hover:bg-blue-50/70 hover:border-blue-200 transition-colors group/item"
                           >
                             <CheckCircle2 
                               size={16} 

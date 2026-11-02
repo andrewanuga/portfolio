@@ -60,25 +60,28 @@ export default function HireMeSection() {
   };
 
   return (
-    <section id="hire" className="relative w-full bg-[#050506] py-28 px-4 sm:px-6 md:px-14 border-t border-white/10 text-white">
+    <section 
+      id="hire" 
+      className="relative w-full bg-gradient-to-b from-[#dbe1ea] via-[#141824] to-[#050506] py-28 px-4 sm:px-6 md:px-14 rounded-t-[40px] sm:rounded-t-[56px] md:rounded-t-[64px] shadow-[0_-25px_60px_rgba(0,0,0,0.5)] relative z-30 -mt-8 sm:-mt-12 overflow-visible"
+    >
       
       {/* BACKGROUND AMBIENT GLOW */}
       <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-gradient-to-r from-blue-600/10 via-blue-500/5 to-cyan-500/10 blur-[180px] pointer-events-none rounded-full" />
 
       {/* SECTION HEADER */}
       <div className="max-w-6xl mx-auto mb-16 relative z-10">
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 border-b border-white/10">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 border-b border-slate-300">
           <div>
-            <div className="flex items-center gap-2 text-xs font-semibold text-blue-400 uppercase tracking-widest mb-3">
-              <span className="h-2 w-2 rounded-full bg-blue-500 animate-pulse" />
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-100 text-blue-800 border border-blue-200 text-xs font-semibold uppercase tracking-widest mb-3">
+              <span className="h-2 w-2 rounded-full bg-blue-600 animate-pulse" />
               <span>Get In Touch</span>
             </div>
-            <h2 className="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-white leading-none">
-              LET&apos;S WORK <span className="text-white/30 font-light">TOGETHER.</span>
+            <h2 className="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-slate-900 leading-none">
+              LET&apos;S WORK <span className="text-slate-500 font-light">TOGETHER.</span>
             </h2>
           </div>
 
-          <p className="max-w-md text-sm text-white/60 leading-relaxed">
+          <p className="max-w-md text-sm text-slate-700 leading-relaxed font-medium">
             Have a project in mind, need technical advice, or looking to build a new platform? Send me a message and let&apos;s start a conversation.
           </p>
         </div>
@@ -87,7 +90,7 @@ export default function HireMeSection() {
       <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 relative z-10">
         
         {/* BUDGET & GUARANTEES (4 cols) */}
-        <div className="lg:col-span-4 p-8 rounded-3xl bg-[#090b12] border border-white/10 shadow-xl flex flex-col justify-between space-y-8">
+        <div className="lg:col-span-4 p-8 rounded-3xl bg-[#090b14] border border-white/10 shadow-2xl flex flex-col justify-between space-y-8 text-white">
           <div>
             <div className="text-xs font-semibold uppercase tracking-wider text-white/50 mb-6">
               Estimated Budget
@@ -130,7 +133,7 @@ export default function HireMeSection() {
         </div>
 
         {/* CONTACT FORM (8 cols) */}
-        <div className="lg:col-span-8 p-8 sm:p-10 rounded-3xl bg-[#090b12] border border-white/10 shadow-xl">
+        <div className="lg:col-span-8 p-8 sm:p-10 rounded-3xl bg-[#090b14] border border-white/10 shadow-2xl text-white">
           <AnimatePresence mode="wait">
             {!submitted ? (
               <form 

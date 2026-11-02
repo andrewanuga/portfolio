@@ -70,7 +70,7 @@ export default function FooterSection() {
   };
 
   return (
-    <footer className="relative w-full bg-[#030305] border-t border-white/10 pt-28 pb-14 px-6 md:px-14 overflow-hidden text-white">
+    <footer className="relative w-full bg-[#030305] border-t border-white/10 overflow-hidden text-white">
       
       {/* BACKGROUND AMBIENT GRADIENT */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[300px] bg-gradient-to-b from-blue-600/10 via-cyan-500/5 to-transparent blur-[160px] pointer-events-none rounded-full" />
@@ -79,7 +79,7 @@ export default function FooterSection() {
       <div ref={calloutRef} className="max-w-6xl mx-auto mb-20 relative z-10 flex justify-center py-4">
         <motion.div 
           style={{ scale, opacity }}
-          className="w-full origin-center p-10 sm:p-14 rounded-3xl border border-white/10 relative overflow-hidden bg-[#090b12] shadow-2xl hover:border-blue-500/30 transition-colors"
+          className="w-full h-dvh origin-center p-10 sm:p-14 rounded-3xl border border-white/10 relative overflow-hidden bg-[#090b12] shadow-2xl hover:border-blue-500/30 transition-colors"
         >
           
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">

@@ -1,7 +1,8 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
+import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import { 
   ArrowUpRight, 
   Download, 
@@ -44,6 +45,20 @@ export default function FooterSection() {
   const [copied, setCopied] = useState(false);
   const email = "adakole56andrew@gmail.com";
 
+  // Scroll-driven scale animation for the "Available for New Projects" card
+  const calloutRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: calloutRef,
+    offset: ["start end", "end start"],
+  });
+
+  // Scales from 60% (0.6) width & height as it enters, to 100% (1.0), and back to 60% as it leaves
+  const rawScale = useTransform(scrollYProgress, [0, 0.35, 0.65, 1], [0.6, 1, 1, 0.6]);
+  const scale = useSpring(rawScale, { stiffness: 220, damping: 26, mass: 0.5 });
+  
+  const rawOpacity = useTransform(scrollYProgress, [0, 0.25, 0.75, 1], [0.6, 1, 1, 0.6]);
+  const opacity = useSpring(rawOpacity, { stiffness: 220, damping: 26, mass: 0.5 });
+
   const copyToClipboard = () => {
     navigator.clipboard.writeText(email);
     setCopied(true);
@@ -60,9 +75,12 @@ export default function FooterSection() {
       {/* BACKGROUND AMBIENT GRADIENT */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[300px] bg-gradient-to-b from-blue-600/10 via-cyan-500/5 to-transparent blur-[160px] pointer-events-none rounded-full" />
 
-      {/* TOP STATEMENT CALLOUT */}
-      <div className="max-w-6xl mx-auto mb-20 relative z-10">
-        <div className="p-10 sm:p-14 rounded-3xl border border-white/10 relative overflow-hidden bg-[#090b12] shadow-2xl">
+      {/* TOP STATEMENT CALLOUT WITH SCROLL SCALE ANIMATION */}
+      <div ref={calloutRef} className="max-w-6xl mx-auto mb-20 relative z-10 flex justify-center py-4">
+        <motion.div 
+          style={{ scale, opacity }}
+          className="w-full origin-center p-10 sm:p-14 rounded-3xl border border-white/10 relative overflow-hidden bg-[#090b12] shadow-2xl hover:border-blue-500/30 transition-colors"
+        >
           
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             
@@ -108,7 +126,7 @@ export default function FooterSection() {
             </div>
 
           </div>
-        </div>
+        </motion.div>
       </div>
 
       {/* DIRECTORY COLUMNS */}

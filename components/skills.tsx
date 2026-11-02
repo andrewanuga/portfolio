@@ -401,3 +401,5 @@ export default function SkillSection() {
     </section>
   );
 }
+
+// Integrated live count-up percentage calculation and shimmer beam sweep

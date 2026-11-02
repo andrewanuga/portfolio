@@ -42,18 +42,27 @@ export async function POST(request: NextRequest) {
     budget: Number(body.budget) || 0,
   };
 
-  const { data, error } = await supabaseAdmin
-    .from("client_requests")
-    .insert([payload])
-    .select()
-    .single();
+  try {
+    const { data, error } = await supabaseAdmin
+      .from("client_requests")
+      .insert([payload])
+      .select()
+      .single();
 
-  if (error) {
-    console.error("[/api/requests] insert error:", error);
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    if (error) {
+      console.error("[/api/requests] insert error:", error);
+      const cause = (error as any)?.cause?.message || (error as any)?.details || "";
+      const errorMsg = cause ? `${error.message} (${cause})` : error.message;
+      return NextResponse.json({ error: errorMsg }, { status: 500 });
+    }
+
+    return NextResponse.json({ data }, { status: 201 });
+  } catch (err: any) {
+    console.error("[/api/requests] unhandled error:", err);
+    const cause = err?.cause?.message || "";
+    const errorMsg = cause ? `${err.message} (${cause})` : err.message || "Failed to reach database";
+    return NextResponse.json({ error: errorMsg }, { status: 500 });
   }
-
-  return NextResponse.json({ data }, { status: 201 });
 }
 
 // ── GET /api/requests ────────────────────────────────────

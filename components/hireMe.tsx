@@ -6,7 +6,7 @@ import { Send, User, Mail, Briefcase, MessageSquare, Terminal, AlertTriangle, Lo
 
 const FormField = ({ label, icon: Icon, children }: any) => (
   <div className="space-y-2 group">
-    <label className="flex items-center gap-2 font-mono text-[10px] text-zinc-500 uppercase tracking-widest group-focus-within:text-blue-500 transition-colors">
+    <label className="flex items-center gap-2 font-mono text-[10px] text-white/50 uppercase tracking-widest group-focus-within:text-kin-lime transition-colors">
       <Icon size={12} /> {label}
     </label>
     {children}
@@ -31,7 +31,7 @@ export default function HireMeSection() {
         clearInterval(interval);
         setTypingComplete(true);
       }
-    }, 50);
+    }, 40);
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -54,8 +54,6 @@ export default function HireMeSection() {
     };
 
     try {
-      console.log("Submitting payload:", payload);
-
       const res = await fetch("/api/requests", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -66,232 +64,213 @@ export default function HireMeSection() {
 
       if (!res.ok) {
         const message: string = result.error || `Request failed (${res.status})`;
-        console.log("Submit error:", message);
         setErrorMsg(`INSERT_ERROR: ${message}`);
-
-        // Provide helpful error messages
-        if (message.includes("row-level security")) {
-          setErrorMsg(`⚠️ RLS POLICY ERROR: Please enable INSERT policy for client_requests table`);
-        } else if (message.includes("relation") && message.includes("does not exist")) {
-          setErrorMsg(`⚠️ TABLE ERROR: Table 'client_requests' doesn't exist. Please create it in Supabase.`);
-        } else if (message.includes("SUPABASE_SERVICE_ROLE_KEY")) {
-          setErrorMsg(`⚠️ SERVER KEY MISSING: Add SUPABASE_SERVICE_ROLE_KEY to .env.local`);
-        }
       } else {
-        console.log("Insert successful:", result.data);
         setSubmitted(true);
-        typeMessage("Message received. I will get back to you in 1 hour.");
+        typeMessage("Message received. I will get back to you within 1 hour.");
       }
     } catch (err: any) {
-      console.error("Unexpected error:", err);
-      setErrorMsg(`NETWORK_ERROR: ${err.message || "Failed to reach the server. Check your internet connection."}`);
+      setErrorMsg(`NETWORK_ERROR: ${err.message || "Failed to transmit. Please check connection."}`);
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <section id="hire" className="relative min-h-screen w-full bg-[#0a0a0a] border-t border-white/5 flex flex-col md:flex-row overflow-hidden">
+    <section id="hire" className="relative min-h-screen w-full bg-[#050506] py-28 px-6 md:px-14 border-t border-white/10">
       
-      {/* LEFT SIDE - Budget section */}
-      <div className="w-full md:w-[40%] p-8 md:p-20 border-r border-white/5 bg-[#0d0d0d]">
-        <div className="sticky top-20">
-          <div className="text-[10px] uppercase tracking-[0.5em] text-zinc-500 mb-8 font-bold">
-            Investment_Range
-          </div>
-          <div className="space-y-8">
-            <motion.div 
-              key={budget}
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              className="text-5xl font-black text-white tracking-tighter"
-            >
-              ${budget.toLocaleString()}
-            </motion.div>
-            <input
-              type="range"
-              min="1000"
-              max="50000"
-              step="500"
-              value={budget}
-              onChange={(e) => setBudget(Number(e.target.value))}
-              className="w-full h-1 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-blue-600"
-            />
-            <div className="flex justify-between text-zinc-600 text-xs font-mono">
-              <span>$1K</span>
-              <span>$50K+</span>
-            </div>
-          </div>
+      {/* SECTION HEADER */}
+      <div className="max-w-7xl mx-auto mb-16">
+        <div className="flex items-center gap-2 text-[10px] font-mono text-white/60 uppercase tracking-[0.4em] mb-4">
+          <Terminal className="text-kin-lime" size={14} />
+          <span>Handshake_Protocol // Hire &amp; Contract</span>
         </div>
+        <h2 className="text-5xl md:text-7xl lg:text-8xl font-black italic text-white uppercase tracking-tighter leading-none">
+          TRANSMIT <span className="text-white/30 not-italic">REQUEST.</span>
+        </h2>
+        <p className="mt-4 text-white/50 text-xs md:text-sm font-mono max-w-xl">
+          Ready to deploy intelligent web platforms, production ML models, or custom agentic workflows? Transmit your project requirements.
+        </p>
       </div>
 
-      {/* RIGHT SIDE - Form */}
-      <div className="w-full md:w-[60%] p-8 md:p-20 bg-black flex flex-col justify-center relative">
-        <AnimatePresence mode="wait">
-          {!submitted ? (
-            <motion.form 
-              key="contact-form"
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, scale: 0.95 }}
-              onSubmit={handleSubmit} 
-              className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-3xl z-10"
-            >
-              <FormField label="Full_Identity" icon={User}>
-                <input 
-                  name="full_name" 
-                  required 
-                  type="text" 
-                  placeholder="John Doe" 
-                  disabled={loading}
-                  className="w-full bg-zinc-900/50 border border-white/5 rounded-xl px-4 py-3 text-white focus:border-blue-500 outline-none transition-all placeholder:text-zinc-700 disabled:opacity-50 disabled:cursor-not-allowed" 
-                />
-              </FormField>
-
-              <FormField label="Digital_Contact" icon={Mail}>
-                <input 
-                  name="email" 
-                  required 
-                  type="email" 
-                  placeholder="john@system.com" 
-                  disabled={loading}
-                  className="w-full bg-zinc-900/50 border border-white/5 rounded-xl px-4 py-3 text-white focus:border-blue-500 outline-none transition-all placeholder:text-zinc-700 disabled:opacity-50 disabled:cursor-not-allowed" 
-                />
-              </FormField>
-
-              <FormField label="Project_Type" icon={Briefcase}>
-                <select 
-                  name="project_type" 
-                  disabled={loading}
-                  className="w-full bg-zinc-900/50 border border-white/5 rounded-xl px-4 py-3 text-white focus:border-blue-500 outline-none appearance-none cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  <option>FULL-STACK ARCHITECTURE</option>
-                  <option>FRONT-END DEVELOPMENT</option>
-                  <option>BACK-END ARCHITECTURE</option>
-                  <option>MOBILE APP DEVELOPMENT</option>
-                </select>
-              </FormField>
-
-              <FormField label="Priority_Level" icon={Terminal}>
-                <select 
-                  name="priority_level" 
-                  disabled={loading}
-                  className="w-full bg-zinc-900/50 border border-white/5 rounded-xl px-4 py-3 text-white focus:border-blue-500 outline-none appearance-none cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  <option>NORMAL_DEPLOYMENT</option>
-                  <option>CRITICAL_PATH (URGENT)</option>
-                  <option>R&D_EXPLORATION</option>
-                </select>
-              </FormField>
-
-              <div className="md:col-span-2">
-                <FormField label="System_Requirements" icon={MessageSquare}>
-                  <textarea 
-                    name="requirements" 
-                    required 
-                    rows={5} 
-                    placeholder="Describe the scope..." 
-                    disabled={loading}
-                    className="w-full bg-zinc-900/50 border border-white/5 rounded-2xl px-4 py-3 text-white focus:border-blue-500 outline-none resize-none transition-all placeholder:text-zinc-700 disabled:opacity-50 disabled:cursor-not-allowed" 
-                  />
-                </FormField>
-              </div>
-
-              <div className="md:col-span-2 space-y-4">
-                {errorMsg && (
-                  <motion.div 
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -10 }}
-                    className="flex items-start gap-3 p-4 bg-red-500/10 border border-red-500/20 rounded-xl text-red-500 text-xs font-mono"
-                  >
-                    <AlertTriangle size={14} className="mt-0.5 flex-shrink-0" />
-                    <div className="flex-1">
-                      <div className="font-bold mb-1">SYSTEM_ALERT:</div>
-                      <div>{errorMsg}</div>
-                      {errorMsg.includes("TABLE") && (
-                        <button
-                          onClick={() => window.open('https://supabase.com/dashboard', '_blank')}
-                          className="mt-2 text-blue-500 hover:text-blue-400 underline"
-                        >
-                          Open Supabase Dashboard →
-                        </button>
-                      )}
-                    </div>
-                  </motion.div>
-                )}
-
-                <motion.button 
-                  type="submit"
-                  disabled={loading}
-                  whileTap={!loading ? { scale: 0.98 } : {}}
-                  animate={loading ? { scale: 1 } : {}}
-                  className={`group w-full rounded-2xl py-5 font-black uppercase tracking-[0.4em] text-[10px] italic flex items-center justify-center gap-3 transition-all ${
-                    loading 
-                      ? "bg-zinc-800 text-zinc-500 cursor-not-allowed" 
-                      : "bg-blue-600 text-white hover:bg-blue-500 hover:scale-[1.02] active:scale-[0.98]"
-                  }`}
-                >
-                  {loading ? (
-                    <>
-                      <Loader2 size={14} className="animate-spin" />
-                      TRANSMITTING_DATA...
-                    </>
-                  ) : (
-                    <>
-                      Transmit_Data 
-                      <Send size={14} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-                    </>
-                  )}
-                </motion.button>
-              </div>
-            </motion.form>
-          ) : (
-            <motion.div 
-              key="success-message"
-              initial={{ opacity: 0, y: 20 }} 
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              className="max-w-md font-mono text-center"
-            >
+      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8">
+        
+        {/* BUDGET SELECTOR (4 cols) */}
+        <div className="lg:col-span-4 glass p-8 rounded-2xl flex flex-col justify-between">
+          <div>
+            <div className="text-[10px] font-mono uppercase tracking-[0.4em] text-white/50 mb-8 font-bold">
+              Investment_Target
+            </div>
+            <div className="space-y-6">
               <motion.div 
-                initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
-                transition={{ type: "spring", stiffness: 200, damping: 10 }}
-                className="text-[10px] uppercase tracking-[0.5em] mb-4 text-emerald-600 font-bold"
+                key={budget}
+                initial={{ scale: 0.95, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                className="text-5xl sm:text-6xl font-black text-white tracking-tighter"
               >
-                ✓ Handshake_Complete
+                ${budget.toLocaleString()}
+                <span className="text-sm font-mono text-kin-lime ml-2">USD</span>
               </motion.div>
-              <p className="text-3xl font-black italic uppercase leading-tight text-white tracking-tighter">
-                {statusMsg}
-                {!typingComplete && (
-                  <motion.span 
-                    animate={{ opacity: [1, 0] }}
-                    transition={{ duration: 0.8, repeat: Infinity }}
-                    className="inline-block w-2 h-8 bg-blue-600 ml-2 align-middle"
-                  />
-                )}
-              </p>
-              <motion.button
+              <input
+                type="range"
+                min="1000"
+                max="50000"
+                step="500"
+                value={budget}
+                onChange={(e) => setBudget(Number(e.target.value))}
+                className="w-full h-1.5 bg-white/10 rounded-lg appearance-none cursor-pointer accent-[#e6f43c]"
+              />
+              <div className="flex justify-between text-white/40 text-xs font-mono">
+                <span>$1K (Sprint MVP)</span>
+                <span>$50K+ (Enterprise)</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-12 pt-6 border-t border-white/10 font-mono text-[10px] text-white/45 space-y-2">
+            <p>✓ Direct engineer communication</p>
+            <p>✓ NDA &amp; IP ownership guaranteed</p>
+            <p>✓ Response time &lt; 1 hour</p>
+          </div>
+        </div>
+
+        {/* TRANSMIT FORM (8 cols) */}
+        <div className="lg:col-span-8 glass p-8 sm:p-10 rounded-2xl">
+          <AnimatePresence mode="wait">
+            {!submitted ? (
+              <motion.form 
+                key="contact-form"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ delay: 2 }}
-                onClick={() => {
-                  setSubmitted(false);
-                  setStatusMsg("");
-                  setTypingComplete(false);
-                  // Reset form
-                  const form = document.querySelector('form');
-                  if (form) form.reset();
-                  setBudget(5000);
-                }}
-                className="mt-8 text-[10px] uppercase tracking-[0.3em] text-zinc-600 hover:text-zinc-400 transition-colors"
+                exit={{ opacity: 0, scale: 0.98 }}
+                onSubmit={handleSubmit} 
+                className="grid grid-cols-1 md:grid-cols-2 gap-6"
               >
-                Send Another Request →
-              </motion.button>
-            </motion.div>
-          )}
-        </AnimatePresence>
+                <FormField label="Full_Identity" icon={User}>
+                  <input 
+                    name="full_name" 
+                    required 
+                    type="text" 
+                    placeholder="Ada Lovelace" 
+                    disabled={loading}
+                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white text-sm font-mono focus:border-kin-lime outline-none transition-all placeholder:text-white/20 disabled:opacity-50" 
+                  />
+                </FormField>
+
+                <FormField label="Digital_Contact" icon={Mail}>
+                  <input 
+                    name="email" 
+                    required 
+                    type="email" 
+                    placeholder="ada@domain.com" 
+                    disabled={loading}
+                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white text-sm font-mono focus:border-kin-lime outline-none transition-all placeholder:text-white/20 disabled:opacity-50" 
+                  />
+                </FormField>
+
+                <FormField label="Project_Type" icon={Briefcase}>
+                  <select 
+                    name="project_type" 
+                    disabled={loading}
+                    className="w-full bg-[#1c1c20] border border-white/10 rounded-xl px-4 py-3 text-white text-sm font-mono focus:border-kin-lime outline-none appearance-none cursor-pointer disabled:opacity-50"
+                  >
+                    <option>FULL-STACK WEB ARCHITECTURE</option>
+                    <option>AGENTIC AI &amp; MULTI-AGENT SYSTEMS</option>
+                    <option>MACHINE LEARNING &amp; MODEL PIPELINES</option>
+                    <option>MOBILE APP DEVELOPMENT (REACT NATIVE)</option>
+                    <option>STARTUP MVP DEVELOPMENT</option>
+                  </select>
+                </FormField>
+
+                <FormField label="Priority_Level" icon={Terminal}>
+                  <select 
+                    name="priority_level" 
+                    disabled={loading}
+                    className="w-full bg-[#1c1c20] border border-white/10 rounded-xl px-4 py-3 text-white text-sm font-mono focus:border-kin-lime outline-none appearance-none cursor-pointer disabled:opacity-50"
+                  >
+                    <option>NORMAL_DEPLOYMENT (2-4 WEEKS)</option>
+                    <option>CRITICAL_PATH (URGENT SPRINT)</option>
+                    <option>LONG_TERM_CONTRACT</option>
+                    <option>R&amp;D_EXPLORATION</option>
+                  </select>
+                </FormField>
+
+                <div className="md:col-span-2">
+                  <FormField label="System_Requirements" icon={MessageSquare}>
+                    <textarea 
+                      name="requirements" 
+                      required 
+                      rows={4} 
+                      placeholder="Outline system goals, deliverables, timeline, or architecture requirements..." 
+                      disabled={loading}
+                      className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white text-sm font-mono focus:border-kin-lime outline-none resize-none transition-all placeholder:text-white/20 disabled:opacity-50" 
+                    />
+                  </FormField>
+                </div>
+
+                <div className="md:col-span-2 space-y-4">
+                  {errorMsg && (
+                    <div className="flex items-start gap-3 p-4 bg-red-500/10 border border-red-500/20 rounded-xl text-red-400 text-xs font-mono">
+                      <AlertTriangle size={14} className="mt-0.5 flex-shrink-0" />
+                      <div>{errorMsg}</div>
+                    </div>
+                  )}
+
+                  <button 
+                    type="submit"
+                    disabled={loading}
+                    className={`w-full rounded-xl py-4 font-black uppercase tracking-[0.3em] text-xs flex items-center justify-center gap-3 transition-all ${
+                      loading 
+                        ? "bg-white/10 text-white/50 cursor-not-allowed" 
+                        : "bg-kin-lime text-black hover:brightness-95 active:scale-[0.99]"
+                    }`}
+                  >
+                    {loading ? (
+                      <>
+                        <Loader2 size={16} className="animate-spin" />
+                        TRANSMITTING_DATA...
+                      </>
+                    ) : (
+                      <>
+                        Transmit Project Request 
+                        <Send size={14} />
+                      </>
+                    )}
+                  </button>
+                </div>
+              </motion.form>
+            ) : (
+              <motion.div 
+                key="success-message"
+                initial={{ opacity: 0, y: 15 }} 
+                animate={{ opacity: 1, y: 0 }}
+                className="py-12 font-mono text-center max-w-lg mx-auto"
+              >
+                <div className="text-xs uppercase tracking-[0.5em] mb-4 text-kin-lime font-bold">
+                  ✓ Handshake_Complete
+                </div>
+                <p className="text-2xl sm:text-3xl font-black italic uppercase leading-tight text-white tracking-tight">
+                  {statusMsg}
+                  {!typingComplete && (
+                    <span className="inline-block w-2 h-6 bg-kin-lime ml-2 align-middle animate-pulse" />
+                  )}
+                </p>
+                <button
+                  onClick={() => {
+                    setSubmitted(false);
+                    setStatusMsg("");
+                    setTypingComplete(false);
+                    setBudget(5000);
+                  }}
+                  className="mt-8 text-xs font-mono uppercase tracking-[0.3em] text-white/60 hover:text-white transition-colors"
+                >
+                  Send Another Transmission →
+                </button>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+
       </div>
     </section>
   );

@@ -10,7 +10,7 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
   return (
     <>
       {!loaded && <Loader onComplete={() => setLoaded(true)} />}
-      <div style={{ visibility: loaded ? "visible" : "hidden" }} className="w-full min-h-screen">
+      <div className="w-full min-h-screen">
         {children}
       </div>
     </>
